@@ -12,6 +12,6 @@ class Convocatoria extends Model
         'titulo',
         'encargado',
         'codigo',
-        'pdf',
+        'pdfNombre',
     ];
 }

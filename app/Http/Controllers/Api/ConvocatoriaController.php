@@ -57,7 +57,7 @@ class ConvocatoriaController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function showPDF($fileID)
     {
