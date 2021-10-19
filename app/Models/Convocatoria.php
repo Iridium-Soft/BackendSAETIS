@@ -9,9 +9,13 @@ class Convocatoria extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'titulo',
-        'encargado',
-        'codigo',
-        'pdfNombre',
+        'codigo' ,
+        'titulo' ,
+        'descripcion',
+        'consultorEnc',
+        'fechaLimRec' ,
+        'fechaIniDur',
+        'fechaFinDur' ,
+        'documento'
     ];
 }

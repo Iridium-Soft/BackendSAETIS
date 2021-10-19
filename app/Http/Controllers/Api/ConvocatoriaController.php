@@ -16,7 +16,7 @@ class ConvocatoriaController extends Controller
      */
     public function index()
     {
-        return Convocatoria::all();
+        return response(Convocatoria::all());
 
     }
 
@@ -28,7 +28,18 @@ class ConvocatoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $path = $request->file('documento')->store('documentos/convocatorias');
+        $convocatoria = new Convocatoria();
+        $convocatoria -> codigo = $request -> codigo;
+        $convocatoria -> titulo = $request -> titulo  ;
+        $convocatoria -> descripcion =  $request -> descripcion;
+        $convocatoria -> consultorEnc =  $request -> consultorEnc ;
+        $convocatoria -> fechaLimRec =$request -> fechaLimRec;
+        $convocatoria -> fechaIniDur =$request -> fechaIniDur;
+        $convocatoria -> fechaFinDur = $request -> fechaFinDur;
+        $convocatoria -> documento = $path;
+        $convocatoria->save();
+        return response($convocatoria);
     }
 
     /**

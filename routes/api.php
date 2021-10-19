@@ -25,4 +25,6 @@ Route::get('/convocatoria', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 
+Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
+
 Route::apiResource('postulacion',PostulacionController::class);

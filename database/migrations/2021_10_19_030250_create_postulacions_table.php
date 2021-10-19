@@ -13,7 +13,7 @@ class CreatePostulacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('postulaciones', function (Blueprint $table) {
+        Schema::create('postulacions', function (Blueprint $table) {
             $table->id();
             $table->string('parteA');
             $table->string('boletaDeGarantia');
