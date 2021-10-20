@@ -16,6 +16,9 @@ class Convocatoria extends Model
         'fechaLimRec' ,
         'fechaIniDur',
         'fechaFinDur' ,
-        'documento'
+        'documento',
+        'publica'
     ];
+
+
 }

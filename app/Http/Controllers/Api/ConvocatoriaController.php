@@ -53,6 +53,17 @@ class ConvocatoriaController extends Controller
     {
         //
     }
+    public function publicarConvocatoria(Request $request, $id)
+    {
+        $convocatoria = Convocatoria::findOrFail($id);
+        $convocatoria -> publica = true;
+        $convocatoria-> save();
+        if($convocatoria->wasChanged() ){
+        return response("Convocatoria Publicada");
+        }
+        return response("Convocatoria Ya es Publica");
+
+    }
 
     /**
      * Display the specified resource.
