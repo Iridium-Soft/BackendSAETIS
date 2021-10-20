@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Convocatoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\True_;
 
 class ConvocatoriaController extends Controller
 {
@@ -16,7 +17,10 @@ class ConvocatoriaController extends Controller
      */
     public function index()
     {
-        return response(Convocatoria::all());
+//        $convocatorias = Convocatoria::all();
+        $convocatoriasPublicadas= Convocatoria::all();
+        $convocatorias  = $convocatoriasPublicadas->where('publica' ,'==',true );
+        return response( $convocatorias );
 
     }
 
