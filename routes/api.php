@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/convocatoria', [ConvocatoriaController::class, 'index']);
+Route::get('/convocatoria/publicar', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 
