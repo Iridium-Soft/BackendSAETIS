@@ -27,6 +27,17 @@ class PliegoEspecificacionController extends Controller
     {
         //
     }
+    public function publicarPliego(Request $request, $id)
+    {
+        $pliego = PliegoEspecificacion::findOrFail($id);
+        $pliego -> publica = true;
+        $pliego-> save();
+        if($pliego->wasChanged() ){
+            return response("Pliego Publicado");
+        }
+        return response("Pliego Ya es Publico");
+
+    }
 
     public function storeDocument(Request $request){
         $image_64 = $request->documento;
