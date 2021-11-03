@@ -14,6 +14,9 @@ class Postulacion extends Model
         'boletaDeGarantia',
         'cartaDePresentacion',
         'constitucion',
-        'parteB'
+        'parteB',
+        'convocatoria_id',
+        'grupoEmpresa_id'
     ];
+
 }

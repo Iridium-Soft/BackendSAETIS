@@ -15,11 +15,13 @@ class CreatePostulacionsTable extends Migration
     {
         Schema::create('postulacions', function (Blueprint $table) {
             $table->id();
-            $table->string('parteA');
-            $table->string('boletaDeGarantia');
-            $table->string('cartaDePresentacion');
-            $table->string('constitucion');
-            $table->string('parteB');
+            $table->string('parteA')->nullable();
+            $table->string('boletaDeGarantia')->nullable();
+            $table->string('cartaDePresentacion')->nullable();
+            $table->string('constitucion')->nullable();
+            $table->string('parteB')->nullable();
+            $table->foreignId('convocatoria_id')->constrained('convocatorias')->onDelete('cascade');
+            $table->foreignId('grupoEmpresa_id')->constrained('grupo_empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }
