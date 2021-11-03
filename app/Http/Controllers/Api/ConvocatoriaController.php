@@ -21,6 +21,7 @@ class ConvocatoriaController extends Controller
         $convocatoriasPublicadas= Convocatoria::where('publica', true)->get();
         return response( $convocatoriasPublicadas );
 
+
     }
     public function noPublicas()
     {
