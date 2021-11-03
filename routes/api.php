@@ -23,15 +23,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/convocatoria', [ConvocatoriaController::class, 'index']);
-Route::get('/convocatoria/publicar', [ConvocatoriaController::class, 'noPublicas']);
+Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
+Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 
-Route::put('/grupoempresa/{id}',[GrupoEmpresaController::class, 'aplicarConvocatoria']);
+Route::post('/grupoempresa/aplicacion',[PostulacionController::class, 'aplicar']);
+
+//Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacion::class, 'showPDF']);
+
+
+Route::get('/grupoempresa/{id}',[GrupoEmpresaController::class, 'show']);
 Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvocatoria']);
 
 Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
+
 Route::apiResource('postulacion',PostulacionController::class);
 
 Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+

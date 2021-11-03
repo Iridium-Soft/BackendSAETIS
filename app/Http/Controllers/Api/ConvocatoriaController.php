@@ -18,7 +18,7 @@ class ConvocatoriaController extends Controller
     public function index()
     {
 //        $convocatorias = Convocatoria::all();
-        $convocatoriasPublicadas= Convocatoria::where('publica', true)->get();;
+        $convocatoriasPublicadas= Convocatoria::where('publica', true)->get();
         return response( $convocatoriasPublicadas );
 
     }
@@ -30,14 +30,8 @@ class ConvocatoriaController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+
+    public function storeDocument(Request $request){
         $image_64 = $request->documento;
         $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
         $replace = substr($image_64, 0, strpos($image_64, ',')+1);
@@ -53,6 +47,18 @@ class ConvocatoriaController extends Controller
         $imageName = "{$randomString}.{$extension}";
         Storage::disk('public')->put($imageName, base64_decode($image));
         $path="app/public/{$imageName}";
+
+        return $imageName;
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $path = $this-> storeDocument($request);
         $convocatoria = new Convocatoria();
         $convocatoria -> codigo = $request -> get('codigo');
         $convocatoria -> titulo = $request -> get('titulo')  ;
@@ -108,7 +114,7 @@ class ConvocatoriaController extends Controller
      */
     public function showPDF($fileID)
     {
-        $path = base_path(). "/storage/app/apiDocs/{$fileID}";
+        $path = base_path(). "/storage/app/public/{$fileID}";
         return response()->file($path);
     }
     /**

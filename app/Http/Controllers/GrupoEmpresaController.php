@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Convocatoria;
 use App\Models\GrupoEmpresa;
+use App\Models\Postulacion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -40,7 +41,8 @@ class GrupoEmpresaController extends Controller
      */
     public function show($id)
     {
-        //
+        $grupoempresa = GrupoEmpresa::find($id);
+        return response($grupoempresa);
     }
 
     /**
@@ -55,25 +57,8 @@ class GrupoEmpresaController extends Controller
         //
     }
 
-    public function aplicarConvocatoria(Request $request, $id)
-    {
-        //$request trae el id dela grupoempresa
-        $convocatoria = Convocatoria::findOrFail($id);
-        $grupoEmpresa = GrupoEmpresa::findOrFail(1);
 
-        $fechaValida =  $convocatoria-> fechaLimRec;
-        $fechaActual = now();
 
-        $respuesta = response('Fecha invalida de postulacion', 304)
-            ->header('Content-Type', 'text/plain');
-        if($fechaValida > $fechaActual){
-            $respuesta = response('Fecha Valida Postulacion exitosa', 200)
-                ->header('Content-Type', 'text/plain');
-            $grupoEmpresa -> convocatoria_id = $convocatoria->id;
-            $grupoEmpresa->save();
-        }
-        return response($respuesta);
-    }
 
     /**
      * Remove the specified resource from storage.
