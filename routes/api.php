@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\GrupoEmpresaController;
+use App\Http\Controllers\HitoPlanificacionController;
 use App\Http\Controllers\PostulacionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,8 @@ Route::get('/grupoempresa/{id}',[GrupoEmpresaController::class, 'show']);
 Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvocatoria']);
 
 Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
-//Route::apiResource('postulacion',PostulacionController::class);
+
+Route::apiResource('postulacion',PostulacionController::class);
+
+Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Convocatoria;
 use App\Models\Documento;
 use App\Models\GrupoEmpresa;
+use App\Models\HitoPlanificacion;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,5 +34,7 @@ class DatabaseSeeder extends Seeder
         $convocatoria -> fechaFinDur = "2021-12-25";
         $convocatoria -> documento = "dirdoc/dirdoc.gg";
         $convocatoria->save();
+
+        $this -> call(HitoSeeder::class);
     }
 }
