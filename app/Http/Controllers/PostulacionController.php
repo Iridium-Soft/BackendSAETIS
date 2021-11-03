@@ -70,6 +70,11 @@ class PostulacionController extends Controller
 
         return \response($postulacion);
     }
+    public function verPostulacionesEspecificas($id)
+    {
+        $postulaciones= Postulacion::where('convocatoria_id',$id)->get();
+        return response( $postulaciones );
+    }
 
     /**
      * Display the specified resource.

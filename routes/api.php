@@ -42,3 +42,5 @@ Route::apiResource('postulacion',PostulacionController::class);
 
 Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
 
+Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
+
