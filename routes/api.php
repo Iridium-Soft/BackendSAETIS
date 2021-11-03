@@ -23,11 +23,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('/convocatoria/sinpliego', [ConvocatoriaController::class, 'convocatoriaSinPliego']);
 Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
+Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
+Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
+
 
 Route::post('/postulacion',[PostulacionController::class, 'store']);
 Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
@@ -44,6 +47,8 @@ Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
 Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
+
+
 
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
 

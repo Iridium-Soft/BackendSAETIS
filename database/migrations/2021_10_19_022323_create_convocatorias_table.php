@@ -18,7 +18,7 @@ class CreateConvocatoriasTable extends Migration
             $table->string('codigo');
             $table->text('titulo');
             $table->text('descripcion');
-            $table->string('consultorEnc')->default("Leticia Blanco");
+            $table->string('consultorEnc');
             $table->date('fechaLimRec');
             $table->date('fechaIniDur');
             $table->date('fechaFinDur');

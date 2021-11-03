@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Convocatoria;
+use App\Models\PliegoEspecificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\True_;
 
@@ -19,10 +21,7 @@ class ConvocatoriaController extends Controller
     {
 //        $convocatorias = Convocatoria::all();
         $convocatoriasPublicadas= Convocatoria::where('publica', true)->get()->collect();
-        $multiplied = $convocatoriasPublicadas->map(function ($item, $key) {
 
-            return $item ->zip(["prueba"=>"comostas"]);
-        });
         return response()->json($convocatoriasPublicadas);
 
     }
@@ -32,6 +31,19 @@ class ConvocatoriaController extends Controller
 
         return response( $convocatorias );
 
+    }
+
+    public function convocatoriaSinPliego()
+    {
+        $convocatorias = Convocatoria::all();
+        $convocatoriasSinPLiego= collect();
+        foreach ($convocatorias as $key => $convocatoria) {
+            $pliego = PliegoEspecificacion::firstWhere('convocatoria_id',$convocatoria->id);
+            if(DB::table('pliego_especificacions')->where('convocatoria_id', $convocatoria->id)->exists()){
+                $convocatoriasSinPLiego->add($convocatoria);
+            }
+        }
+        return response( $convocatorias->diff($convocatoriasSinPLiego));
     }
 
 
@@ -67,8 +79,8 @@ class ConvocatoriaController extends Controller
         $convocatoria -> codigo = $request -> get('codigo');
         $convocatoria -> titulo = $request -> get('titulo')  ;
         $convocatoria -> descripcion =  $request -> get('descripcion');
-        $convocatoria -> consultorEnc =  $request -> get('consultorEnc') ;
-        $convocatoria -> fechaLimRec ="Leticia Blanco";
+        $convocatoria -> consultorEnc = "Leticia Blanco";
+        $convocatoria -> fechaLimRec = $request -> get('fechaLimRec');
         $convocatoria -> fechaIniDur =$request -> get('fechaIniDur');
         $convocatoria -> fechaFinDur = $request -> get('fechaFinDur');
         $convocatoria -> documento = $path;

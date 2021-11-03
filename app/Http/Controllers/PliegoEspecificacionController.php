@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PliegoEspecificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PliegoEspecificacionController extends Controller
@@ -77,15 +78,20 @@ class PliegoEspecificacionController extends Controller
         return response($pliego);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PliegoEspecificacion  $pliegoEspecificacion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PliegoEspecificacion $pliegoEspecificacion)
+
+    public function mostrarPLiego(Request $request,$id)
     {
-        //
+        //$pliego = PliegoEspecificacion::firstWere('convocatoria_id',$id);
+        $pliego =DB::table('pliego_especificacions')->where('convocatoria_id', $id)->get();
+        return response($pliego);
+    }
+
+    public function showPDF($fileID)
+    {
+        $path = base_path(). "/storage/app/public/{$fileID}";
+        $image = base64_encode(file_get_contents($path));
+
+        return "data:@file/pdf;base64,{$image}";
     }
 
     /**
