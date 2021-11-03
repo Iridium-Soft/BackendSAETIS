@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConvocatoriasTable extends Migration
+class CreatePliegoEspecificacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateConvocatoriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('convocatorias', function (Blueprint $table) {
+        Schema::create('pliego_especificacions', function (Blueprint $table) {
             $table->id();
             $table->string('codigo');
             $table->text('titulo');
-            $table->text('descripcion');
-            $table->string('consultorEnc')->default("Leticia Blanco");
-            $table->date('fechaLimRec');
-            $table->date('fechaIniDur');
-            $table->date('fechaFinDur');
             $table->string('documento');
             $table->boolean('publica')->default(false);
+            $table->foreignId('convocatoria_id')->constrained('convocatorias')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateConvocatoriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('convocatorias');
+        Schema::dropIfExists('pliego_especificacions');
     }
 }

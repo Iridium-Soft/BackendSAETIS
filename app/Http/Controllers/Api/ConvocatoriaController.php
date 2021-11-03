@@ -13,14 +13,17 @@ class ConvocatoriaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
 //        $convocatorias = Convocatoria::all();
-        $convocatoriasPublicadas= Convocatoria::where('publica', true)->get();
-        return response( $convocatoriasPublicadas );
+        $convocatoriasPublicadas= Convocatoria::where('publica', true)->get()->collect();
+        $multiplied = $convocatoriasPublicadas->map(function ($item, $key) {
 
+            return $item ->zip(["prueba"=>"comostas"]);
+        });
+        return response()->json($convocatoriasPublicadas);
 
     }
     public function noPublicas()
@@ -65,7 +68,7 @@ class ConvocatoriaController extends Controller
         $convocatoria -> titulo = $request -> get('titulo')  ;
         $convocatoria -> descripcion =  $request -> get('descripcion');
         $convocatoria -> consultorEnc =  $request -> get('consultorEnc') ;
-        $convocatoria -> fechaLimRec =$request -> get('fechaLimRec');
+        $convocatoria -> fechaLimRec ="Leticia Blanco";
         $convocatoria -> fechaIniDur =$request -> get('fechaIniDur');
         $convocatoria -> fechaFinDur = $request -> get('fechaFinDur');
         $convocatoria -> documento = $path;
@@ -107,16 +110,13 @@ class ConvocatoriaController extends Controller
     {
         return Convocatoria::find($id);
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
+
     public function showPDF($fileID)
     {
         $path = base_path(). "/storage/app/public/{$fileID}";
-        return response()->file($path);
+        $image = base64_encode(file_get_contents($path));
+
+        return "data:@file/pdf;base64,{$image}";
     }
     /**
      * Remove the specified resource from storage.

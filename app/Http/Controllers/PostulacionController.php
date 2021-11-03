@@ -6,6 +6,7 @@ use App\Models\Convocatoria;
 use App\Models\GrupoEmpresa;
 use App\Models\Postulacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostulacionController extends Controller
 {
@@ -25,51 +26,60 @@ class PostulacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function aplicar(Request $request)
+    public function store(Request $request)
     {
-        //$request trae el id dela grupoempresa
         $convocatoria = Convocatoria::findOrFail($request->convocatoria_id);
-        $grupoEmpresa = GrupoEmpresa::findOrFail(1);
-
         $fechaValida =  $convocatoria-> fechaLimRec;
         $fechaActual = now();
-        if($fechaValida > $fechaActual){
-            $respuesta = response('Fecha Valida Postulacion exitosa');
-            $postulacion = new Postulacion();
-            $postulacion -> convocatoria_id = $convocatoria->id;
-            $postulacion -> grupoEmpresa_id = 1;
+        $postulacion = new Postulacion();
+        if($fechaValida < $fechaActual){
+            $postulacion-> convocatoria_id = $request->convocatoria_id;
+            $postulacion-> grupoEmpresa_id = 1;
             $postulacion->save();
         }
-        return response();
+        return response($postulacion);
+    }
+
+    public function storeDocument($image_64){
+        //$image_64 = $request->documento;
+        $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $image = str_replace($replace, '', $image_64);
+        $image = str_replace(' ', '+', $image);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        $length = 20;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $imageName = "{$randomString}.{$extension}";
+        Storage::disk('public')->put($imageName, base64_decode($image));
+        $path="app/public/{$imageName}";
+
+        return $imageName;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function guardarDocumentos(Request $request , int $id)
     {
-        $request->validate([
-            'parteA' =>'required',
-            'boletaDeGarantia',
-            'cartaDePresentacion',
-            'constitucion',
-            'parteB'
-        ]);
-
-        $postulacion = new Postulacion();
-        $postulacion-> parteA = $request->file('parteA')->store('documentos/postulaciones');
-        $postulacion-> boletaDeGarantia  = $request->file('boletaDeGarantia')->store('documentos/postulaciones');
-        $postulacion-> cartaDePresentacion  = $request->file('cartaDePresentacion')->store('documentos/postulaciones');
-        $postulacion-> constitucion  = $request->file('constitucion')->store('documentos/postulaciones');
-        $postulacion-> parteB  = $request->file( 'parteB')->store('documentos/postulaciones');
-
+        $postulacion = Postulacion::find($id);
+        $postulacion-> parteA = $this->storeDocument($request->parteA);
+        $postulacion-> boletaDeGarantia  = $this->storeDocument($request->boletaDeGarantia);
+        $postulacion-> cartaDePresentacion  = $this->storeDocument($request->cartaDePresentacion);
+        $postulacion-> constitucion  = $this->storeDocument($request->constitucion);
+        $postulacion-> parteB  = $this->storeDocument($request->parteB);
         $postulacion->save();
 
-        return \response($postulacion);
+        return \response( $postulacion );
     }
+
     public function verPostulacionesEspecificas(Request $request)
     {
         $postulaciones= Postulacion::where('convocatoria_id',$request->id)->get();

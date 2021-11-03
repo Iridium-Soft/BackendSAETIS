@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
+use App\Http\Controllers\PliegoEspecificacionController;
 use App\Http\Controllers\PostulacionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,9 @@ Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 
-Route::post('/grupoempresa/aplicacion',[PostulacionController::class, 'aplicar']);
+Route::post('/postulacion',[PostulacionController::class, 'store']);
+Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
+
 
 //Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacion::class, 'showPDF']);
 
@@ -38,9 +41,8 @@ Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvoc
 
 Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 
-Route::apiResource('postulacion',PostulacionController::class);
-
 Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
 
