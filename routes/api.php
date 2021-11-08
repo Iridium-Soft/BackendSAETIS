@@ -40,7 +40,8 @@ Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 
 Route::apiResource('postulacion',PostulacionController::class);
 
-Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'guardarHitos']);
 
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
+
 
