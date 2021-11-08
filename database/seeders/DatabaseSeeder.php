@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Consultor;
+use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
 use App\Models\Documento;
 use App\Models\GrupoEmpresa;
@@ -49,10 +51,6 @@ class DatabaseSeeder extends Seeder
         $grupoempresa4-> nombreconsultor = "Vladimir Lopez";
         $grupoempresa4->save();
 
-
-
-
-
         $convocatoria = new Convocatoria();
         $convocatoria -> codigo = "2020convo-2";
         $convocatoria -> titulo = "Convocatoria primera" ;
@@ -75,6 +73,28 @@ class DatabaseSeeder extends Seeder
         $convocatoria1 -> documento = "dirdoc/dirdoc.gg";
         $convocatoria1->save();
 
+        $convocatoria2 = new Convocatoria();
+        $convocatoria2 -> codigo = "2010convo-1";
+        $convocatoria2 -> titulo = "Convocatoria tercera" ;
+        $convocatoria2 -> descripcion = "Lorum ipsum dolor Lorum ipsum dolo Lorum ipsum dolo Lorum ipsum dolo";
+        $convocatoria2 -> consultorEnc = "Vladimir Lopez";
+        $convocatoria2 -> fechaLimRec ="2021-11-22";
+        $convocatoria2 -> fechaIniDur ="2021-11-25";
+        $convocatoria2 -> fechaFinDur = "2021-12-25";
+        $convocatoria2 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria2->save();
+
+        $convocatoria3 = new Convocatoria();
+        $convocatoria3 -> codigo = "2017convo-1";
+        $convocatoria3 -> titulo = "Convocatoria cuarta" ;
+        $convocatoria3 -> descripcion = "Lorum ipsum dolor Lorum ipsum dolo Lorum ipsum dolo Lorum ipsum dolo";
+        $convocatoria3 -> consultorEnc = "Vladimir";
+        $convocatoria3 -> fechaLimRec ="2021-11-22";
+        $convocatoria3 -> fechaIniDur ="2021-11-25";
+        $convocatoria3 -> fechaFinDur = "2021-12-25";
+        $convocatoria3 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria3->save();
+
         $pliego = new PliegoEspecificacion();
         $pliego -> codigo = "2021convo-1";
         $pliego -> titulo = "Convocatoria segunda" ;
@@ -85,6 +105,9 @@ class DatabaseSeeder extends Seeder
 
         $this -> call(HitoSeeder::class);
         $this -> call(PostulacionSeeder::class);
+        $this -> call(ConsultorSeeder::class);
+        $this -> call(ConvConsultorSeeder::class);
+
 
     }
 }

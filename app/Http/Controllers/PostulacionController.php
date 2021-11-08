@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
 use App\Models\GrupoEmpresa;
+use App\Models\HitoPlanificacion;
 use App\Models\Postulacion;
+use App\Models\responses\Postulaciones;
 use Illuminate\Http\Request;
+
+use phpDocumentor\Reflection\DocBlock\Tags\Version;
+
 use Illuminate\Support\Facades\Storage;
+
 
 class PostulacionController extends Controller
 {
@@ -81,12 +88,43 @@ class PostulacionController extends Controller
     }
 
     public function verPostulacionesEspecificas(Request $request)
-    {
-        $postulaciones= Postulacion::where('convocatoria_id',$request->id)->get();
+    {   //$p = new Postulaciones;
+        $convocatorias = ConvConsultor::where('consultor_id',$request->id)->get();
+        $listaConvocatorias= new Convocatoria();
+        $listaConvocatorias= collect();
 
-        return response( $postulaciones );
+        $listaPostulaciones= collect();
+        $listaGrupoEmpresas = collect();
+        foreach ($convocatorias as $asignadas){
+            $convocatoria = Convocatoria::where('id',$asignadas->convocatoria_id)->get()->collect();
+
+            $listaConvocatorias->add($convocatoria);
+        }
+      /*  $listas= $listaConvocatorias->toArray();
+        //$array = Arr::dot($listas);
+
+        /*foreach ($listaConvocatorias as $postulacion){
+           $postulaciones = Postulacion::where('id',$postulacion->convocatoria_id)->get()->collect();
+           $listaPostulaciones->add($postulaciones);
+       }
+       foreach ($listaPostulaciones as $grupoEmpresa){
+           $grupoEmpresas = GrupoEmpresa::where('id',$grupoEmpresa->grupoEmpresa_id)->get()->collect();
+           $listaGrupoEmpresas->add($grupoEmpresas);
+       }*/
+
+      // for($i=0; $i<$tam; $i++){
+           // $grupoEmpresa = GrupoEmpresa::where("id",$postulaciones->grupoEmpresa_id)->get();
+          // $grupoEmpresa = GrupoEmpresa::where('id',$postulaciones.id.[$i].grupoEmpresa_id)->get();
+          // $grupos->add($grupo);
+        //}*/
+
+        return response( $listaConvocatorias);
+
     }
-
+    public function prueba(Request $request){
+           $p = new Postulaciones;
+        return response( $p);
+    }
     /**
      * Display the specified resource.
      *

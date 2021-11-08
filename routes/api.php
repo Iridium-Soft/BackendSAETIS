@@ -44,11 +44,15 @@ Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvoc
 
 Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 
-Route::post('/Hitoplanificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+Route::apiResource('postulacion',PostulacionController::class);
+
+Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+
 Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
 
 
 
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
+
 
