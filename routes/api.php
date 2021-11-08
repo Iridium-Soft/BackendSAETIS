@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
+use App\Http\Controllers\PliegoEspecificacionController;
 use App\Http\Controllers\PostulacionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,13 +23,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('/convocatoria/sinpliego', [ConvocatoriaController::class, 'convocatoriaSinPliego']);
 Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
+Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
+Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
 
-Route::post('/grupoempresa/aplicacion',[PostulacionController::class, 'aplicar']);
+
+Route::post('/postulacion',[PostulacionController::class, 'store']);
+Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
+
 
 //Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacion::class, 'showPDF']);
 
@@ -41,6 +47,11 @@ Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 Route::apiResource('postulacion',PostulacionController::class);
 
 Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+
+Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
+Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
+
+
 
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
 

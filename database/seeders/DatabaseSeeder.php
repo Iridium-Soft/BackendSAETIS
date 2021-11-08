@@ -8,6 +8,7 @@ use App\Models\Convocatoria;
 use App\Models\Documento;
 use App\Models\GrupoEmpresa;
 use App\Models\HitoPlanificacion;
+use App\Models\PliegoEspecificacion;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -93,6 +94,13 @@ class DatabaseSeeder extends Seeder
         $convocatoria3 -> fechaFinDur = "2021-12-25";
         $convocatoria3 -> documento = "dirdoc/dirdoc.gg";
         $convocatoria3->save();
+
+        $pliego = new PliegoEspecificacion();
+        $pliego -> codigo = "2021convo-1";
+        $pliego -> titulo = "Convocatoria segunda" ;
+        $pliego -> documento = "dirdoc/dirdoc.gg";
+        $pliego -> convocatoria_id = 1;
+        $pliego->save();
 
 
         $this -> call(HitoSeeder::class);
