@@ -14,4 +14,5 @@ class PliegoEspecificacion extends Model
         'documento',
         'publica'
     ];
+    protected $table="convocatoria_id";
 }

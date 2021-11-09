@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PliegoEspecificacion;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -82,8 +84,8 @@ class PliegoEspecificacionController extends Controller
     public function mostrarPLiego(Request $request,$id)
     {
         //$pliego = PliegoEspecificacion::firstWere('convocatoria_id',$id);
-        $pliego =DB::table('pliego_especificacions')->where('convocatoria_id', $id)->get();
-        return response($pliego);
+        $pliego =DB::table('pliego_especificacions')->where('convocatoria_id', $id)->first();
+        return  $pliego;
     }
 
     public function showPDF($fileID)
