@@ -16,8 +16,10 @@ class CreateObservacionPropuesta extends Migration
         Schema::create('observacion_propuestas', function (Blueprint $table) {
             $table->id();
             $table->string('nombreDoc');
-            $table->string('seccionDoc');
+            $table->string('seccionDoc')->nullable();
             $table->string('descripcion');
+            $table->integer('ordenCambio_id')->unsigned()->nullable();
+            $table->foreign('ordenCambio_id')->references('id')->on('orden_cambios')->onDelete('cascade');
             $table->timestamps();
         });
     }

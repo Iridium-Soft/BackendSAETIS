@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ObservacionPropuesta extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    protected $fillable=[
         'nombreDoc' ,
         'seccionDoc' ,
-        'descripcion' ,
+        'descripcion',
+        'ordCambio_id',
     ];
 }

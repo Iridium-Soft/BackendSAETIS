@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificacionConfController;
 use App\Http\Controllers\OrdenCambioController;
 use App\Http\Controllers\PliegoEspecificacionController;
 use App\Http\Controllers\PostulacionController;
+use App\Http\Middleware\JsonResponseMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,3 +62,8 @@ Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNoti
 
 
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
+
+
+Route::middleware(JsonResponseMiddleware::class)->group(function(){
+    Route::get("add-post",[PostController::class, 'create']);
+});

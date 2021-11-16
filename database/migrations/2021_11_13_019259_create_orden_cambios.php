@@ -19,11 +19,9 @@ class CreateOrdenCambios extends Migration
             $table->date('fechaEmContrato');
             $table->date('fechaFirma')->nullable();
             $table->string('lugar');
-            $table->string('estado');
+            $table->boolean('estado');
             $table->integer('postulacion_id')->unsigned()->nullable();
-            $table->integer('calificacion_id')->unsigned()->nullable();
             $table->foreign('postulacion_id')->references('id')->on('postulacions')->onDelete('cascade');
-            $table->foreign('calificacion_id')->references('id')->on('calificacions')->onDelete('cascade');
             $table->timestamps();
         });
     }

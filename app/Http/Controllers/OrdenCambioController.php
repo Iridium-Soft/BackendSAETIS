@@ -38,17 +38,16 @@ class OrdenCambioController extends Controller
     public function store(Request $request)
     {
         $ordenCambio = new OrdenCambio();
-        $ordenCambio-> grupoempresa_id = $request->grupoempresa_id;
         $ordenCambio-> postulacion_id = $request->postulacion_id;
-        $ordenCambio-> nombre = $request->nombre;
-        $ordenCambio-> cod_orden_cambio = $request->cod_orden_cambio;
-        $ordenCambio-> fecha_entrega = $request->fecha_entrega;
-        $ordenCambio-> lugar_entrega = $request->lugar_entrega;
-        $ordenCambio-> fecha_emision = $request->fecha_emision;
-        $ordenCambio->save();
+        $ordenCambio-> estado = false;
+        $ordenCambio-> codigo = $request->cod_orden_cambio;
+        $ordenCambio-> fechaFirma = $request->fecha_entrega;
+        $ordenCambio-> lugar = $request->lugar_entrega;
+        $ordenCambio-> fechaEmContrato = $request->fecha_emision;
+        $idOrden = $ordenCambio->save();
         $funcionSave = new FunctionRegisterOrdenCambio();
-        $funcionSave::registrarEvaluaciones($request->evaluaion);
-        $funcionSave::registrarObservaciones($request->observacion);
+        $funcionSave::registrarEvaluaciones($request, $idOrden);
+        $funcionSave::registrarObservaciones($request, $idOrden);
 
     }
 

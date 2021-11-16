@@ -15,6 +15,5 @@ class OrdenCambio extends Model
         'lugar',
         'estado',
         'postulacion_id',
-        'calificacion_id',
         ];
 }

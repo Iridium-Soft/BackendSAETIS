@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Functions;
 
 use App\Models\Calificacion;
 use App\Models\ObservacionPropuesta;
+use Illuminate\Support\Facades\Log;
 
 class FunctionRegisterOrdenCambio
 {
@@ -11,22 +12,27 @@ class FunctionRegisterOrdenCambio
 
     }
 
-    static function registrarEvaluaciones($evaluaciones){
+    static function registrarEvaluaciones($evaluaciones, $idOrd){
         $tam =  $evaluaciones->collect('evaluacion')->count();
+
         for($i=0; $i<$tam; $i++){
             $calificacion = new Calificacion();
-            $calificacion->punajeObtenido = $evaluaciones->input("evaluacion.{$i}.punajeObtenido");
+            $calificacion->puntajeObtenido = $evaluaciones->input("evaluacion.{$i}.puntuacion");
             $calificacion->campoEvaluable_id = $evaluaciones->input("evaluacion.{$i}.evaluacion_id");
+            $calificacion->ordenCambio_id=$idOrd;
             $calificacion->save();
         }
+
     }
 
-    static function registrarObservaciones($observaciones){
+    static function registrarObservaciones($observaciones, $idOrd){
         $tam =  $observaciones->collect('observacion')->count();
         for($i=0; $i<$tam; $i++){
             $observacion = new ObservacionPropuesta();
-            $observacion->punajeObtenido = $observaciones->input("observacion.{$i}.punajeObtenido");
-            $observacion->campoEvaluable_id = $observaciones->input("observacion.{$i}.evaluacion_id");
+            $observacion->nombreDoc = $observaciones->input("observacion.{$i}.documento");
+            $observacion->seccionDoc = $observaciones->input("observacion.{$i}.seccion");
+            $observacion->descripcion = $observaciones->input("observacion.{$i}.descripcion");
+            $observacion->ordenCambio_id = $idOrd;
             $observacion->save();
         }
     }
