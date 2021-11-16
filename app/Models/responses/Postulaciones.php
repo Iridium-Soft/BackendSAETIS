@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Postulaciones
 {
-    var $nombre= "muereteAndy";
-    var $joto= true;
+    var $nombreGrupoEmpresa;
+    var $idGrupoEmpresa;
+    var $idConvocatoria;
+    var $codigoConvocatoria;
+    var $tituloConvocatoria;
 
 
-    function aniadir(Model $modelo) {
+    /*function aniadir(Model $modelo) {
         $arrdeModelos = Arr::add($modelo);
         return $arrdeModelos;
-    }
+    }*/
 }

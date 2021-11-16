@@ -33,5 +33,10 @@ class ConvConsultorSeeder extends Seeder
         $convConsultor1-> convocatoria_id = 4;
         $convConsultor1-> consultor_id = 4;
         $convConsultor1 ->save();
+
+        $convConsultor = new ConvConsultor();
+        $convConsultor-> convocatoria_id = 5;
+        $convConsultor-> consultor_id = 1;
+        $convConsultor ->save();
     }
 }

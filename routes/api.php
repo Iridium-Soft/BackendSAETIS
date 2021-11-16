@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdendaController;
 use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
+use App\Http\Controllers\NotificacionConfController;
 use App\Http\Controllers\OrdenCambioController;
 use App\Http\Controllers\PliegoEspecificacionController;
 use App\Http\Controllers\PostulacionController;
@@ -38,8 +40,6 @@ Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guard
 
 
 //Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacion::class, 'showPDF']);
-
-
 Route::get('/grupoempresa/{id}',[GrupoEmpresaController::class, 'show']);
 Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvocatoria']);
 
@@ -51,9 +51,13 @@ Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'g
 
 Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
-
-
-
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
+Route::get('/documento/ordencambio/{fileID}', [OrdenCambioController::class, 'showDetallesOrden']);
+Route::put('/ordencambio/{id}', [OrdenCambioController::class, 'estadoOrdenC']);
+Route::get('/documento/adenda/{fileID}', [AdendaController::class, 'showDetallesAdenda']);
+Route::put('/adenda/{id}', [AdendaController::class, 'estadoAdenda']);
+Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::class, 'showDetallesNotificacion']);
+Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
+
 
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
