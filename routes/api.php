@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
+use App\Http\Controllers\OrdenCambioController;
 use App\Http\Controllers\PliegoEspecificacionController;
 use App\Http\Controllers\PostulacionController;
 use Illuminate\Http\Request;
@@ -55,4 +56,4 @@ Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class,
 
 Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
 
-
+Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
