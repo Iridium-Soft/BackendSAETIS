@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
 use App\Models\OrdenCambio;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class OrdenCambioController extends Controller
 {
@@ -19,6 +19,7 @@ class OrdenCambioController extends Controller
     }
 
     /**
+
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -36,7 +37,19 @@ class OrdenCambioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ordenCambio = new OrdenCambio();
+        $ordenCambio-> grupoempresa_id = $request->grupoempresa_id;
+        $ordenCambio-> postulacion_id = $request->postulacion_id;
+        $ordenCambio-> nombre = $request->nombre;
+        $ordenCambio-> cod_orden_cambio = $request->cod_orden_cambio;
+        $ordenCambio-> fecha_entrega = $request->fecha_entrega;
+        $ordenCambio-> lugar_entrega = $request->lugar_entrega;
+        $ordenCambio-> fecha_emision = $request->fecha_emision;
+        $ordenCambio->save();
+        $funcionSave = new FunctionRegisterOrdenCambio();
+        $funcionSave::registrarEvaluaciones($request->evaluaion);
+        $funcionSave::registrarObservaciones($request->observacion);
+
     }
 
     /**
@@ -89,6 +102,7 @@ class OrdenCambioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+
      * @param  \App\Models\OrdenCambio  $ordenCambio
      * @return \Illuminate\Http\Response
      */

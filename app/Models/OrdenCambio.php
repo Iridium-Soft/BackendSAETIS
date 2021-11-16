@@ -11,9 +11,10 @@ class OrdenCambio extends Model
     protected $fillable = [
         'codigo' ,
         'fechaEmContrato' ,
-        'fechaFirma' ,
+        'fechaFirma',
         'lugar',
-        'estado'
-
-    ];
+        'estado',
+        'postulacion_id',
+        'calificacion_id',
+        ];
 }

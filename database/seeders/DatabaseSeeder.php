@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CampoEvaluable;
 use App\Models\Consultor;
 use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
@@ -118,6 +119,7 @@ class DatabaseSeeder extends Seeder
         $this -> call(PostulacionSeeder::class);
         $this -> call(ConsultorSeeder::class);
         $this -> call(ConvConsultorSeeder::class);
+        $this -> call(CampoEvaluableSeeder::class);
         $this -> call(OrdenCambioSeeder::class);
         $this -> call(AdendaSeeder::class);
         $this -> call(NotificacionConfSeeder::class);

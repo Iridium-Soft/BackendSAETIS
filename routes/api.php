@@ -60,4 +60,4 @@ Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::clas
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
 
 
-
+Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);

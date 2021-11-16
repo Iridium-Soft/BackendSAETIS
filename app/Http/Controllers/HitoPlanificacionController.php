@@ -64,7 +64,6 @@ class HitoPlanificacionController extends Controller
             $hito->entregables = $request->input("hitos.{$i}.entregables");
             $hito->save();
             $hitos->add($hito);
-
         }
 
         return response($hitos);

@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PliegoEspecificacion extends Model
+class CampoEvaluable extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'codigo' ,
-        'titulo' ,
-        'documento',
-        'publica'
+        'descripcion' ,
+        'puntaje',
     ];
-//    protected $table="convocatoria_id";
 }
