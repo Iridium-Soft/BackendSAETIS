@@ -52,7 +52,7 @@ Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'g
 
 Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
-Route::get('/postulacion', [PostulacionController::class, 'verPostulacionesEspecificas']);
+Route::get('/postulacion/propias/{id}', [PostulacionController::class, 'verPostulacionesEspecificas']);
 Route::get('/documento/ordencambio/{fileID}', [OrdenCambioController::class, 'showDetallesOrden']);
 Route::put('/ordencambio/{id}', [OrdenCambioController::class, 'estadoOrdenC']);
 Route::get('/documento/adenda/{fileID}', [AdendaController::class, 'showDetallesAdenda']);
@@ -62,8 +62,5 @@ Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNoti
 
 
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
+//Route::get("/postulacion/ordencambio/{id}",[OrdenCambioController::class, 'getDatosNecesarios']);
 
-
-Route::middleware(JsonResponseMiddleware::class)->group(function(){
-    Route::get("add-post",[PostController::class, 'create']);
-});

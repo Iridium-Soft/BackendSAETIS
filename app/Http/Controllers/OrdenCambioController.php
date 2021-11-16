@@ -29,6 +29,9 @@ class OrdenCambioController extends Controller
         //
     }
 
+    public function getDatosNecesarios(Request $request){
+    }
+
     /**
      * Store a newly created resource in storage.
      *
