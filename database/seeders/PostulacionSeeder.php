@@ -34,5 +34,9 @@ class PostulacionSeeder extends Seeder
         $postulacion3-> grupoEmpresa_id = 4;
         $postulacion3->save();
 
+        $postulacion4 = new Postulacion();
+        $postulacion4-> convocatoria_id = 5;
+        $postulacion4-> grupoEmpresa_id = 5;
+        $postulacion4->save();
     }
 }
