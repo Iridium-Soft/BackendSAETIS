@@ -95,6 +95,17 @@ class DatabaseSeeder extends Seeder
         $convocatoria3 -> documento = "dirdoc/dirdoc.gg";
         $convocatoria3->save();
 
+        $convocatoria4 = new Convocatoria();
+        $convocatoria4 -> codigo = "2017convo-1";
+        $convocatoria4 -> titulo = "Convocatoria quinta" ;
+        $convocatoria4 -> descripcion = "Lorum ipsum dolor Lorum ipsum dolo Lorum ipsum dolo Lorum ipsum dolo";
+        $convocatoria4 -> consultorEnc = "Lety";
+        $convocatoria4 -> fechaLimRec ="2021-11-22";
+        $convocatoria4 -> fechaIniDur ="2021-11-25";
+        $convocatoria4 -> fechaFinDur = "2021-12-25";
+        $convocatoria4 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria4->save();
+
         $pliego = new PliegoEspecificacion();
         $pliego -> codigo = "2021convo-1";
         $pliego -> titulo = "Convocatoria segunda" ;
@@ -107,7 +118,9 @@ class DatabaseSeeder extends Seeder
         $this -> call(PostulacionSeeder::class);
         $this -> call(ConsultorSeeder::class);
         $this -> call(ConvConsultorSeeder::class);
-
+        $this -> call(OrdenCambioSeeder::class);
+        $this -> call(AdendaSeeder::class);
+        $this -> call(NotificacionConfSeeder::class);
 
     }
 }

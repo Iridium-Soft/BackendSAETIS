@@ -10,6 +10,7 @@ use App\Models\Postulacion;
 use App\Models\responses\Postulaciones;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\DocBlock\Tags\Version;
 
 use Illuminate\Support\Facades\Storage;
@@ -88,42 +89,27 @@ class PostulacionController extends Controller
     }
 
     public function verPostulacionesEspecificas(Request $request)
-    {   //$p = new Postulaciones;
-        $convocatorias = ConvConsultor::where('consultor_id',$request->id)->get();
-        $listaConvocatorias= new Convocatoria();
+    {
+        $convConsultores = ConvConsultor::where('consultor_id',$request->id)->get();
         $listaConvocatorias= collect();
-
         $listaPostulaciones= collect();
-        $listaGrupoEmpresas = collect();
-        foreach ($convocatorias as $asignadas){
-            $convocatoria = Convocatoria::where('id',$asignadas->convocatoria_id)->get()->collect();
+        $listaEmpresas= collect();
 
-            $listaConvocatorias->add($convocatoria);
+        foreach ($convConsultores as $asignadas){
+            $convocatorias = Convocatoria::where('id',$asignadas->convocatoria_id)->first();
+            $postulaciones = Postulacion::where('convocatoria_id',$asignadas->convocatoria_id)->get();
+            foreach ($postulaciones as $postulacion){
+                $postus = new Postulacion();
+                $grupoEmpresa = GrupoEmpresa::where('id',$postulacion->grupoEmpresa_id)->first();
+                $postus->nombreGrupoEmpresa=$grupoEmpresa->nombre;
+                $postus->idGrupoEmpresa=$grupoEmpresa->id;
+                $postus->idConvocatoria=$convocatorias->id;
+                $postus->codigoConvocatoria=$convocatorias->codigo;
+                $postus->tituloConvocatoria=$convocatorias->titulo;
+                $listaPostulaciones->add($postus);
+            }
         }
-      /*  $listas= $listaConvocatorias->toArray();
-        //$array = Arr::dot($listas);
-
-        /*foreach ($listaConvocatorias as $postulacion){
-           $postulaciones = Postulacion::where('id',$postulacion->convocatoria_id)->get()->collect();
-           $listaPostulaciones->add($postulaciones);
-       }
-       foreach ($listaPostulaciones as $grupoEmpresa){
-           $grupoEmpresas = GrupoEmpresa::where('id',$grupoEmpresa->grupoEmpresa_id)->get()->collect();
-           $listaGrupoEmpresas->add($grupoEmpresas);
-       }*/
-
-      // for($i=0; $i<$tam; $i++){
-           // $grupoEmpresa = GrupoEmpresa::where("id",$postulaciones->grupoEmpresa_id)->get();
-          // $grupoEmpresa = GrupoEmpresa::where('id',$postulaciones.id.[$i].grupoEmpresa_id)->get();
-          // $grupos->add($grupo);
-        //}*/
-
-        return response( $listaConvocatorias);
-
-    }
-    public function prueba(Request $request){
-           $p = new Postulaciones;
-        return response( $p);
+        return ($listaPostulaciones);
     }
     /**
      * Display the specified resource.
