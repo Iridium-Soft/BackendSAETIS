@@ -18,8 +18,8 @@ class CreateObservacionPropuesta extends Migration
             $table->string('nombreDoc');
             $table->string('seccionDoc')->nullable();
             $table->string('descripcion');
-            $table->integer('ordenCambio_id')->unsigned()->nullable();
-            $table->foreign('ordenCambio_id')->references('id')->on('orden_cambios')->onDelete('cascade');
+            $table->integer('ordenDeCambio_id')->unsigned()->nullable();
+            $table->foreign('ordenDeCambio_id')->references('id')->on('orden_cambios')->onDelete('cascade');
             $table->timestamps();
         });
     }
