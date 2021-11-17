@@ -50,6 +50,8 @@ Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvoc
 
 Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 
+Route::get('/planificacion/ordendeCambio/{id}', [OrdenCambioController::class, 'getOrden']);
+Route::get('/planificacion/notificaciondeConformidad/{id}', [NotificacionConfController::class, 'getNoti']);
 
 
 Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'guardarHitos']);

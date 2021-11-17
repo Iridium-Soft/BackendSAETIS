@@ -42,9 +42,9 @@ class PostulacionController extends Controller
         $fechaValida =  $convocatoria-> fechaLimRec;
         $fechaActual = now();
         $postulacion = new Postulacion();
-        if($fechaValida < $fechaActual){
+        if($fechaValida > $fechaActual){
             $postulacion-> convocatoria_id = $request->convocatoria_id;
-            $postulacion-> grupoEmpresa_id = 1;
+            $postulacion-> grupoEmpresa_id = 6;
             $postulacion->save();
         }
         return response($postulacion);

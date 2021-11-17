@@ -78,6 +78,11 @@ class NotificacionConfController extends Controller
         Storage::disk('public')->put($imageName, $contents);
         return $imageName;
     }
+
+    public function getNoti(Request $request,$id){
+        $noti = NotificacionConf::find($id);
+        return $noti;
+    }
     /**
      * Store a newly created resource in storage.
      *

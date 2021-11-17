@@ -53,7 +53,10 @@ class HitoPlanificacionController extends Controller
     }
     public function guardarHitos(Request $request)
     {
-        $id = $request->id;
+        $id = 6;
+        $planificacion = new Planificacion();
+        $planificacion->  postulacion_id = $id;
+        $planificacion->save();
         $tam =  $request->collect('hitos')->count();
         $hitos = collect();
         for($i=0; $i<$tam; $i++){
@@ -62,7 +65,7 @@ class HitoPlanificacionController extends Controller
             $hito->fechaIni = $request->input("hitos.{$i}.fechaIni");
             $hito->fechaFin = $request->input("hitos.{$i}.fechaFin");
             $hito->porcentajeCobro = $request->input("hitos.{$i}.porcentajeCobro");
-            $hito->planificacion_id= $id;
+            $hito->planificacion_id= $planificacion->id;
             $hito->entregables = $request->input("hitos.{$i}.entregables");
             $hito->save();
             $hitos->add($hito);

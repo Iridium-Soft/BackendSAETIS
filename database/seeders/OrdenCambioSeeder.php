@@ -22,7 +22,7 @@ class OrdenCambioSeeder extends Seeder
         $orden -> fechaFirma = "2021-10-22" ;
         $orden -> lugar = "Bloque Informatica UMSS Piso 1";
         $orden -> estado = false;
-        $orden -> documento = "v8LLXrmGcVtXRFE4Pn4Y.pdf";
+        $orden -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $orden->save();
 
         $puntaje1 = new Calificacion();

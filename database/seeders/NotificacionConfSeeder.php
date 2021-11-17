@@ -19,6 +19,7 @@ class NotificacionConfSeeder extends Seeder
         $noti -> fechaEmDocumento = "2021-10-22" ;
         $noti -> lugar = "cochabamba";
         $noti -> estado = false;
+        $noti -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $noti->save();
     }
 }

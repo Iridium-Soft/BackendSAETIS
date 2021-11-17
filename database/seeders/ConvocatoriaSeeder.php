@@ -46,6 +46,12 @@ class ConvocatoriaSeeder extends Seeder
         $grupoempresa4-> nombreconsultor = "Vladimir Lopez";
         $grupoempresa4->save();
 
+        $grupoempresa4 = new GrupoEmpresa();
+        $grupoempresa4-> nombre = "Fracaso SOFT";
+        $grupoempresa4-> nombreRepresentante = "Marcelo Coca";
+        $grupoempresa4-> nombreconsultor = "Leticia Blanco";
+        $grupoempresa4->save();
+
         $convocatoria = new Convocatoria();
         $convocatoria -> codigo = "2020convo-2";
         $convocatoria -> titulo = "Convocatoria primera" ;
@@ -54,7 +60,7 @@ class ConvocatoriaSeeder extends Seeder
         $convocatoria -> fechaLimRec ="2021-10-22";
         $convocatoria -> fechaIniDur ="2021-10-25";
         $convocatoria -> fechaFinDur = "2021-12-25";
-        $convocatoria -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $convocatoria->save();
 
         $convocatoria1 = new Convocatoria();
@@ -65,7 +71,7 @@ class ConvocatoriaSeeder extends Seeder
         $convocatoria1 -> fechaLimRec ="2021-11-22";
         $convocatoria1 -> fechaIniDur ="2021-11-25";
         $convocatoria1 -> fechaFinDur = "2021-12-25";
-        $convocatoria1 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria1 -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $convocatoria1->save();
 
         $convocatoria2 = new Convocatoria();
@@ -76,7 +82,7 @@ class ConvocatoriaSeeder extends Seeder
         $convocatoria2 -> fechaLimRec ="2021-11-22";
         $convocatoria2 -> fechaIniDur ="2021-11-25";
         $convocatoria2 -> fechaFinDur = "2021-12-25";
-        $convocatoria2 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria2 -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $convocatoria2->save();
 
         $convocatoria3 = new Convocatoria();
@@ -87,24 +93,24 @@ class ConvocatoriaSeeder extends Seeder
         $convocatoria3 -> fechaLimRec ="2021-11-22";
         $convocatoria3 -> fechaIniDur ="2021-11-25";
         $convocatoria3 -> fechaFinDur = "2021-12-25";
-        $convocatoria3 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria3 -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $convocatoria3->save();
 
         $convocatoria4 = new Convocatoria();
-        $convocatoria4 -> codigo = "2017convo-1";
-        $convocatoria4 -> titulo = "Convocatoria quinta" ;
+        $convocatoria4 -> codigo = "2021-11";
+        $convocatoria4 -> titulo = "Quinta Convocatoria" ;
         $convocatoria4 -> descripcion = "Lorum ipsum dolor Lorum ipsum dolo Lorum ipsum dolo Lorum ipsum dolo";
-        $convocatoria4 -> consultorEnc = "Lety";
+        $convocatoria4 -> consultorEnc = "Leticia Blanco";
         $convocatoria4 -> fechaLimRec ="2021-11-22";
         $convocatoria4 -> fechaIniDur ="2021-11-25";
         $convocatoria4 -> fechaFinDur = "2021-12-25";
-        $convocatoria4 -> documento = "dirdoc/dirdoc.gg";
+        $convocatoria4 -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $convocatoria4->save();
 
         $pliego = new PliegoEspecificacion();
         $pliego -> codigo = "2021convo-1";
         $pliego -> titulo = "Convocatoria segunda" ;
-        $pliego -> documento = "dirdoc/dirdoc.gg";
+        $pliego -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $pliego -> convocatoria_id = 1;
         $pliego->save();
     }

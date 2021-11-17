@@ -80,6 +80,11 @@ class OrdenCambioController extends Controller
         return $imageName;
     }
 
+    public function getOrden(Request $request,$id){
+        $orden = OrdenCambio::find($id);
+        return $orden;
+    }
+
 
     /**
      * Display the specified resource.
