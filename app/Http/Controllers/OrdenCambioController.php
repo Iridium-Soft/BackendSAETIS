@@ -35,12 +35,7 @@ class OrdenCambioController extends Controller
     public function getDatosNecesarios(Request $request){
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $ordenCambio = new OrdenCambio();
@@ -50,19 +45,19 @@ class OrdenCambioController extends Controller
         $ordenCambio-> fechaFirma = $request->fecha_entrega;
         $ordenCambio-> lugar = $request->lugar_entrega;
         $ordenCambio-> fechaEmContrato = $request->fecha_emision;
-        $idOrden = $ordenCambio->save();
+        $ordenCambio->save();
         $funcionSave = new FunctionRegisterOrdenCambio();
-        $funcionSave::registrarEvaluaciones($request, $idOrden);
-        $funcionSave::registrarObservaciones($request, $idOrden);
-        $this -> generarOC($ordenCambio->id);
+        $funcionSave::registrarEvaluaciones($request, $ordenCambio->id);
+        $funcionSave::registrarObservaciones($request, $ordenCambio->id);
+        return $ordenCambio;
     }
 
-    public function generarOC($id_OrdenCambio)
+    public function generarOC(Request $request, $id)
     {
         $modelo = new ModeloOrdenDeCambio();
-        $modelo ->crearOrden($id_OrdenCambio);
+        $modelo ->crearOrden($id);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execOC.bat');
-       $ordenCambio = OrdenCambio::find($id_OrdenCambio);
+       $ordenCambio = OrdenCambio::find($id);
        $path = $this->storeDocument();
         $ordenCambio->documento = $path;
         $ordenCambio->save();
