@@ -6,6 +6,8 @@ use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
 use App\Http\Controllers\Functions\ModeloOrdenDeCambio;
 use App\Models\OrdenCambio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OrdenCambioController extends Controller
 {
@@ -52,17 +54,33 @@ class OrdenCambioController extends Controller
         $funcionSave = new FunctionRegisterOrdenCambio();
         $funcionSave::registrarEvaluaciones($request, $idOrden);
         $funcionSave::registrarObservaciones($request, $idOrden);
-
+        $this -> generarOC($ordenCambio->id);
     }
 
-    public function generarOC()
+    public function generarOC($id_OrdenCambio)
     {
         $modelo = new ModeloOrdenDeCambio();
-        $modelo ->crearOrden(1);
+        $modelo ->crearOrden($id_OrdenCambio);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execOC.bat');
+       $ordenCambio = OrdenCambio::find($id_OrdenCambio);
+       $path = $this->storeDocument();
+        $ordenCambio->documento = $path;
+        $ordenCambio->save();
+        return $ordenCambio;
+    }
 
-
-        return $salida;
+    public function storeDocument(){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        $length = 20;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $contents = Storage::disk('generado')->get('ordenCambio.pdf');
+        $imageName = "{$randomString}.pdf";
+        Storage::disk('public')->put($imageName, $contents);
+        return $imageName;
     }
 
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 use App\Models\Calificacion;
 use App\Models\CampoEvaluable;
+use App\Models\ObservacionPropuesta;
 use App\Models\OrdenCambio;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,7 @@ class OrdenCambioSeeder extends Seeder
         $orden -> fechaFirma = "2021-10-22" ;
         $orden -> lugar = "Bloque Informatica UMSS Piso 1";
         $orden -> estado = false;
+        $orden -> documento = "v8LLXrmGcVtXRFE4Pn4Y.pdf";
         $orden->save();
 
         $puntaje1 = new Calificacion();
@@ -65,7 +67,47 @@ class OrdenCambioSeeder extends Seeder
         $puntaje7 ->ordenDeCambio_id =1;
         $puntaje7->save();
 
+        $observacion1 = new ObservacionPropuesta();
+        $observacion1->nombreDoc = "Parte B";
+        $observacion1-> seccionDoc = "1.9.1.";
+        $observacion1-> descripcion= "TIS hace notar que estan planificando en fechas que son feriados y fines de semana,
+lo que genera una riesgo de imposibilidad de realizacion. Por lo que, se solicita revisar este apartado.";
+        $observacion1-> ordenCambio_id=1;
+        $observacion1->save();
 
+        $observacion1 = new ObservacionPropuesta();
+        $observacion1->nombreDoc = "Parte B";
+        $observacion1-> seccionDoc = "4.1.1.";
+        $observacion1-> descripcion= "TIS solicita justificar los montos estipulados como parte de pago de personal, en
+cuanto al esfuerzo comprometido y requerido para el desarrollo del proyecto.";
+        $observacion1-> ordenCambio_id=1;
+        $observacion1->save();
+
+        $observacion1 = new ObservacionPropuesta();
+        $observacion1->nombreDoc = "Parte B";
+        $observacion1-> seccionDoc = "4.2.";
+        $observacion1-> descripcion= "TIS solicita justificar los montos erogados en cada item de los costo de la propuesta";
+        $observacion1-> ordenCambio_id=1;
+        $observacion1->save();
+
+        $observacion1 = new ObservacionPropuesta();
+        $observacion1->nombreDoc = "Acta de constitución";
+        $observacion1-> seccionDoc = "Plazo de duración";
+        $observacion1-> descripcion= "la vida de la empresa es minima y no genera
+confianza a TIS, ya que estas fechas no permiten manteniiento de software
+";
+        $observacion1-> ordenCambio_id=1;
+        $observacion1->save();
+
+        $observacion1 = new ObservacionPropuesta();
+        $observacion1->nombreDoc = "Acta de constitución";
+        $observacion1-> seccionDoc = "Previsiones para reservas";
+        $observacion1-> descripcion= "que a la letra dice “En caso de fallecimiento, impedimento o incapacidad sobreviniente de uno de los socios, los restantes continuarán con
+el giro social, juntamente con los herederos forzosos o legales o los representantes según el caso hasta la
+culminación de la gestión anual.”, para fines de este contrato los herederos no forma parte de la sociedad
+en ningun contexto. TIS solicita se corrija este apartado.";
+        $observacion1-> ordenCambio_id=1;
+        $observacion1->save();
 
     }
 }

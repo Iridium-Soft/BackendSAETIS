@@ -1,1 +1,1 @@
-pdflatex C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\plantilla.tex
+pdflatex C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\ordenCambio.tex
