@@ -72,7 +72,7 @@ class OrdenCambioSeeder extends Seeder
         $observacion1-> seccionDoc = "1.9.1.";
         $observacion1-> descripcion= "TIS hace notar que estan planificando en fechas que son feriados y fines de semana,
 lo que genera una riesgo de imposibilidad de realizacion. Por lo que, se solicita revisar este apartado.";
-        $observacion1-> ordenCambio_id=1;
+        $observacion1-> ordenDeCambio_id=1;
         $observacion1->save();
 
         $observacion1 = new ObservacionPropuesta();
@@ -80,14 +80,14 @@ lo que genera una riesgo de imposibilidad de realizacion. Por lo que, se solicit
         $observacion1-> seccionDoc = "4.1.1.";
         $observacion1-> descripcion= "TIS solicita justificar los montos estipulados como parte de pago de personal, en
 cuanto al esfuerzo comprometido y requerido para el desarrollo del proyecto.";
-        $observacion1-> ordenCambio_id=1;
+        $observacion1-> ordenDeCambio_id=1;
         $observacion1->save();
 
         $observacion1 = new ObservacionPropuesta();
         $observacion1->nombreDoc = "Parte B";
         $observacion1-> seccionDoc = "4.2.";
         $observacion1-> descripcion= "TIS solicita justificar los montos erogados en cada item de los costo de la propuesta";
-        $observacion1-> ordenCambio_id=1;
+        $observacion1-> ordenDeCambio_id=1;
         $observacion1->save();
 
         $observacion1 = new ObservacionPropuesta();
@@ -96,7 +96,7 @@ cuanto al esfuerzo comprometido y requerido para el desarrollo del proyecto.";
         $observacion1-> descripcion= "la vida de la empresa es minima y no genera
 confianza a TIS, ya que estas fechas no permiten manteniiento de software
 ";
-        $observacion1-> ordenCambio_id=1;
+        $observacion1-> ordenDeCambio_id=1;
         $observacion1->save();
 
         $observacion1 = new ObservacionPropuesta();
@@ -106,7 +106,7 @@ confianza a TIS, ya que estas fechas no permiten manteniiento de software
 el giro social, juntamente con los herederos forzosos o legales o los representantes según el caso hasta la
 culminación de la gestión anual.”, para fines de este contrato los herederos no forma parte de la sociedad
 en ningun contexto. TIS solicita se corrija este apartado.";
-        $observacion1-> ordenCambio_id=1;
+        $observacion1-> ordenDeCambio_id=1;
         $observacion1->save();
 
     }

@@ -60,7 +60,7 @@ Asímismo, recordar que para el día de la firma del contrato se requiere la ent
     }
     function addListaObs($ordenCambio){
         $ordenCambio_id = $ordenCambio->id;
-        $observacionesOC = ObservacionPropuesta::where('ordenCambio_id', $ordenCambio_id)->get();
+        $observacionesOC = ObservacionPropuesta::where('ordenDeCambio_id', $ordenCambio_id)->get();
         $this-> contenidoTotal .="	\begin{enumerate}\n";
         foreach ($observacionesOC as $observacion){
             $this-> contenidoTotal .= "\item {$observacion->nombreDoc}, sección {$observacion->seccionDoc}, {$observacion->descripcion}\n";
