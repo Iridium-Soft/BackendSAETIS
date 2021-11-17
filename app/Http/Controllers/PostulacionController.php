@@ -106,6 +106,7 @@ class PostulacionController extends Controller
                 $postus->idConvocatoria=$convocatorias->id;
                 $postus->codigoConvocatoria=$convocatorias->codigo;
                 $postus->tituloConvocatoria=$convocatorias->titulo;
+                $postus->id=$postulacion->id;
                 $listaPostulaciones->add($postus);
             }
         }
