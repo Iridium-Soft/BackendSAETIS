@@ -10,6 +10,7 @@ class Postulacion extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'parteA',
         'boletaDeGarantia',
         'cartaDePresentacion',
