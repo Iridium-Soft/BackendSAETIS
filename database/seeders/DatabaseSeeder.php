@@ -22,11 +22,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        $this ->call(ConvocatoriaSeeder::class);
-        $this -> call(HitoSeeder::class);
-        $this -> call(PostulacionSeeder::class);
         $this -> call(ConsultorSeeder::class);
+        $this ->call(ConvocatoriaSeeder::class);
         $this -> call(ConvConsultorSeeder::class);
+        $this -> call(PostulacionSeeder::class);
+        $this -> call(PlanificacionSeeder::class);
+        $this -> call(HitoSeeder::class);
         $this -> call(CampoEvaluableSeeder::class);
         $this -> call(OrdenCambioSeeder::class);
         $this -> call(AdendaSeeder::class);

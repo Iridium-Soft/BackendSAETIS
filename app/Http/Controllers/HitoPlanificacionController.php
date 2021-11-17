@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Convocatoria;
 use App\Models\HitoPlanificacion;
+use App\Models\Planificacion;
+use App\Models\Postulacion;
 use http\Env\Response;
 use Illuminate\Http\Request;
 
@@ -67,6 +69,14 @@ class HitoPlanificacionController extends Controller
         }
 
         return response($hitos);
+    }
+
+    public function doyHitos(Request $request,$id){
+        $postulacion = Postulacion::where('id', $id)->get()->first();
+        $planificacion= Planificacion::where('id', $postulacion-> id)->get()->first();
+        $hitos= HitoPlanificacion::where('planificacion_id', $planificacion->id)->get();
+
+        return($hitos);
     }
 
     /**

@@ -15,11 +15,11 @@ class CreateHitoPlanificacionsTable extends Migration
     {
         Schema::create('hito_planificacions', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();;
-            $table->date('fechaIni')->nullable();;
-            $table->date('fechaFin')->nullable();;
-            $table->integer('porcentajeCobro')->nullable();;
-            $table ->string('entregables')->nullable();;
+            $table->string('nombre')->nullable();
+            $table->date('fechaIni')->nullable();
+            $table->date('fechaFin')->nullable();
+            $table->integer('porcentajeCobro')->nullable();
+            $table ->string('entregables')->nullable();
             $table->integer('planificacion_id')->unsigned()->nullable();
             $table->foreign('planificacion_id')->references('id')->on('planificacions')->onDelete('cascade');
             $table->timestamps();

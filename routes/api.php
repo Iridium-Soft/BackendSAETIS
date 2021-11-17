@@ -35,6 +35,7 @@ Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, '
 Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
 Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
 
+Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyHitos']);
 
 Route::post('/postulacion',[PostulacionController::class, 'store']);
 Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
@@ -61,6 +62,7 @@ Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::clas
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
 
 Route::get('/generar/ordencambio/{id}', [OrdenCambioController::class, 'generarOC']);
+
 
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
 

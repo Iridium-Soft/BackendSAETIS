@@ -15,7 +15,7 @@ class CreatePlanificacionsTable extends Migration
     {
         Schema::create('planificacions', function (Blueprint $table) {
             $table->id();
-            
+            $table->foreignId('postulacion_id')->constrained('postulacions')->onDelete('cascade');
             $table->timestamps();
         });
     }
