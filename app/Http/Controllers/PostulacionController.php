@@ -90,9 +90,9 @@ class PostulacionController extends Controller
         return \response( $postulacion );
     }
 
-    public function verPostulacionesEspecificas(Request $request)
+    public function verPostulacionesEspecificas(Request $request,$id)
     {
-        $convConsultores = ConvConsultor::where('consultor_id',$request->id)->get();
+        $convConsultores = ConvConsultor::where('consultor_id',$id)->get();
         $listaConvocatorias= collect();
         $listaPostulaciones= collect();
         $listaEmpresas= collect();
