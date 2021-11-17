@@ -19,7 +19,7 @@ class FunctionRegisterOrdenCambio
             $calificacion = new Calificacion();
             $calificacion->puntajeObtenido = $evaluaciones->input("evaluacion.{$i}.puntuacion");
             $calificacion->campoEvaluable_id = $evaluaciones->input("evaluacion.{$i}.evaluacion_id");
-            $calificacion->ordenCambio_id=$idOrd;
+            $calificacion->ordenDeCambio_id=$idOrd;
             $calificacion->save();
         }
 
@@ -32,7 +32,7 @@ class FunctionRegisterOrdenCambio
             $observacion->nombreDoc = $observaciones->input("observacion.{$i}.documento");
             $observacion->seccionDoc = $observaciones->input("observacion.{$i}.seccion");
             $observacion->descripcion = $observaciones->input("observacion.{$i}.descripcion");
-            $observacion->ordenCambio_id = $idOrd;
+            $observacion->ordenDeCambio_id = $idOrd;
             $observacion->save();
         }
     }

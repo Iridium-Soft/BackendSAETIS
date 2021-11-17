@@ -11,5 +11,6 @@ class CampoEvaluable extends Model
     protected $fillable = [
         'descripcion' ,
         'puntaje',
+        'ordenDeCambio_id',
     ];
 }
