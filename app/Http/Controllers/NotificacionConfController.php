@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Functions\ModeloNotificacionDeConformidad;
+use App\Models\CalificacionNotificacionConformidad;
 use App\Models\NotificacionConf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class NotificacionConfController extends Controller
 {
@@ -28,6 +31,53 @@ class NotificacionConfController extends Controller
         //
     }
 
+    public function registrarNotificacion(Request $request){
+        $notificacion = new NotificacionConf();
+        $notificacion-> postulacion_id = $request->postulacion_id;
+        $notificacion-> codigo = "COD";//
+        $notificacion-> fechaFirma = $request->fechaFirma;
+        $notificacion-> lugar = $request->lugar;
+        $notificacion-> fechaEmDocumento = $request->fecha_emision;
+        $notificacion->save();
+        $notificacion-> codigo ="NC-{$notificacion->id}/2021";
+        $notificacion->save();
+        $tam =  $request->collect('evaluacion')->count();
+        for($i=0; $i<$tam; $i++){
+            $calificacion = new CalificacionNotificacionConformidad();
+            $calificacion->puntajeObtenido = $request->input("evaluacion.{$i}.puntuacion");
+            $calificacion->campoEvaluable_id = $request->input("evaluacion.{$i}.evaluacion_id");
+            $calificacion->notificacionConformidad_id=$notificacion->id;
+            $calificacion->save();
+        }
+        return $notificacion;
+    }
+
+    public function generarNC(Request $request, $id)
+    {
+        $modelo = new ModeloNotificacionDeConformidad();
+        $modelo ->crearNotificacion($id);
+        $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execNC.bat');
+        $notificacion = NotificacionConf::find($id);
+        $path = $this->storeDocument();
+        $notificacion->documento = $path;
+        $notificacion->save();
+        return $notificacion;
+    }
+
+
+    public function storeDocument(){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        $length = 20;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $contents = Storage::disk('generado')->get('notificacionConformidad.pdf');
+        $imageName = "{$randomString}.pdf";
+        Storage::disk('public')->put($imageName, $contents);
+        return $imageName;
+    }
     /**
      * Store a newly created resource in storage.
      *

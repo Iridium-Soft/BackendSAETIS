@@ -65,12 +65,12 @@ Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::clas
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
 
 Route::get('/generar/ordencambio/{id}', [OrdenCambioController::class, 'generarOC']);
-Route::get('/generar/notificacionconformidad/{id}', [OrdenCambioController::class, '']);
+Route::get('/generar/notificacionconformidad/{id}', [NotificacionConfController::class, 'generarNC']);
 
 
 Route::apiResource('postulacion',PostulacionController::class);
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
 
-Route::post('postulacion/notificacionconformidad/',[OrdenCambioController::class, '']);
+Route::post('postulacion/notificacionconformidad/',[NotificacionConfController::class, 'registrarNotificacion']);
 
 

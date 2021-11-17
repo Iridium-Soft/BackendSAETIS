@@ -19,10 +19,10 @@ class CreateNotificacionConfsTable extends Migration
             $table->Date('fechaEmDocumento');
             $table->Datetime('fechaFirma')->nullable();
             $table->string('lugar');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(false);
+            $table->string('documento')->nullable();
             $table->integer('postulacion_id')->unsigned()->nullable();
             $table->foreign('postulacion_id')->references('id')->on('postulacions')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

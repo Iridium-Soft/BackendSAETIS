@@ -46,6 +46,8 @@ class OrdenCambioController extends Controller
         $ordenCambio-> lugar = $request->lugar_entrega;
         $ordenCambio-> fechaEmContrato = $request->fecha_emision;
         $ordenCambio->save();
+        $ordenCambio-> codigo ="OC-{$ordenCambio->id}/2021";
+        $ordenCambio->save();
         $funcionSave = new FunctionRegisterOrdenCambio();
         $funcionSave::registrarEvaluaciones($request, $ordenCambio->id);
         $funcionSave::registrarObservaciones($request, $ordenCambio->id);

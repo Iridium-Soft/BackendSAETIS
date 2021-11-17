@@ -15,4 +15,5 @@ class NotificacionConf extends Model
         'lugar',
         'estado'
     ];
+    protected $table = "notificacion_confs";
 }
