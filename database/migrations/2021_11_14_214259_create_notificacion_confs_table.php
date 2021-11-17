@@ -20,6 +20,9 @@ class CreateNotificacionConfsTable extends Migration
             $table->Datetime('fechaFirma')->nullable();
             $table->string('lugar');
             $table->boolean('estado');
+            $table->integer('postulacion_id')->unsigned()->nullable();
+            $table->foreign('postulacion_id')->references('id')->on('postulacions')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

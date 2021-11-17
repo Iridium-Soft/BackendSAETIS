@@ -7,6 +7,7 @@ use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
 use App\Http\Controllers\NotificacionConfController;
 use App\Http\Controllers\OrdenCambioController;
+use App\Http\Controllers\PlanificacionController;
 use App\Http\Controllers\PliegoEspecificacionController;
 use App\Http\Controllers\PostulacionController;
 use App\Http\Middleware\JsonResponseMiddleware;
@@ -36,6 +37,8 @@ Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionCont
 Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
 
 Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyHitos']);
+Route::get('/postulacion/documentos/{id}', [PostulacionController::class, 'doyDocumentos']);
+
 
 Route::post('/postulacion',[PostulacionController::class, 'store']);
 Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
@@ -47,13 +50,13 @@ Route::put('/convocatoria/{id}', [ConvocatoriaController::class, 'publicarConvoc
 
 Route::post('/convocatoria', [ConvocatoriaController::class, 'store']);
 
-Route::apiResource('postulacion',PostulacionController::class);
+
 
 Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'guardarHitos']);
 
 Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
-Route::get('/postulacion/propias/{id}', [PostulacionController::class, 'verPostulacionesEspecificas']);
+Route::get('/postulacion/propias/', [PostulacionController::class, 'verPostulacionesEspecificas']);
 Route::get('/documento/ordencambio/{fileID}', [OrdenCambioController::class, 'showDetallesOrden']);
 Route::put('/ordencambio/{id}', [OrdenCambioController::class, 'estadoOrdenC']);
 Route::get('/documento/adenda/{fileID}', [AdendaController::class, 'showDetallesAdenda']);
@@ -62,8 +65,12 @@ Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::clas
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
 
 Route::get('/generar/ordencambio/{id}', [OrdenCambioController::class, 'generarOC']);
+Route::get('/generar/notificacionconformidad/{id}', [OrdenCambioController::class, '']);
 
 
+Route::apiResource('postulacion',PostulacionController::class);
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
+
+Route::post('postulacion/notificacionconformidad/',[OrdenCambioController::class, '']);
 
 

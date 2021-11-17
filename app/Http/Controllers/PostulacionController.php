@@ -6,6 +6,8 @@ use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
 use App\Models\GrupoEmpresa;
 use App\Models\HitoPlanificacion;
+use App\Models\NotificacionConf;
+use App\Models\OrdenCambio;
 use App\Models\Postulacion;
 use App\Models\responses\Postulaciones;
 use Illuminate\Http\Request;
@@ -99,19 +101,41 @@ class PostulacionController extends Controller
             $convocatorias = Convocatoria::where('id',$asignadas->convocatoria_id)->first();
             $postulaciones = Postulacion::where('convocatoria_id',$asignadas->convocatoria_id)->get();
             foreach ($postulaciones as $postulacion){
-                $postus = new Postulacion();
+                $postus = new Postulaciones();
                 $grupoEmpresa = GrupoEmpresa::where('id',$postulacion->grupoEmpresa_id)->first();
+
+                //$notiConf = NotificacionConf::where('id',$postulacion->grupoEmpresa_id)->first();
+
                 $postus->nombreGrupoEmpresa=$grupoEmpresa->nombre;
                 $postus->idGrupoEmpresa=$grupoEmpresa->id;
                 $postus->idConvocatoria=$convocatorias->id;
+                $postus->idPostulacion=$postulacion->id;
                 $postus->codigoConvocatoria=$convocatorias->codigo;
                 $postus->tituloConvocatoria=$convocatorias->titulo;
-                $postus->id=$postulacion->id;
+                $postus->fechaRegistro=$postulacion->created_at;
+                if(OrdenCambio::where('postulacion_id',$postulacion->id)->exists()){
+                    $ordenCamb = OrdenCambio::where('postulacion_id',$postulacion->id)->first();
+                    $postus->idOrdenCambio=$ordenCamb->id;
+                }else {
+                    $postus->idOrdenCambio = 0;
+                }
+                if(NotificacionConf::where('postulacion_id',$postulacion->id)->exists()){
+                    $notiConf = NotificacionConf::where('postulacion_id',$postulacion->id)->first();
+                    $postus->idNotiConf=$notiConf->id;
+                }else {
+                    $postus->idNotiConf = 0;
+                }
                 $listaPostulaciones->add($postus);
             }
         }
         return ($listaPostulaciones);
     }
+
+    public function doyDocumentos(Request $request,$id){
+        $postulacion = Postulacion::find($id);
+        return $postulacion;
+    }
+
     /**
      * Display the specified resource.
      *
