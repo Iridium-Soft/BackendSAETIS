@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
 use App\Http\Controllers\Functions\ModeloOrdenDeCambio;
+use App\Models\GrupoEmpresa;
 use App\Models\OrdenCambio;
+use App\Models\Postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -38,8 +40,11 @@ class OrdenCambioController extends Controller
 
     public function store(Request $request)
     {
+
+        $grupoEmpresa = GrupoEmpresa::where('nombre',$request->nombre)->first();
+        $postu = Postulacion::where('grupoEmpresa_id', $grupoEmpresa->id)->first();
         $ordenCambio = new OrdenCambio();
-        $ordenCambio-> postulacion_id = $request->postulacion_id;
+        $ordenCambio-> postulacion_id = $postu->id;
         $ordenCambio-> estado = false;
         $ordenCambio-> codigo = $request->cod_orden_cambio;
         $ordenCambio-> fechaFirma = $request->fecha_entrega;

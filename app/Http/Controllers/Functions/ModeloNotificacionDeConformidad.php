@@ -35,12 +35,13 @@ class ModeloNotificacionDeConformidad
     function addCuerpo($notificacion){
         $postu = Postulacion::find($notificacion->postulacion_id);
         $GE = GrupoEmpresa::find($postu->grupoEmpresa_id);
+        $fechaReu = substr($notificacion->fechaFirma, 0, -8);
         $this-> contenidoTotal .= "\begin{document}\n\maketitle\n\n
 TIS ha revisado la propuesta que su empresa ha entregado y se ha puntuado de la siguiente manera:\n\n";
         $this->addTablaCalificacion($notificacion);
         $this-> contenidoTotal .="TIS acepta la propuesta técnica presentada por su empresa: \\textbf{{$GE->nombre}}.";
 
-        $this-> contenidoTotal .= " Por lo que solicita hacerse presente el \\textbf{{$notificacion->fechaFirma} a horas 9:30} a realizar firma de contrato,, en \\textbf{ {$notificacion->lugar}}.\n\n
+        $this-> contenidoTotal .= " Por lo que solicita hacerse presente el \\textbf{{$fechaReu} a horas 9:30} a realizar firma de contrato, en \\textbf{ {$notificacion->lugar}}.\n\n
 Paralelamente se solicita, llenar la planilla adjunta - RESUMENGRUPOEMPRESA; con la información resumen de su propuesta técnica. En este archivo debe registrar el día que su GE ha elegido para el seguimiento de su propuesta de desarrollo en el tiempo que dure el contrato con TIS.\n\n
 Asímismo, recordar que para el día de la firma del contrato se requiere la entrega de la planilla resumen requerida.\n";
         $this-> contenidoTotal .= "\\end{document}\n";

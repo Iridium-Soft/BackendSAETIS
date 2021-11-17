@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\ModeloNotificacionDeConformidad;
 use App\Models\CalificacionNotificacionConformidad;
+use App\Models\GrupoEmpresa;
 use App\Models\NotificacionConf;
+use App\Models\Postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -32,8 +34,10 @@ class NotificacionConfController extends Controller
     }
 
     public function registrarNotificacion(Request $request){
+        $grupoEmpresa = GrupoEmpresa::where('nombre',$request->nombre)->first();
+        $postu = Postulacion::where('grupoEmpresa_id', $grupoEmpresa->id)->first();
         $notificacion = new NotificacionConf();
-        $notificacion-> postulacion_id = $request->postulacion_id;
+        $notificacion-> postulacion_id = $postu->id;
         $notificacion-> codigo = "COD";//
         $notificacion-> fechaFirma = $request->fechaFirma;
         $notificacion-> lugar = $request->lugar;
