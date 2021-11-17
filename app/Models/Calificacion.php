@@ -9,8 +9,9 @@ class Calificacion extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'punajeObtenido',
+        'puntajeObtenido',
         'campoEvaluable_id',
+        'ordenDeCambio_id'
     ];
 
 }
