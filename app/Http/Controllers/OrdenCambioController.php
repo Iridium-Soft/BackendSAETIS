@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
+use App\Http\Controllers\Functions\ModeloOrdenDeCambio;
 use App\Models\OrdenCambio;
 use Illuminate\Http\Request;
 
@@ -53,6 +54,17 @@ class OrdenCambioController extends Controller
         $funcionSave::registrarObservaciones($request, $idOrden);
 
     }
+
+    public function generarOC()
+    {
+        $modelo = new ModeloOrdenDeCambio();
+        $modelo ->crearOrden(1);
+        $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execOC.bat');
+
+
+        return $salida;
+    }
+
 
     /**
      * Display the specified resource.

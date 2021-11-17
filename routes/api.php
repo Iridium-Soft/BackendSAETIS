@@ -60,7 +60,8 @@ Route::put('/adenda/{id}', [AdendaController::class, 'estadoAdenda']);
 Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::class, 'showDetallesNotificacion']);
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
 
+Route::get('/prueba/prueba', [OrdenCambioController::class, 'generarOC']);
 
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
-//Route::get("/postulacion/ordencambio/{id}",[OrdenCambioController::class, 'getDatosNecesarios']);
+
 
