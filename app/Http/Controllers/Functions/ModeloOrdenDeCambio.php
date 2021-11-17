@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Functions;
 
 use App\Models\Calificacion;
 use App\Models\CampoEvaluable;
+use App\Models\ObservacionPropuesta;
 use App\Models\OrdenCambio;
 
 class ModeloOrdenDeCambio
@@ -12,7 +13,7 @@ class ModeloOrdenDeCambio
 
     function crearOrden($id_OrdenCambio){
         $ordenCambio = OrdenCambio::find($id_OrdenCambio);
-        $archivo = fopen("plantilla.tex", "w+b");
+        $archivo = fopen("ordenCambio.tex", "w+b");
         $this->addCabecera();
         $this->addAutor($ordenCambio);
         $this->addCuerpo($ordenCambio);
@@ -58,6 +59,12 @@ Asímismo, recordar que para el día de la firma del contrato se requiere la ent
 	\\end{table}\n";
     }
     function addListaObs($ordenCambio){
-
+        $ordenCambio_id = $ordenCambio->id;
+        $observacionesOC = ObservacionPropuesta::where('ordenCambio_id', $ordenCambio_id)->get();
+        $this-> contenidoTotal .="	\begin{enumerate}\n";
+        foreach ($observacionesOC as $observacion){
+            $this-> contenidoTotal .= "\item {$observacion->nombreDoc}, sección {$observacion->seccionDoc}, {$observacion->descripcion}\n";
+        }
+        $this-> contenidoTotal .="	\\end{enumerate}\n";
     }
 }

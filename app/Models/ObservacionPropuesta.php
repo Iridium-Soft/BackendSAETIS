@@ -12,6 +12,6 @@ class ObservacionPropuesta extends Model
         'nombreDoc' ,
         'seccionDoc' ,
         'descripcion',
-        'ordenDeCambio_id',
+        'ordenDeCambio_id'
     ];
 }
