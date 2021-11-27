@@ -9,6 +9,7 @@ use App\Models\Convocatoria;
 use App\Models\Documento;
 use App\Models\GrupoEmpresa;
 use App\Models\HitoPlanificacion;
+use App\Models\ObservacionPropuesta;
 use App\Models\PliegoEspecificacion;
 use Illuminate\Database\Seeder;
 
@@ -32,6 +33,10 @@ class DatabaseSeeder extends Seeder
         $this -> call(OrdenCambioSeeder::class);
         $this -> call(AdendaSeeder::class);
         $this -> call(NotificacionConfSeeder::class);
+        $this -> call(DetalleDocSeeder::class);
+        $this -> call(DocumentoSeeder::class);
+        $this -> call(ObservacionPropuestaSeeder::class);
+
 
     }
 }

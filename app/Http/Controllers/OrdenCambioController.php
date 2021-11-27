@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
 use App\Http\Controllers\Functions\ModeloOrdenDeCambio;
+use App\Models\DetalleDoc;
+use App\Models\Documento;
 use App\Models\GrupoEmpresa;
+use App\Models\ObservacionPropuesta;
 use App\Models\OrdenCambio;
 use App\Models\Postulacion;
+use App\Models\responses\Documentos;
+use App\Models\responses\Respuesta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -107,6 +112,25 @@ class OrdenCambioController extends Controller
         $image = base64_encode(file_get_contents($path));
 
         return "data:@file/pdf;base64,{$image}";
+    }
+    public function doyDatosRevision($id, Request $request){
+            $listaDoc= collect();
+            $grupoEmpresa = GrupoEmpresa::where('id', $id)->get()->first();
+            $postulacion= Postulacion::where('grupoEmpresa_id', $id)->get()->first();
+            $documentos = Documento:: where('postulacion_id', $postulacion->id)->get();
+        foreach ($documentos as $documento){
+            $doc= new Documentos();
+           $nombres=DetalleDoc::where('id', $documento->detalleDoc_id)->get()->first();
+                $doc->idDocumento=$documento->id;
+                $doc->nombreDocumento= $nombres->nombreDoc;
+                $doc->rutaDocumento= $documento->documento;
+                $doc->observaciones=ObservacionPropuesta::where('documento_id', $documento->id)->get();
+                $listaDoc->add($doc);
+        }
+
+        $respuesta=new Respuesta($grupoEmpresa->nombre,$listaDoc);
+        $algo=collect($respuesta);
+        return ($algo);
     }
     public function estadoOrdenC(Request $request,$id)
     {

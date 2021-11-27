@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConvConsultor extends Model
+class DetalleDoc extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'convocatoria_id',
-        'consultor_id'
+        'nombreDoc'
     ];
 }
