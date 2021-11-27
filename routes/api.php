@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
 use App\Http\Controllers\NotificacionConfController;
+use App\Http\Controllers\ObservacionPropuestaController;
 use App\Http\Controllers\OrdenCambioController;
 use App\Http\Controllers\PlanificacionController;
 use App\Http\Controllers\PliegoEspecificacionController;
@@ -69,10 +70,13 @@ Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNoti
 Route::get('/generar/ordencambio/{id}', [OrdenCambioController::class, 'generarOC']);
 Route::get('/generar/notificacionconformidad/{id}', [NotificacionConfController::class, 'generarNC']);
 
-
 Route::apiResource('postulacion',PostulacionController::class);
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
 
 Route::post('postulacion/notificacionconformidad/',[NotificacionConfController::class, 'registrarNotificacion']);
+Route::get('revision/postulacion/{id}', [OrdenCambioController::class, 'doyDatosRevision']);
+Route::post('revision/observaciones',[ObservacionPropuestaController::class, 'aniadirObs']);
+Route::put('/eliminarObs/{id}', [ObservacionPropuestaController::class, 'eliminarObs']);
+Route::get('/revision/documentos/{fileID}', [ObservacionPropuestaController::class, 'showDocs']);
 
 

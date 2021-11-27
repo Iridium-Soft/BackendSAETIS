@@ -11,10 +11,4 @@ class Postulaciones
     var $idConvocatoria;
     var $codigoConvocatoria;
     var $tituloConvocatoria;
-
-
-    /*function aniadir(Model $modelo) {
-        $arrdeModelos = Arr::add($modelo);
-        return $arrdeModelos;
-    }*/
 }
