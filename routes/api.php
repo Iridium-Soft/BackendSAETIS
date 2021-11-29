@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdendaController;
 use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
+use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
 use App\Http\Controllers\NotificacionConfController;
@@ -36,6 +37,8 @@ Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
 Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
+
+Route::get('/postulacion/bandejaentrada', [DocumentoController::class, 'index']);
 
 Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyHitos']);
 Route::get('/postulacion/documentos/{id}', [PostulacionController::class, 'doyDocumentos']);
