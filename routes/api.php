@@ -81,5 +81,8 @@ Route::get('revision/postulacion/{id}', [OrdenCambioController::class, 'doyDatos
 Route::post('revision/observaciones',[ObservacionPropuestaController::class, 'aniadirObs']);
 Route::put('/eliminarObs/{id}', [ObservacionPropuestaController::class, 'eliminarObs']);
 Route::get('/revision/documentos/{fileID}', [ObservacionPropuestaController::class, 'showDocs']);
+Route::get('/ver/observaciones/{id}', [OrdenCambioController::class, 'doyDatosRevisionObs']);
+Route::post('aniadir/observaciones',[ObservacionPropuestaController::class, 'aniadirArrObs']);
+Route::get('/enviar/documentos/{fileID}', [ObservacionPropuestaController::class, 'showDocs']);
 
 

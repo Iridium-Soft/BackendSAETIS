@@ -132,6 +132,29 @@ class OrdenCambioController extends Controller
         $algo=collect($respuesta);
         return ($algo);
     }
+
+    public function doyDatosRevisionObs($id, Request $request){
+        $listaDoc= collect();
+        $grupoEmpresa = GrupoEmpresa::where('id', $id)->get()->first();
+        $postulacion= Postulacion::where('grupoEmpresa_id', $id)->get()->first();
+        $documentos = Documento:: where('postulacion_id', $postulacion->id)->get();
+        foreach ($documentos as $documento){
+            if(Documento::where('id',$documento->revisionDoc_id)->exists()){
+                $doc1= new Documentos();
+                $docObs= Documento::where('id',$documento->revisionDoc_id)->get()->first();
+                $nombres=DetalleDoc::where('id', $docObs->detalleDoc_id)->get()->first();
+                $doc1->idDocumento=$docObs->id;
+                $doc1->nombreDocumento= $nombres->nombreDoc;
+                $doc1->rutaDocumento= $docObs->documento;
+                $doc1->observaciones=ObservacionPropuesta::where('documento_id', $docObs->id)->get();
+                $listaDoc->add($doc1);
+            }
+        }
+        $respuesta1=new Respuesta($grupoEmpresa->nombre,$listaDoc);
+        $algo=collect($respuesta1);
+
+        return ($algo);
+    }
     public function estadoOrdenC(Request $request,$id)
     {
         if (DB::table('orden_cambios')->where('id', $id)->exists()) {

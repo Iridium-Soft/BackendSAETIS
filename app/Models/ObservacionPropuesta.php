@@ -9,9 +9,10 @@ class ObservacionPropuesta extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'nombreDoc' ,
         'seccionDoc' ,
         'descripcion',
+        'revisado',
+        'corregido',
         'documento_id'
     ];
 }

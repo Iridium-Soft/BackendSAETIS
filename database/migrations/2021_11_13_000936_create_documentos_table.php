@@ -18,6 +18,9 @@ class CreateDocumentosTable extends Migration
             $table->string('documento');
             $table->foreignId('postulacion_id')->constrained('postulacions')->onDelete('cascade');
             $table->foreignId('detalleDoc_id')->constrained('detalle_docs')->onDelete('cascade');
+           // $table->foreignId('revisionDoc_id')->constrained('documentos')->onDelete('cascade')->nullable();
+            $table->integer('revisionDoc_id')->unsigned()->nullable();
+            $table->foreign('revisionDoc_id')->references('id')->on('documentos')->onDelete('cascade');
             $table->timestamps();
         });
     }

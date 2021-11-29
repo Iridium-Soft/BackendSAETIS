@@ -8,4 +8,5 @@ class Documentos
     var $nombreDocumento;
     var $rutaDocumento;
     var $observaciones;
+
 }
