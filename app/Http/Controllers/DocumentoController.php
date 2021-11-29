@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Documento;
+use App\Models\GrupoEmpresa;
+use App\Models\Postulacion;
 use Illuminate\Http\Request;
 
 class DocumentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        $grupoEmpresa = GrupoEmpresa::find($request->id);
+        $postulacion  = Postulacion::where('grupoempresa_id', $grupoEmpresa->id)->first();
+        $documento=  collect();
+        $documento->parteA=$postulacion->parteA;
+        $documento->boletaDeGarantia=$postulacion->boletaDeGarantia;
+        $documento->cartaDePresentacion=$postulacion->cartaDePresentacion;
+        $documento->constitucion=$postulacion->constitucion;
+        $documento->parteB=$postulacion->parteB;
+        return $documento;
     }
 
     /**
