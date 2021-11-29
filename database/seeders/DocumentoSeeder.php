@@ -17,12 +17,14 @@ class DocumentoSeeder extends Seeder
         $doc = new Documento();
         $doc-> documento = "algo1.pdf";
         $doc-> postulacion_id = 1;
+        //$doc->revisionDoc_id=6;
         $doc-> detalleDoc_id = 1;
         $doc->save();
 
         $doc1 = new Documento();
         $doc1-> documento = "algo2.pdf";
         $doc1-> postulacion_id = 1;
+        //$doc1->revisionDoc_id=7;
         $doc1-> detalleDoc_id = 2;
         $doc1->save();
 
@@ -30,6 +32,7 @@ class DocumentoSeeder extends Seeder
         $doc2 = new Documento();
         $doc2-> documento = "algo3.pdf";
         $doc2-> postulacion_id = 1;
+        //$doc2->revisionDoc_id=8;
         $doc2-> detalleDoc_id = 3;
         $doc2->save();
 
@@ -47,6 +50,26 @@ class DocumentoSeeder extends Seeder
         $doc4-> detalleDoc_id = 5;
         $doc4->save();
 
+        $doc5 = new Documento();
+        $doc5-> documento = "algo5.pdf";
+        $doc5-> postulacion_id = 1;
+        $doc5->revisionDoc_id=1;
+        $doc5-> detalleDoc_id = 6;
+        $doc5->save();
+
+        $doc6 = new Documento();
+        $doc6-> documento = "ssdfvefvrfvdvdvdf.pdf";
+        $doc6-> postulacion_id = 1;
+        $doc6->revisionDoc_id=2;
+        $doc6-> detalleDoc_id = 7;
+        $doc6->save();
+
+        $doc7 = new Documento();
+        $doc7-> documento = "eerrerrrreer.pdf";
+        $doc7-> postulacion_id = 1;
+        $doc7->revisionDoc_id=3;
+        $doc7-> detalleDoc_id = 8;
+        $doc7->save();
 
     }
 

@@ -18,9 +18,9 @@ class CreateObservacionPropuesta extends Migration
 
             $table->string('seccionDoc')->nullable();
             $table->text('descripcion');
-            $table->integer('ordenDeCambio_id')->unsigned()->nullable();
+            $table->boolean('revisado');
+            $table->boolean('corregido');
             $table->foreignId('documento_id')->constrained('documentos')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

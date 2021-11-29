@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetalleDoc;
+use App\Models\Documento;
 use App\Models\ObservacionPropuesta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,14 +11,28 @@ use Illuminate\Support\Facades\DB;
 class ObservacionPropuestaController extends Controller
 {
     public function aniadirObs(Request $request){
-        $detDoc=DetalleDoc::where('id', $request->idDoc)->get()->first();
+        $detDoc=Documento::where('id', $request->idDoc)->first();
         $observacion= new ObservacionPropuesta();
         $observacion->seccionDoc=$request->seccion;
         $observacion->descripcion=$request->descripcion;
+        $observacion-> revisado=$request->revisado;
+        $observacion->corregido=$request->corregido;
         $observacion->documento_id=$detDoc->id;
         $observacion->save();
 
         return($observacion);
+    }
+    public function aniadirArrObs(Request $request){
+        $respuesta="Observaciones guardadas exitosamente";
+        $tam=$request->collect()->count();
+        for($i=0; $i<$tam; $i++){
+            $id= $request->input("{$i}.idObservacion");
+                    $flight = ObservacionPropuesta::find($id);
+                    $flight->revisado = $request->input("{$i}.revisado");
+                    $flight->corregido = $request->input("{$i}.corregido");
+                    $flight->save();
+        }
+        return response()->json(['mensaje' => $respuesta]);
     }
 
     public function eliminarObs($id){

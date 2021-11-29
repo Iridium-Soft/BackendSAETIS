@@ -33,5 +33,27 @@ class DetalleDocSeeder extends Seeder
         $det4 = new DetalleDoc();
         $det4-> nombreDoc = "Constitucion";
         $det4->save();
+
+
+        $deta = new DetalleDoc();
+        $deta-> nombreDoc = "RevisionParte-A";
+        $deta->save();
+
+        $detb = new DetalleDoc();
+        $detb-> nombreDoc = "RevisionParte-B";
+        $detb->save();
+
+        $detc = new DetalleDoc();
+        $detc-> nombreDoc = "RevisionBoletaDeGarantia";
+        $detc->save();
+
+        $detd = new DetalleDoc();
+        $detd-> nombreDoc = "RevisionCartaDePresentacion";
+        $detd->save();
+
+
+        $dete = new DetalleDoc();
+        $dete-> nombreDoc = "RevisionConstitucion";
+        $dete->save();
     }
 }
