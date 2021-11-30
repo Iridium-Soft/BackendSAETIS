@@ -28,6 +28,7 @@ class ObservacionPropuestaController extends Controller
         for($i=0; $i<$tam; $i++){
             $id= $request->input("{$i}.idObservacion");
                     $flight = ObservacionPropuesta::find($id);
+                    $flight->correccion = $request->input("{$i}.correccion");
                     $flight->revisado = $request->input("{$i}.revisado");
                     $flight->corregido = $request->input("{$i}.corregido");
                     $flight->save();
