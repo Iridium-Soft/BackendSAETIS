@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contrato;
 use App\Models\NotificacionConf;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +21,16 @@ class NotificacionConfSeeder extends Seeder
         $noti -> lugar = "cochabamba";
         $noti -> estado = false;
         $noti -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
+        $noti -> postulacion_id = 2;
         $noti->save();
+
+        $contrato = new Contrato();
+        $contrato-> codigo = "2021-CN";
+        $contrato-> fechaEmDocumento ="2021-11-22";
+        $contrato -> estado = false;
+        $contrato -> documento = "zLyRNydCmAzTSPrVkw2x.pdf";
+        $contrato -> postulacion_id = 2;
+        $contrato ->save();
     }
+
 }

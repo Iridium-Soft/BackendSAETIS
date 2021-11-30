@@ -18,6 +18,7 @@ class CreateObservacionPropuesta extends Migration
 
             $table->string('seccionDoc')->nullable();
             $table->text('descripcion');
+            $table->text('correccion')->nullable();
             $table->boolean('revisado');
             $table->boolean('corregido');
             $table->foreignId('documento_id')->constrained('documentos')->onDelete('cascade');

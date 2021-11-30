@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $this -> call(ConsultorSeeder::class);
-        $this ->call(ConvocatoriaSeeder::class);
+        $this -> call(ConvocatoriaSeeder::class);
         $this -> call(ConvConsultorSeeder::class);
         $this -> call(PostulacionSeeder::class);
         $this -> call(PlanificacionSeeder::class);

@@ -19,6 +19,7 @@ class CreateAdendasTable extends Migration
             $table->Date('fechaEmDocumento');
             $table->string('documento')->nullable();
             $table->boolean('estado');
+            $table->foreignId('ordendecambio_id')->constrained('orden_cambios')->onDelete('cascade');
             $table->timestamps();
         });
     }

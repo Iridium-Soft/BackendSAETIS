@@ -15,14 +15,14 @@ class DocumentoSeeder extends Seeder
     public function run()
     {
         $doc = new Documento();
-        $doc-> documento = "JenniferPacoPremioTuring.pdf";
+        $doc-> documento = "PanIntegral.pdf";
         $doc-> postulacion_id = 1;
         //$doc->revisionDoc_id=6;
         $doc-> detalleDoc_id = 1;
         $doc->save();
 
         $doc1 = new Documento();
-        $doc1-> documento = "JenniferPacoPremioTuring.pdf";
+        $doc1-> documento = "PanIntegral.pdf";
         $doc1-> postulacion_id = 1;
         //$doc1->revisionDoc_id=7;
         $doc1-> detalleDoc_id = 2;
@@ -30,7 +30,7 @@ class DocumentoSeeder extends Seeder
 
 
         $doc2 = new Documento();
-        $doc2-> documento = "JenniferPacoPremioTuring.pdf";
+        $doc2-> documento = "PanIntegral.pdf";
         $doc2-> postulacion_id = 1;
         //$doc2->revisionDoc_id=8;
         $doc2-> detalleDoc_id = 3;
@@ -38,34 +38,34 @@ class DocumentoSeeder extends Seeder
 
 
         $doc3 = new Documento();
-        $doc3-> documento = "JenniferPacoPremioTuring.pdf";
+        $doc3-> documento = "PanIntegral.pdf";
         $doc3-> postulacion_id = 1;
         $doc3-> detalleDoc_id = 4;
         $doc3->save();
 
 
         $doc4 = new Documento();
-        $doc4-> documento = "JenniferPacoPremioTuring.pdf";
+        $doc4-> documento = "PanIntegral.pdf";
         $doc4-> postulacion_id = 1;
         $doc4-> detalleDoc_id = 5;
         $doc4->save();
 
         $doc5 = new Documento();
-        $doc5-> documento = "JenniferPacoPremioTuring.pdf";
+        $doc5-> documento = "PanIntegral.pdf";
         $doc5-> postulacion_id = 1;
         $doc5->revisionDoc_id=1;
         $doc5-> detalleDoc_id = 6;
         $doc5->save();
 
         $doc6 = new Documento();
-        $doc6-> documento = "ssdfvefvrfvdvdvdf.pdf";
+        $doc6-> documento = "PanIntegral.pdf";
         $doc6-> postulacion_id = 1;
         $doc6->revisionDoc_id=2;
         $doc6-> detalleDoc_id = 7;
         $doc6->save();
 
         $doc7 = new Documento();
-        $doc7-> documento = "eerrerrrreer.pdf";
+        $doc7-> documento = "PanIntegral.pdf";
         $doc7-> postulacion_id = 1;
         $doc7->revisionDoc_id=3;
         $doc7-> detalleDoc_id = 8;
