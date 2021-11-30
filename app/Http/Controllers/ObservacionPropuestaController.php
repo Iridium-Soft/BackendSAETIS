@@ -52,6 +52,6 @@ class ObservacionPropuestaController extends Controller
         $path = base_path(). "/storage/app/public/{$fileID}";
         $image = base64_encode(file_get_contents($path));
 
-        return "data:@file/pdf;base64,{$image}";
+        return ($image);
     }
 }

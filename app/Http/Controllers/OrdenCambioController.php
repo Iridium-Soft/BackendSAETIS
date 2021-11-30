@@ -152,7 +152,6 @@ class OrdenCambioController extends Controller
         }
         $respuesta1=new Respuesta($grupoEmpresa->nombre,$listaDoc);
         $algo=collect($respuesta1);
-
         return ($algo);
     }
     public function estadoOrdenC(Request $request,$id)

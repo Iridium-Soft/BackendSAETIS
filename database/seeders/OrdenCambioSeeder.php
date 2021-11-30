@@ -22,6 +22,7 @@ class OrdenCambioSeeder extends Seeder
         $orden -> fechaFirma = "2021-10-22" ;
         $orden -> lugar = "Bloque Informatica UMSS Piso 1";
         $orden -> estado = false;
+        $orden -> postulacion_id = 1;
         $orden -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $orden->save();
 
