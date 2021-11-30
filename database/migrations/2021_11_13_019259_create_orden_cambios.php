@@ -21,8 +21,7 @@ class CreateOrdenCambios extends Migration
             $table->string('lugar');
             $table->boolean('estado');
             $table->string('documento')->nullable();
-            $table->integer('postulacion_id')->unsigned();
-            $table->foreign('postulacion_id')->references('id')->on('postulacions')->onDelete('cascade');
+            $table->foreignId('postulacion_id')->constrained('postulacions')->onDelete('cascade');
             $table->timestamps();
         });
     }

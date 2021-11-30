@@ -23,7 +23,7 @@ class OrdenCambioSeeder extends Seeder
         $orden -> lugar = "Bloque Informatica UMSS Piso 1";
         $orden -> estado = false;
         $orden -> postulacion_id = 1;
-        $orden -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
+        $orden -> documento = "zLyRNydCmAzTSPrVkw2x.pdf";
         $orden->save();
 
         $puntaje1 = new Calificacion();

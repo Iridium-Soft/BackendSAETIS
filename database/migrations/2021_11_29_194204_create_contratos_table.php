@@ -18,7 +18,8 @@ class CreateContratosTable extends Migration
             $table->string('codigo');
             $table->Date('fechaEmDocumento');
             $table->string('documento')->nullable();
-            $table->boolean('estado');
+            $table->boolean('estado')->default(false);
+            $table->foreignId('postulacion_id')->constrained('postulacions')->onDelete('cascade');
             $table->timestamps();
         });
     }

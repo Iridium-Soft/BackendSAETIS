@@ -21,8 +21,7 @@ class CreateNotificacionConfsTable extends Migration
             $table->string('lugar');
             $table->boolean('estado')->default(false);
             $table->string('documento')->nullable();
-            $table->integer('postulacion_id')->unsigned()->nullable();
-            $table->foreign('postulacion_id')->references('id')->on('postulacions')->onDelete('cascade');
+            $table->foreignId('postulacion_id')->constrained('postulacions')->onDelete('cascade');
             $table->timestamps();
         });
     }
