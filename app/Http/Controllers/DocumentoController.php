@@ -18,9 +18,9 @@ use phpDocumentor\Reflection\Types\Collection;
 class DocumentoController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request,$id)
     {
-        $postulacion  = Postulacion::where('grupoEmpresa_id', $request->id)->first();
+        $postulacion  = Postulacion::where('grupoEmpresa_id', $id)->first();
         $respuesta = new RespuestaGenerica();
         $dataDocRequeridos = collect();
         $documentosRequeridos=  collect();
@@ -41,7 +41,7 @@ class DocumentoController extends Controller
                 if( ObservacionPropuesta::where('documento_id',$docu->id)->exists()){
                         if( !$dataDocRequeridos->contains($docu)){
                             $detalleDoc = DetalleDoc::find($docu->detalleDoc_id);
-                            $docu->nombreDoc = $detalleDoc->nombreDoc;
+                            $docu->nombre = $detalleDoc->nombreDoc;
                         $dataDocRequeridos->add($docu);
                     }
                 }

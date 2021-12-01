@@ -39,7 +39,7 @@ Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, '
 Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
 Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
 
-Route::get('/postulacion/bandejaentrada', [DocumentoController::class, 'index']);
+Route::get('/postulacion/bandejaentrada/{id}', [DocumentoController::class, 'index']);
 
 Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyHitos']);
 Route::get('/postulacion/documentos/{id}', [PostulacionController::class, 'doyDocumentos']);
