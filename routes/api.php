@@ -34,6 +34,7 @@ Route::get('/convocatoria/sinpliego', [ConvocatoriaController::class, 'convocato
 Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
+Route::get('/documento/revision/{fileID}', [OrdenCambioController::class, 'showPDF']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
 Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
