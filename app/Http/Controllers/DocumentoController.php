@@ -129,7 +129,7 @@ class DocumentoController extends Controller
                 $documentoRev-> detalleDoc_id = $detalleDoc->id;
                 $documentoRev->save();
             }
-            $respuesta = "Documentos gorregidos registrados correctamente";
+            $respuesta = "Documentos corregidos registrados correctamente";
         }else{
             $respuesta = "Documentos corregidos registrados previamente, Espere la respuesta de su consultor TIS.";
         }
