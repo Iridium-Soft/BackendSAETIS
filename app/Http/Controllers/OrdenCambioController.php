@@ -106,6 +106,15 @@ class OrdenCambioController extends Controller
     {
         //
     }
+
+    public function showPDF(Request $request ,$fileID)
+    {
+        $path = base_path(). "/storage/app/public/{$fileID}";
+        $image = base64_encode(file_get_contents($path));
+
+        return "data:@file/pdf;base64,{$image}";
+    }
+
     public function showDetallesOrden($fileID)
     {
         $path = base_path(). "/storage/app/public/{$fileID}";
