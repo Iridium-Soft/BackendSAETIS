@@ -13,6 +13,7 @@ use App\Models\OrdenCambio;
 use App\Models\Postulacion;
 use App\Models\responses\RespuestaGenerica;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Collection;
 
 class DocumentoController extends Controller
@@ -88,6 +89,51 @@ class DocumentoController extends Controller
         $respuesta->docRequeridos = $dataDocRequeridos;
         $respuesta = collect($respuesta);
         return $respuesta;
+    }
+
+    public function storeDocument($image_64){
+        //$image_64 = $request->documento;
+        $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $image = str_replace($replace, '', $image_64);
+        $image = str_replace(' ', '+', $image);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        $length = 20;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $imageName = "{$randomString}.{$extension}";
+        Storage::disk('public')->put($imageName, base64_decode($image));
+        $path="app/public/{$imageName}";
+
+        return $imageName;
+    }
+
+    public function recibirDocumentosRevision(Request $request)
+    {
+        $tam = collect($request)->count();
+        $respuesta= "";
+        $docIdPrueba = $request->input("0.documento_id");
+        if(!Documento::where('revisionDoc_id', $docIdPrueba)->exists()){
+            for($i=0;$i<$tam;$i++){
+                $docId = $request->input("{$i}.documento_id");
+                $documentoOriginal = Documento::find($docId);
+                $detalleDoc = DetalleDoc::find(($documentoOriginal->detalleDoc_id)+5);
+                $documento = $request->input("{$i}.documento");
+                $documentoRev = new Documento();
+                $documentoRev-> documento = $this->storeDocument($documento);
+                $documentoRev-> postulacion_id = $documentoOriginal->postulacion_id;
+                $documentoRev->revisionDoc_id=$docId;
+                $documentoRev-> detalleDoc_id = $detalleDoc->id;
+                $documentoRev->save();
+            }
+            $respuesta = "Documentos gorregidos registrados correctamente";
+        }else{
+            $respuesta = "Documentos corregidos registrados previamente, Espere la respuesta de su consultor TIS.";
+        }
+        return ( $respuesta );
     }
 
     /**
