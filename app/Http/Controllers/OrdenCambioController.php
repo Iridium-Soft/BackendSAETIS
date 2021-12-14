@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
 use App\Http\Controllers\Functions\ModeloOrdenDeCambio;
+use App\Models\Calificacion;
 use App\Models\DetalleDoc;
 use App\Models\Documento;
 use App\Models\GrupoEmpresa;
@@ -11,6 +12,7 @@ use App\Models\ObservacionPropuesta;
 use App\Models\OrdenCambio;
 use App\Models\Postulacion;
 use App\Models\responses\Documentos;
+use App\Models\responses\Observaciones;
 use App\Models\responses\Respuesta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -170,6 +172,29 @@ class OrdenCambioController extends Controller
             $respuesta="no existe la orden de cambio";
         }
         return response()->json(['mensaje' => $respuesta]);
+    }
+
+    public function doyOrdenCambio($id){
+    $observaciones=collect();
+        $orden = OrdenCambio::where('id',$id)->first();
+        $postulacion = Postulacion::where('id', $orden->postulacion_id)->first();
+        $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
+        $documentos=Documento::where('postulacion_id', $postulacion->id)->get();
+        $calificaciones=Calificacion::where('ordenDeCambio_id', $orden->id)->get();
+        foreach (  $documentos as $documento) {
+            if(ObservacionPropuesta::where('documento_id', $documento->id)->exists()){
+                $obs = ObservacionPropuesta::where('documento_id', $documento->id)->first();
+            $observaciones->add($obs);
+            }
+        }
+            $obs= new OrdenCambio();
+            $obs->grupoEmpresa= $grupoNom->nombre;
+            $obs->fechaEm=$orden->fechaEmContrato;
+            $obs->fechayHoraEntrega=$orden->fechaFirma;
+            $obs->lugarEntrega=$orden->lugar;
+            $obs->observaciones=$observaciones;
+            $obs->calificacion= $calificaciones;
+        return ($obs);
     }
 
     /**

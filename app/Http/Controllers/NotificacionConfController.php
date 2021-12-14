@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\ModeloNotificacionDeConformidad;
+use App\Models\Calificacion;
 use App\Models\CalificacionNotificacionConformidad;
 use App\Models\GrupoEmpresa;
 use App\Models\NotificacionConf;
 use App\Models\Postulacion;
+use App\Models\responses\Notificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -54,6 +56,19 @@ class NotificacionConfController extends Controller
             $calificacion->save();
         }
         return $notificacion;
+    }
+    public function doyNoti($id){
+        $notis= NotificacionConf::where('id',$id)->first();
+        $postulacion = Postulacion::where('id', $notis->postulacion_id)->first();
+        $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
+        //$calificaciones=CalificacionNotificacionConformidad::where('notificacion_id', $notis->id)->get();
+       /* $noti=new Notificacion();
+        $noti->grupoEmpresa=$grupoNom->nombre;
+        $noti->fechaEm= $notis->fechaEmDocumento;
+        $noti->fechayHoraEntrega=$notis->fechaFirma;
+        $noti->lugarEntrega=$notis->lugar;
+       // $noti->calificacion=$calificaciones;*/
+        return($notis);
     }
 
     public function generarNC(Request $request, $id)
