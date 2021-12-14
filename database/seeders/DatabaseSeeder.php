@@ -12,6 +12,8 @@ use App\Models\HitoPlanificacion;
 use App\Models\ObservacionPropuesta;
 use App\Models\PliegoEspecificacion;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,7 +24,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
+        $this -> call(RoleSeeder::class);
+        $this -> call(UserSeeder::class);
         $this -> call(ConsultorSeeder::class);
         $this -> call(ConvocatoriaSeeder::class);
         $this -> call(ConvConsultorSeeder::class);
@@ -30,9 +33,9 @@ class DatabaseSeeder extends Seeder
         $this -> call(PlanificacionSeeder::class);
         $this -> call(HitoSeeder::class);
         $this -> call(CampoEvaluableSeeder::class);
+        $this -> call(NotificacionConfSeeder::class);
         $this -> call(OrdenCambioSeeder::class);
         $this -> call(AdendaSeeder::class);
-        $this -> call(NotificacionConfSeeder::class);
         $this -> call(DetalleDocSeeder::class);
         $this -> call(DocumentoSeeder::class);
         $this -> call(ObservacionPropuestaSeeder::class);

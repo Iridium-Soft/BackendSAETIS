@@ -11,7 +11,7 @@ class Calificacion extends Model
     protected $fillable = [
         'puntajeObtenido',
         'campoEvaluable_id',
-        'ordenDeCambio_id'
+        'ordenDeCambio_id',
     ];
 
 }

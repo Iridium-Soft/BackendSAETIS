@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use App\Models\Calificacion;
+use App\Models\CalificacionNotificacionConformidad;
 use App\Models\CampoEvaluable;
 use App\Models\ObservacionPropuesta;
 use App\Models\OrdenCambio;
@@ -68,6 +69,11 @@ class OrdenCambioSeeder extends Seeder
         $puntaje7 ->ordenDeCambio_id =1;
         $puntaje7->save();
 
+        $puntaje8 = new CalificacionNotificacionConformidad();
+        $puntaje8 ->puntajeObtenido = 4;
+        $puntaje8 ->campoEvaluable_id = 1;
+        $puntaje8 ->notificacionConformidad_id =1;
+        $puntaje8->save();
 
 
     }
