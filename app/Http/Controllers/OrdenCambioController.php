@@ -200,7 +200,8 @@ class OrdenCambioController extends Controller
             $obs= new OrdenCambio();
             $obs->grupoEmpresa= $grupoNom->nombre;
             $obs->fechaEm=$orden->fechaEmContrato;
-            $obs->fechayHoraEntrega=$orden->fechaFirma;
+            //$obs->fechayHoraEntrega=$orden->fechaFirma;
+            $obs->fechayHoraEntrega=$orden->created_at;
             $obs->lugarEntrega=$orden->lugar;
             $obs->observaciones=$observaciones;
             $obs->calificacion= $campos;
