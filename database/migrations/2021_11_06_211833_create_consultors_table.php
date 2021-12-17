@@ -17,6 +17,7 @@ class CreateConsultorsTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->boolean('activo')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Functions\ModeloNotificacionDeConformidad;
 use App\Models\Calificacion;
 use App\Models\CalificacionNotificacionConformidad;
+use App\Models\CampoEvaluable;
 use App\Models\GrupoEmpresa;
 use App\Models\NotificacionConf;
 use App\Models\Postulacion;
@@ -61,14 +62,15 @@ class NotificacionConfController extends Controller
         $notis= NotificacionConf::where('id',$id)->first();
         $postulacion = Postulacion::where('id', $notis->postulacion_id)->first();
         $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
-        //$calificaciones=CalificacionNotificacionConformidad::where('notificacion_id', $notis->id)->get();
-       /* $noti=new Notificacion();
+        $campos=CampoEvaluable::all();
+        $noti=new Notificacion();
         $noti->grupoEmpresa=$grupoNom->nombre;
         $noti->fechaEm= $notis->fechaEmDocumento;
         $noti->fechayHoraEntrega=$notis->fechaFirma;
         $noti->lugarEntrega=$notis->lugar;
-       // $noti->calificacion=$calificaciones;*/
-        return($notis);
+        $noti->calificacion=$campos;
+        $noti=collect($noti);
+        return($noti);
     }
 
     public function generarNC(Request $request, $id)
