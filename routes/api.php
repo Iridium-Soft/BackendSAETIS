@@ -92,6 +92,7 @@ Route::post('aniadir/rol',[UserController::class, 'asignarRol']);
 Route::get('/enviar/permisos/{id}', [UserController::class, 'darPermisos']);
 Route::get('/ordendecambio/autollenado/{id}', [OrdenCambioController::class, 'doyOrdenCambio']);
 Route::get('/notificacionconformidad/autollenado/{id}', [NotificacionConfController::class, 'doyNoti']);
+Route::post('/asignar/grupo', [UserController::class, 'asignarAGE']);
 
 
 Route::group([
@@ -106,6 +107,8 @@ Route::group([
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('me', 'App\Http\Controllers\AuthController@me');
     Route::post('register', 'App\Http\Controllers\AuthController@register');
+    Route::post('cambiar', 'App\Http\Controllers\AuthController@cambiar');
+
 
 
 });

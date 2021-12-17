@@ -24,6 +24,7 @@ class PostulacionSeeder extends Seeder
         $postulacion1-> convocatoria_id = 1;
         $postulacion1-> grupoEmpresa_id = 2;
         $postulacion1 -> estado_id = 6;
+
         $postulacion1->save();
 
         $postulacion2 = new Postulacion();

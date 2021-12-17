@@ -11,6 +11,7 @@ class Consultor extends Model
     protected $fillable = [
 
         'nombre',
-        'activo'
+        'activo',
+        'user_id'
     ];
 }
