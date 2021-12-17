@@ -21,7 +21,7 @@ class CreatePostulacionsTable extends Migration
             $table->string('constitucion')->nullable();
             $table->string('parteB')->nullable();
             $table->foreignId('convocatoria_id')->constrained('convocatorias')->onDelete('cascade');
-            $table->foreignId('grupoEmpresa_id')->constrained('grupo_empresas')->onDelete('cascade');
+            $table->foreignId('grupoEmpresa_id')->nullable()->constrained('grupo_empresas')->onDelete('cascade');
             $table->timestamps();
         });
     }

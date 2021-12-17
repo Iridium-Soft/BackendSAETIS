@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consultor;
+use App\Models\GrupoEmpresa;
+use App\Models\responses\Login;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,10 +34,23 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Nombre de usuario o contrase;a incorrectos'], 401);
         }
-        $token1=$this->respondWithToken($token);
-
-
-        return ($token1);
+       // $token1=$this->respondWithToken($token);
+        $user=User::where('username',$request->username)->first();
+        $log=new Login();
+        $log->nomUsuario=$user->name;
+        $log->token=$token;
+        $rol = $user->roles()->first();
+        $name=$rol->name;
+        if($name=="Socio"){
+            $grupo=GrupoEmpresa::where('user_id',$user->id)->first();
+            $log->nombreGE=$grupo;
+        }
+        else{
+            $consultor=Consultor::where('user_id',$user->id)->first();
+            $log->nombreCon=$consultor;
+        }
+        $log=collect($log);
+        return ($log);
     }
 
     /**
@@ -108,4 +124,13 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
+   /* public function register(Request $request){
+        $user = new User();
+        $user-> name = $request->name;
+        $user-> username = $request->username;
+        $user-> email = $request->email;
+        $user->password=$request->password;
+        $user->save();
+        return($user);
+        }*/
 }

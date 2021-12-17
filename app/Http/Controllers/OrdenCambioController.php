@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Functions\FunctionRegisterOrdenCambio;
 use App\Http\Controllers\Functions\ModeloOrdenDeCambio;
 use App\Models\Calificacion;
+use App\Models\CampoEvaluable;
 use App\Models\DetalleDoc;
 use App\Models\Documento;
 use App\Models\GrupoEmpresa;
@@ -189,7 +190,7 @@ class OrdenCambioController extends Controller
         $postulacion = Postulacion::where('id', $orden->postulacion_id)->first();
         $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
         $documentos=Documento::where('postulacion_id', $postulacion->id)->get();
-        $calificaciones=Calificacion::where('ordenDeCambio_id', $orden->id)->get();
+        $campos=CampoEvaluable::all();
         foreach (  $documentos as $documento) {
             if(ObservacionPropuesta::where('documento_id', $documento->id)->exists()){
                 $obs = ObservacionPropuesta::where('documento_id', $documento->id)->first();
@@ -202,7 +203,7 @@ class OrdenCambioController extends Controller
             $obs->fechayHoraEntrega=$orden->fechaFirma;
             $obs->lugarEntrega=$orden->lugar;
             $obs->observaciones=$observaciones;
-            $obs->calificacion= $calificaciones;
+            $obs->calificacion= $campos;
         return ($obs);
     }
 
