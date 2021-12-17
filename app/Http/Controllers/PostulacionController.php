@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
+use App\Models\Estado;
 use App\Models\GrupoEmpresa;
 use App\Models\HitoPlanificacion;
 use App\Models\NotificacionConf;
@@ -125,6 +126,9 @@ class PostulacionController extends Controller
                 }else {
                     $postus->idNotiConf = 0;
                 }
+                $postus->estado = $postulacion->estado_id;
+                $estado = Estado::find($postulacion->estado_id);
+                $postus->nombreEstado =$estado->descripcion;
                 $listaPostulaciones->add($postus);
             }
         }
