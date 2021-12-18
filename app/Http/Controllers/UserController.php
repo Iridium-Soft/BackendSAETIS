@@ -34,7 +34,7 @@ class UserController extends Controller
         $grupito=GrupoEmpresa::find($grupo->id);
         $grupito->user_id=$request->user_id;
         $grupito->save();
-        return($grupo);
+        return($grupito);
     }
 
 }

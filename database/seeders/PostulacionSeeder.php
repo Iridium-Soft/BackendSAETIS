@@ -24,7 +24,6 @@ class PostulacionSeeder extends Seeder
         $postulacion1-> convocatoria_id = 1;
         $postulacion1-> grupoEmpresa_id = 2;
         $postulacion1 -> estado_id = 6;
-
         $postulacion1->save();
 
         $postulacion2 = new Postulacion();
@@ -34,6 +33,8 @@ class PostulacionSeeder extends Seeder
         $postulacion2->save();
 
         $postulacion3 = new Postulacion();
+        $postulacion3-> convocatoria_id = 2;
+        $postulacion3-> grupoEmpresa_id = 4;
         $postulacion3 -> estado_id = 3;
         $postulacion3-> convocatoria_id = 1;
         $postulacion3-> grupoEmpresa_id = 4;
