@@ -36,11 +36,13 @@ Route::get('/convocatoria/sinpliego', [ConvocatoriaController::class, 'convocato
 Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);
+Route::get('/documento/revision/{fileID}', [OrdenCambioController::class, 'showPDF']);
+Route::post('/documento/revision', [DocumentoController::class, 'recibirDocumentosRevision']);
 Route::get('/documento/convocatoria/{fileID}', [ConvocatoriaController::class, 'showPDF']);
 Route::get('/documento/pliegoespecificacion/{fileID}', [PliegoEspecificacionController::class, 'showPDF']);
 Route::get('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'mostrarPLiego']);
 
-Route::get('/postulacion/bandejaentrada', [DocumentoController::class, 'index']);
+Route::get('/postulacion/bandejaentrada/{id}', [DocumentoController::class, 'index']);
 
 Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyHitos']);
 Route::get('/postulacion/documentos/{id}', [PostulacionController::class, 'doyDocumentos']);

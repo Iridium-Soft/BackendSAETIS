@@ -49,7 +49,7 @@ class DocumentoSeeder extends Seeder
         $doc4-> postulacion_id = 1;
         $doc4-> detalleDoc_id = 5;
         $doc4->save();
-
+/*
         $doc5 = new Documento();
         $doc5-> documento = "JenniferPacoPremioTuring.pdf";
         $doc5-> postulacion_id = 1;
@@ -69,7 +69,7 @@ class DocumentoSeeder extends Seeder
         $doc7-> postulacion_id = 1;
         $doc7->revisionDoc_id=3;
         $doc7-> detalleDoc_id = 8;
-        $doc7->save();
+        $doc7->save();*/
 
     }
 

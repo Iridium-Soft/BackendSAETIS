@@ -109,6 +109,15 @@ class OrdenCambioController extends Controller
     {
         //
     }
+
+    public function showPDF(Request $request ,$fileID)
+    {
+        $path = base_path(). "/storage/app/public/{$fileID}";
+        $image = base64_encode(file_get_contents($path));
+
+        return "data:@file/pdf;base64,{$image}";
+    }
+
     public function showDetallesOrden($fileID)
     {
         $path = base_path(). "/storage/app/public/{$fileID}";
@@ -197,7 +206,8 @@ class OrdenCambioController extends Controller
             $obs= new OrdenCambio();
             $obs->grupoEmpresa= $grupoNom->nombre;
             $obs->fechaEm=$orden->fechaEmContrato;
-            $obs->fechayHoraEntrega=$orden->fechaFirma;
+            //$obs->fechayHoraEntrega=$orden->fechaFirma;
+            $obs->fechayHoraEntrega=$orden->created_at;
             $obs->lugarEntrega=$orden->lugar;
             $obs->observaciones=$observaciones;
             $obs->calificacion= $campos;
