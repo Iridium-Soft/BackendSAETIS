@@ -184,8 +184,14 @@ class OrdenCambioController extends Controller
         $campos=CampoEvaluable::all();
         foreach (  $documentos as $documento) {
             if(ObservacionPropuesta::where('documento_id', $documento->id)->exists()){
-                $obs = ObservacionPropuesta::where('documento_id', $documento->id)->first();
-            $observaciones->add($obs);
+                $doc=new Documentos();
+                $nombre = DetalleDoc::where('id', $documento->detalleDoc_id)->first();
+                $obs = ObservacionPropuesta::where('documento_id', $documento->id)->get();
+                $doc->idDocumento=$documento->id;
+                $doc->nombreDocumento=$nombre->nombreDoc;
+                $doc->rutaDocumento=$documento->documento;
+                $doc->observaciones=$obs;
+            $observaciones->add($doc);
             }
         }
             $obs= new OrdenCambio();
