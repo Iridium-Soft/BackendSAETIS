@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\GrupoEmpresa;
+use App\Models\HitoPlanificacion;
+use App\Models\Planificacion;
+use App\Models\Postulacion;
 use App\Models\responses\Observaciones;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,9 +27,28 @@ class UserController extends Controller
         $pers= new Observaciones();
         $user= User::find($id);
         $permissionNames = $user->getAllPermissions();
-        $pers->permisos=$permissionNames;
+        $permisosFiltrado = collect();
+        if($user->getRoleNames()->first()=='Socio'){
+            $grupoEmpresa = GrupoEmpresa::where("user_id",$id)->first();
+            if(Postulacion::where("grupoEmpresa_id",$grupoEmpresa->id)->exists()){
+                $postulacion = Postulacion::where("grupoEmpresa_id",$grupoEmpresa->id)->first();
+                if($postulacion->estado_id==1){
+                    if(!Planificacion::where("postulacion_id",$postulacion->id)->exists()){
+                        $permisosFiltrado->add($permissionNames[0]);
+                    }
+                    if(!$postulacion->parteA){
+                        $permisosFiltrado->add($permissionNames[2]);
+                    }
+                }
+            }else{
+                $permisosFiltrado->add($permissionNames[1]);
+            }
+            $permisosFiltrado->add($permissionNames[3]);
+        }
+
+        $pers->permisos=$permisosFiltrado;
         $pers=collect($pers);
-        return($pers);
+        return $pers;
 
     }
     public function asignarAGE(Request $request){

@@ -48,7 +48,7 @@ Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyH
 Route::get('/postulacion/documentos/{id}', [PostulacionController::class, 'doyDocumentos']);
 
 
-Route::post('/postulacion',[PostulacionController::class, 'store']);
+Route::post('/postulacion/{id}',[PostulacionController::class, 'registrarPostulacion']);
 Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
 
 

@@ -31,13 +31,7 @@ class PostulacionController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function registrarPostulacion(Request $request,$id)
     {
         $convocatoria = Convocatoria::findOrFail($request->convocatoria_id);
         $fechaValida =  $convocatoria-> fechaLimRec;
@@ -45,7 +39,8 @@ class PostulacionController extends Controller
         $postulacion = new Postulacion();
         if($fechaValida > $fechaActual){
             $postulacion-> convocatoria_id = $request->convocatoria_id;
-            $postulacion-> grupoEmpresa_id = 6;
+            $postulacion-> grupoEmpresa_id = $id;
+            $postulacion-> estado_id = 1;
             $postulacion->save();
         }
         return response($postulacion);
@@ -71,13 +66,7 @@ class PostulacionController extends Controller
         return $imageName;
     }
 
-    /**
-     * Update a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function guardarDocumentos(Request $request , int $id)
     {
         $postulacion = Postulacion::where('grupoEmpresa_id',$id)->first();
