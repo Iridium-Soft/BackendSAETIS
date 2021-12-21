@@ -108,6 +108,7 @@ Route::group([
     Route::post('me', 'App\Http\Controllers\AuthController@me');
     Route::post('register', 'App\Http\Controllers\AuthController@register');
     Route::post('cambiar', 'App\Http\Controllers\AuthController@cambiar');
+    Route::post('registerConsultor', 'App\Http\Controllers\AuthController@registerConsultor');
 
 
 

@@ -15,7 +15,6 @@ class CreateConsultorsTable extends Migration
     {
         Schema::create('consultors', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
             $table->boolean('activo')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();

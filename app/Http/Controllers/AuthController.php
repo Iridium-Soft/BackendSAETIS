@@ -25,7 +25,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','logout']]);
+        $this->middleware('auth:api', ['except' => ['login','register','logout','registerConsultor']]);
     }
 
     /**
@@ -116,7 +116,7 @@ class AuthController extends Controller
             'username'=> 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
-
+            'nombreGE' =>'required|string|max:100|unique:grupo_empresas'
 
         ]);
         if($validator->fails()){
@@ -133,20 +133,37 @@ class AuthController extends Controller
         $grupo->user_id=$user->id;
         $grupo->consultor_id=$request->consultor_id;
         $grupo->save();
-
+        $user->assignRole('Socio');
         return response()->json([
             'message' => '¡Usuario registrado exitosamente!',
             'user' => $user,
             'grupoE'=> $grupo
         ], 201);
     }
-    /* public function register(Request $request){
-         $user = new User();
-         $user-> name = $request->name;
-         $user-> username = $request->username;
-         $user-> email = $request->email;
-         $user->password=$request->password;
-         $user->save();
-         return($user);
-         }*/
+     public function registerConsultor(Request $request){
+         $validator = Validator::make($request->all(), [
+             'name' => 'required',
+             'username'=> 'required',
+             'email' => 'required|string|email|max:100|unique:users',
+             'password' => 'required|string|min:6',
+
+         ]);
+         if($validator->fails()){
+             return response()->json($validator->errors()->toJson(),400);
+         }
+         $user = User::create(array_merge(
+             $validator->validate(),
+             ['password' => bcrypt($request->password)]
+         ));
+         $user->assignRole('Consultor');
+         $consultor=new Consultor();
+         $consultor->user_id=$user->id;
+         $consultor->activo=true;
+         $consultor->save();
+         return response()->json([
+             'message' => '¡Usuario registrado exitosamente!',
+             'user' => $user,
+             'consultor'=> $consultor
+         ], 201);
+         }
 }
