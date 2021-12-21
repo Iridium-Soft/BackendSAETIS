@@ -127,7 +127,10 @@ class ConvocatoriaController extends Controller
             $convocatorias->add($convocatoria);
         }
 
-        return $convocatorias;
+       // return $convocatorias;
+        return response()->json([
+            'convocatorias' => $convocatorias
+        ], 201);
     }
 
     public function showPDF($fileID)
