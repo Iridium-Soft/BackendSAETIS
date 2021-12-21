@@ -44,10 +44,10 @@ class AuthController extends Controller
         $rol = $user->roles()->first();
         $log=new Login();
         if($rol->name=="Socio"){
-
             $grupo=GrupoEmpresa::where('user_id',$user->id)->first();
             $log->id=$grupo->id;
             $log->nombre=$grupo->nombre;
+            $log->consultor_id=$grupo->consultor_id;
         }
         else{
             $consultor=Consultor::where('user_id',$user->id)->first();

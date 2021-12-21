@@ -6,4 +6,5 @@ class Login
 {
     var $id;
     var $nombre;
+    var $consultor_id;
 }
