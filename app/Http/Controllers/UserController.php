@@ -24,7 +24,7 @@ class UserController extends Controller
         $pers= new Observaciones();
         $user= User::find($id);
         $permissionNames = $user->getAllPermissions();
-       $pers->permisos=$permissionNames;
+        $pers->permisos=$permissionNames;
         $pers=collect($pers);
         return($pers);
 
