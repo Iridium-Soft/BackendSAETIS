@@ -116,6 +116,8 @@ class AuthController extends Controller
             'username'=> 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
+
+
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(),400);
@@ -126,9 +128,16 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
+        $grupo = new GrupoEmpresa();
+        $grupo->nombre=$request->nombreGE;
+        $grupo->user_id=$user->id;
+        $grupo->consultor_id=$request->consultor_id;
+        $grupo->save();
+
         return response()->json([
             'message' => '¡Usuario registrado exitosamente!',
-            'user' => $user
+            'user' => $user,
+            'grupoE'=> $grupo
         ], 201);
     }
     /* public function register(Request $request){

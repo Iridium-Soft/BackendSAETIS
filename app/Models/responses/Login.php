@@ -7,6 +7,7 @@ class Login
 
     var $nomUsuario;
     var $nombreGE;
+    var $id_consultor;
     var $nombreCon;
     var $token;
 }

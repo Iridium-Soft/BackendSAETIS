@@ -13,7 +13,8 @@ class GrupoEmpresa extends Model
         'nombre' ,
         'nombreRepresentante' ,
         'nombreconsultor',
-        'user_id'
+        'user_id',
+        'consultor_id'
     ];
 
 

@@ -16,11 +16,8 @@ class CreateGrupoEmpresasTable extends Migration
         Schema::create('grupo_empresas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('nombreRepresentante');
-            $table->string('nombreconsultor');
-            $table->integer('convocatoria_id')->unsigned()->nullable();
-            $table->foreign('convocatoria_id')->references('id')->on('convocatorias')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('consultor_id')->nullable()->constrained('consultors')->onDelete('cascade');
             $table->timestamps();
         });
     }
