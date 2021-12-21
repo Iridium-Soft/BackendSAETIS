@@ -58,17 +58,17 @@ class AdendaController extends Controller
     public function estadoAdenda(Request $request,$id)
     {
         if (DB::table('adendas')->where('id', $id)->exists()) {
-            $respuesta = "se ha publicado previamente";
+            $respuesta = "Adenda publicada previamente";
             $adenda = DB::table('adendas')->where('id', $id)->first();
-            if ($adenda->estado==false) {
+            if($adenda->estado==false) {
                 $flight = Adenda::find($id);
                 $flight->estado = true;
                 $flight->save();
-                $respuesta = "se ha publicado exitosamente";
+                $respuesta = "Adenda publicada exitosamente";
             }
         }
         else{
-            $respuesta="no existe la adenda";
+            $respuesta="Adenda no encontrada";
         }
         return response()->json(['mensaje' => $respuesta]);
     }
