@@ -35,29 +35,32 @@ class AuthController extends Controller
      */
     public function login(Request $request){
         $user = User::where('username', $request->username)->first();
-
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'mensaje' => ['The provided credentials are incorrect.'],
             ]);
         }
         $token=$user->createToken($request->username);
-        $log=new Login();
-        $log->nomUsuario=$user->name;
-        $log->id=$user->id;
-        $log->token=$token->plainTextToken;
         $rol = $user->roles()->first();
-        $name=$rol->name;
-        if($name=="Socio"){
+        $log=new Login();
+        if($rol->name=="Socio"){
+
             $grupo=GrupoEmpresa::where('user_id',$user->id)->first();
-            $log->nombreGE=$grupo;
+            $log->id=$grupo->id;
+            $log->nombre=$grupo->nombre;
         }
         else{
             $consultor=Consultor::where('user_id',$user->id)->first();
-            $log->nombreCon=$consultor;
+            $log->id=$consultor->id;
+            $log->nombre=$user->name;
         }
         $log=collect($log);
-        return $log;
+        return response()->json([
+            'nomUsuario' => $user->name,
+            'id'=>$user->id,
+            'nombreGE'=> $log,
+            'token'=>$token->plainTextToken
+        ], 201);
     }
 
     /**
