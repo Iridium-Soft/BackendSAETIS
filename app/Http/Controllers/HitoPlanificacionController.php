@@ -51,11 +51,11 @@ class HitoPlanificacionController extends Controller
         $hito->save();
         return response($hito);
     }
-    public function guardarHitos(Request $request)
+    public function guardarHitos(Request $request,$id)
     {
-        $id = 6;
+        $postulacion = Postulacion::where('grupoEmpresa_id',$id)->first();
         $planificacion = new Planificacion();
-        $planificacion->  postulacion_id = $id;
+        $planificacion->  postulacion_id = $postulacion;
         $planificacion->save();
         $tam =  $request->collect('hitos')->count();
         $hitos = collect();
