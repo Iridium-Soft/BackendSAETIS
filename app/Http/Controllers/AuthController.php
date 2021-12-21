@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Consultor;
 use App\Models\GrupoEmpresa;
+use App\Models\PersonalAccessToken;
 use App\Models\responses\Login;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\NewAccessToken;
 
 class AuthController extends Controller
 {
@@ -28,17 +33,18 @@ class AuthController extends Controller
      *
      * @return string
      */
-    public function login(Request $request)
-    {
-        $credentials = $request->all();
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Nombre de usuario o contrase;a incorrectos'], 401);
+    public function login(Request $request){
+        $user = User::where('username', $request->username)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'mensaje' => ['The provided credentials are incorrect.'],
+            ]);
         }
-       // $token1=$this->respondWithToken($token);
-        $user=User::where('username',$request->username)->first();
+        $token=$user->createToken($request->username);
         $log=new Login();
         $log->nomUsuario=$user->name;
-        $log->token=$token;
+        $log->token=$token->plainTextToken;
         $rol = $user->roles()->first();
         $name=$rol->name;
         if($name=="Socio"){
@@ -50,7 +56,7 @@ class AuthController extends Controller
             $log->nombreCon=$consultor;
         }
         $log=collect($log);
-        return ($log);
+        return $log;
     }
 
     /**
@@ -68,11 +74,12 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return response()->json(['mensaje' => 'Sesion cerrada correctamente']);
+        $user = User::find($request->user_id);
+        $user->tokens()->delete();
 
+        return response()->json(['mensaje' => 'Sesion cerrada correctamente']);
     }
 
 
@@ -124,13 +131,13 @@ class AuthController extends Controller
             'user' => $user
         ], 201);
     }
-   /* public function register(Request $request){
-        $user = new User();
-        $user-> name = $request->name;
-        $user-> username = $request->username;
-        $user-> email = $request->email;
-        $user->password=$request->password;
-        $user->save();
-        return($user);
-        }*/
+    /* public function register(Request $request){
+         $user = new User();
+         $user-> name = $request->name;
+         $user-> username = $request->username;
+         $user-> email = $request->email;
+         $user->password=$request->password;
+         $user->save();
+         return($user);
+         }*/
 }
