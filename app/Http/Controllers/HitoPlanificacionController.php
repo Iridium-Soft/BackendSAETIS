@@ -55,7 +55,7 @@ class HitoPlanificacionController extends Controller
     {
         $postulacion = Postulacion::where('grupoEmpresa_id',$id)->first();
         $planificacion = new Planificacion();
-        $planificacion->  postulacion_id = $postulacion;
+        $planificacion->  postulacion_id = $postulacion->id;
         $planificacion->save();
         $tam =  $request->collect('hitos')->count();
         $hitos = collect();
