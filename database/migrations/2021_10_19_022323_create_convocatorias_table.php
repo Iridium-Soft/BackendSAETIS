@@ -22,7 +22,7 @@ class CreateConvocatoriasTable extends Migration
             $table->date('fechaLimRec');
             $table->date('fechaIniDur');
             $table->date('fechaFinDur');
-            $table->string('documento');
+            $table->string('documento')->nullable();
             $table->boolean('publica')->default(false);
             $table->timestamps();
         });

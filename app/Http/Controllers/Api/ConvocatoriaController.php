@@ -77,15 +77,19 @@ class ConvocatoriaController extends Controller
     {
         $path = $this-> storeDocument($request);
         $convocatoria = new Convocatoria();
-        $convocatoria -> codigo = $request -> get('codigo');
-        $convocatoria -> titulo = $request -> get('titulo')  ;
-        $convocatoria -> descripcion =  $request -> get('descripcion');
-        $convocatoria -> consultorEnc = "Leticia Blanco";
-        $convocatoria -> fechaLimRec = $request -> get('fechaLimRec');
-        $convocatoria -> fechaIniDur =$request -> get('fechaIniDur');
-        $convocatoria -> fechaFinDur = $request -> get('fechaFinDur');
+        $convocatoria -> codigo = $request ->codigo;
+        $convocatoria -> titulo = $request ->titulo;
+        $convocatoria -> descripcion =  $request ->descripcion;
+        $convocatoria -> consultorEnc = $request->consultorEnc;
+        $convocatoria -> fechaLimRec = $request -> fechaLimRec;
+        $convocatoria -> fechaIniDur =$request ->fechaIniDur;
+        $convocatoria -> fechaFinDur = $request ->fechaFinDur;
         $convocatoria -> documento = $path;
         $convocatoria->save();
+        $guardar=new ConvConsultor();
+        $guardar->convocatoria_id=$convocatoria->id;
+        $guardar->consultor_id=$request->id;
+        $guardar->save();
         return response($convocatoria);
     }
 
