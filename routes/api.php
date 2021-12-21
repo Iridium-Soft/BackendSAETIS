@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/convocatoria/sinpliego', [ConvocatoriaController::class, 'convocatoriaSinPliego']);
+Route::get('/convocatoria/sinpliego/{id}', [ConvocatoriaController::class, 'convocatoriaSinPliego']);
 Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);
 Route::get('/convocatoria/{id}', [ConvocatoriaController::class, 'show']);

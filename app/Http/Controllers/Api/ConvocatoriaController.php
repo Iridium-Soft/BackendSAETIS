@@ -34,17 +34,19 @@ class ConvocatoriaController extends Controller
 
     }
 
-    public function convocatoriaSinPliego()
+    public function convocatoriaSinPliego($id)
     {
-        $convocatorias = Convocatoria::all();
-        $convocatoriasSinPLiego= collect();
-        foreach ($convocatorias as $key => $convocatoria) {
-            $pliego = PliegoEspecificacion::firstWhere('convocatoria_id',$convocatoria->id);
-            if(DB::table('pliego_especificacions')->where('convocatoria_id', $convocatoria->id)->exists()){
-                $convocatoriasSinPLiego->add($convocatoria);
+        $cons=collect();
+        $convocatorias=ConvConsultor::where('consultor_id',$id )->get();
+        foreach ($convocatorias as $conv) {
+            $convos=Convocatoria::where('id',$conv->convocatoria_id)->first();
+            if(PliegoEspecificacion::where('convocatoria_id', $convos->id)->doesntExist()){
+                $cons->add($convos);
             }
         }
-        return response( $convocatorias->diff($convocatoriasSinPLiego));
+        return response()->json([
+            'convocatorias' => $cons
+        ], 201);
     }
 
 
@@ -127,7 +129,6 @@ class ConvocatoriaController extends Controller
             $convocatorias->add($convocatoria);
         }
 
-       // return $convocatorias;
         return response()->json([
             'convocatorias' => $convocatorias
         ], 201);
