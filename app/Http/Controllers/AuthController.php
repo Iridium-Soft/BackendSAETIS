@@ -116,7 +116,7 @@ class AuthController extends Controller
             'username'=> 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
-            'nombreGE' =>'required|string|max:100|unique:grupo_empresas'
+           // 'nombreGE' =>'required|string|max:100|unique:grupo_empresas'
 
         ]);
         if($validator->fails()){
@@ -128,7 +128,7 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
-        $grupo = new GrupoEmpresa();
+       $grupo = new GrupoEmpresa();
         $grupo->nombre=$request->nombreGE;
         $grupo->user_id=$user->id;
         $grupo->consultor_id=$request->consultor_id;
