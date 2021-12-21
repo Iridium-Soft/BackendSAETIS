@@ -18,38 +18,26 @@ class ConvocatoriaSeeder extends Seeder
     {
         $grupoempresa = new GrupoEmpresa();
         $grupoempresa-> nombre = "Iridium";
-        $grupoempresa-> nombreRepresentante = "Andy Garcia";
-        $grupoempresa-> nombreconsultor = "Leticia Blanco";
         $grupoempresa->save();
 
         $grupoempresa1 = new GrupoEmpresa();
         $grupoempresa1-> nombre = "Pacha";
-        $grupoempresa1-> nombreRepresentante = "Pedro Perez";
-        $grupoempresa1-> nombreconsultor = "Leticia Blanco";
         $grupoempresa1->save();
 
         $grupoempresa2 = new GrupoEmpresa();
         $grupoempresa2-> nombre = "AlgoSoft";
-        $grupoempresa2-> nombreRepresentante = "Maria Nieves";
-        $grupoempresa2-> nombreconsultor = "Leticia Blanco";
         $grupoempresa2->save();
 
         $grupoempresa3 = new GrupoEmpresa();
         $grupoempresa3-> nombre = "IntiSoft";
-        $grupoempresa3-> nombreRepresentante = "Carlos Rojas";
-        $grupoempresa3-> nombreconsultor = "Leticia Blanco";
         $grupoempresa3->save();
 
         $grupoempresa4 = new GrupoEmpresa();
         $grupoempresa4-> nombre = "CocaSoft";
-        $grupoempresa4-> nombreRepresentante = "Marcelo Coca";
-        $grupoempresa4-> nombreconsultor = "Vladimir Lopez";
         $grupoempresa4->save();
 
         $grupoempresa4 = new GrupoEmpresa();
         $grupoempresa4-> nombre = "Fracaso SOFT";
-        $grupoempresa4-> nombreRepresentante = "Marcelo Coca";
-        $grupoempresa4-> nombreconsultor = "Leticia Blanco";
         $grupoempresa4->save();
 
         $convocatoria = new Convocatoria();
