@@ -44,9 +44,10 @@ class UserController extends Controller
                 $permisosFiltrado->add($permissionNames[1]);
             }
             $permisosFiltrado->add($permissionNames[3]);
+            $pers->permisos=$permisosFiltrado;
+        }else{
+            $pers->permisos=$permissionNames;
         }
-
-        $pers->permisos=$permisosFiltrado;
         $pers=collect($pers);
         return $pers;
 

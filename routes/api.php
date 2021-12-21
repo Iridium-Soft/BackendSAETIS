@@ -4,6 +4,7 @@ use App\Http\Controllers\AdendaController;
 use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\GrupoEmpresaController;
 use App\Http\Controllers\HitoPlanificacionController;
@@ -73,9 +74,11 @@ Route::get('/documento/adenda/{fileID}', [AdendaController::class, 'showDetalles
 Route::put('/adenda/{id}', [AdendaController::class, 'estadoAdenda']);
 Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::class, 'showDetallesNotificacion']);
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
+Route::put('/contrato/{id}', [ContratoController::class, 'estadoContrato']);
 
 Route::get('/generar/ordencambio/{id}', [OrdenCambioController::class, 'generarOC']);
 Route::get('/generar/notificacionconformidad/{id}', [NotificacionConfController::class, 'generarNC']);
+Route::get('/generar/contrato/{id}', [ContratoController::class, 'generarCN']);
 
 Route::apiResource('postulacion',PostulacionController::class);
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);

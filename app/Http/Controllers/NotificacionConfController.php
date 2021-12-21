@@ -125,12 +125,14 @@ class NotificacionConfController extends Controller
     {
         //
     }
+
     public function showDetallesNotificacion($fileID)
     {
         $path = base_path(). "/storage/app/public/{$fileID}";
         $image = base64_encode(file_get_contents($path));
         return "data:@file/pdf;base64,{$image}";
     }
+
     public function estadoNotificacion(Request $request,$id)
     {
         if (DB::table('notificacion_confs')->where('id', $id)->exists()) {
