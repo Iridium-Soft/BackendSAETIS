@@ -80,7 +80,7 @@ class PostulacionController extends Controller
      */
     public function guardarDocumentos(Request $request , int $id)
     {
-        $postulacion = Postulacion::find($id);
+        $postulacion = Postulacion::where('grupoEmpresa_id',$id)->first();
         $postulacion-> parteA = $this->storeDocument($request->parteA);
         $postulacion-> boletaDeGarantia  = $this->storeDocument($request->boletaDeGarantia);
         $postulacion-> cartaDePresentacion  = $this->storeDocument($request->cartaDePresentacion);

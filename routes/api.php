@@ -62,7 +62,7 @@ Route::get('/planificacion/ordendeCambio/{id}', [OrdenCambioController::class, '
 Route::get('/planificacion/notificaciondeConformidad/{id}', [NotificacionConfController::class, 'getNoti']);
 
 
-Route::post('postulacion/planificacion', [HitoPlanificacionController::class, 'guardarHitos']);
+Route::post('postulacion/planificacion/{id}', [HitoPlanificacionController::class, 'guardarHitos']);
 
 Route::post('/pliegoespecificacion',[PliegoEspecificacionController::class,'store']);
 Route::put('/pliegoespecificacion/{id}', [PliegoEspecificacionController::class, 'publicarPliego']);
