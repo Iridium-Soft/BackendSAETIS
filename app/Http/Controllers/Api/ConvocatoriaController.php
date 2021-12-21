@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
 use App\Models\PliegoEspecificacion;
 use Illuminate\Http\Request;
@@ -112,15 +113,17 @@ class ConvocatoriaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        return Convocatoria::find($id);
+        $convocatorias  = collect();
+        $convConsultor = ConvConsultor::where('consultor_id', $id)->get();
+        foreach ($convConsultor as $aux ){
+            $convocatoria = Convocatoria::find( $aux->convocatoria_id);
+            $convocatorias->add($convocatoria);
+        }
+
+        return $convocatorias;
     }
 
     public function showPDF($fileID)
