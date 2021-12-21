@@ -44,6 +44,7 @@ class AuthController extends Controller
         $token=$user->createToken($request->username);
         $log=new Login();
         $log->nomUsuario=$user->name;
+        $log->id=$user->id;
         $log->token=$token->plainTextToken;
         $rol = $user->roles()->first();
         $name=$rol->name;
@@ -116,7 +117,7 @@ class AuthController extends Controller
             'username'=> 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
-           // 'nombreGE' =>'required|string|max:100|unique:grupo_empresas'
+            'nombre' =>'required|string|max:100|unique:grupo_empresas'
 
         ]);
         if($validator->fails()){
@@ -129,7 +130,7 @@ class AuthController extends Controller
         ));
 
        $grupo = new GrupoEmpresa();
-        $grupo->nombre=$request->nombreGE;
+        $grupo->nombre=$request->nombre;
         $grupo->user_id=$user->id;
         $grupo->consultor_id=$request->consultor_id;
         $grupo->save();
