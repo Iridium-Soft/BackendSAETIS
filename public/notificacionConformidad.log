@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.15)  17 NOV 2021 17:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.11.15)  21 DEC 2021 21:50
 entering extended mode
 **C:/xampp/htdocs/BackendSAETIS/Back/BackendSAETIS/public/notificacionConformid
 ad.tex
@@ -279,7 +279,7 @@ LaTeX Info: Redefining \% on input line 8.
 Here is how much of TeX's memory you used:
  4252 strings out of 478927
  61129 string characters out of 2862371
- 380665 words of memory out of 3000000
+ 380664 words of memory out of 3000000
  22073 multiletter control sequences out of 15000+600000
  410381 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -288,7 +288,7 @@ Here is how much of TeX's memory you used:
 am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmr17.pfb>
-Output written on notificacionConformidad.pdf (1 page, 61565 bytes).
+Output written on notificacionConformidad.pdf (1 page, 60931 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

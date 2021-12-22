@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Functions;
 
+use App\Models\Calificacion;
 use App\Models\CalificacionNotificacionConformidad;
 use App\Models\CampoEvaluable;
 use App\Models\GrupoEmpresa;
@@ -54,8 +55,7 @@ Asímismo, recordar que para el día de la firma del contrato se requiere la ent
 				\hline
                 \\textbf{Descripcion}                                 & \\textbf{\begin{tabular}[c]{@{}l@{}}Puntaje \\\\ Referencial\\end{tabular}} & \multicolumn{1}{l|}{\\textbf{\begin{tabular}[c]{@{}l@{}}Puntaje \\\\ Obtenido\\end{tabular}}} \\\\ \hline\n";
         foreach ($camposEvaluables as $campoEval){
-            $calificacion = CalificacionNotificacionConformidad::where('campoEvaluable_id',$campoEval->id)->where('notificacionConformidad_id',$notificacion_id)->first();
-
+            $calificacion = Calificacion::where('campoEvaluable_id',$campoEval->id)->where('notificacionDeConformidad_id',$notificacion_id)->first();
             $this-> contenidoTotal .= "{$campoEval->descripcion} & {$campoEval->puntaje} puntos & {$calificacion->puntajeObtenido} \\\\ \hline\n";
         }
 

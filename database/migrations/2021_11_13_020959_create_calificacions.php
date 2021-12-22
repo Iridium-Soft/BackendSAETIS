@@ -18,7 +18,8 @@ class CreateCalificacions extends Migration
             $table->integer('puntajeObtenido')->nullable();;
             $table->integer('campoEvaluable_id')->unsigned()->nullable();
             $table->foreign('campoEvaluable_id')->references('id')->on('campo_evaluables')->onDelete('cascade');
-            $table->foreignId('ordenDeCambio_id')->constrained('orden_cambios')->onDelete('cascade');
+            $table->foreignId('ordenDeCambio_id')->nullable()->constrained('orden_cambios')->onDelete('cascade');
+            $table->foreignId('notificacionDeConformidad_id')->nullable()->constrained('orden_cambios')->onDelete('cascade');
             $table->timestamps();
         });
     }

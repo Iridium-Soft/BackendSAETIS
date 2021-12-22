@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Functions\ModeloAdenda;
 use App\Models\Adenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AdendaController extends Controller
 {
@@ -73,15 +75,31 @@ class AdendaController extends Controller
         return response()->json(['mensaje' => $respuesta]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Adenda  $adenda
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Adenda $adenda)
+    public function generarAD(Request $request, $id)
     {
-        //
+        $modelo = new ModeloAdenda();
+        $modelo ->crearAdenda($id);
+        $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execAD.bat');
+        $adenda = Adenda::find($id);
+        $path = $this->storeDocument();
+        $adenda->documento = $path;
+        $adenda->save();
+        return $adenda;
+    }
+
+
+    public function storeDocument(){
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        $length = 20;
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $contents = Storage::disk('generado')->get('adenda.pdf');
+        $imageName = "{$randomString}.pdf";
+        Storage::disk('public')->put($imageName, $contents);
+        return $imageName;
     }
 
     /**
