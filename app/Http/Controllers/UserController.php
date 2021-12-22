@@ -33,10 +33,10 @@ class UserController extends Controller
             if(Postulacion::where("grupoEmpresa_id",$grupoEmpresa->id)->exists()){
                 $postulacion = Postulacion::where("grupoEmpresa_id",$grupoEmpresa->id)->first();
                 if($postulacion->estado_id==1){
-                    if(!Planificacion::where("postulacion_id",$postulacion->id)->exists()){
+                    if(!$postulacion->parteA){
                         $permisosFiltrado->add($permissionNames[0]);
                     }
-                    if(!$postulacion->parteA){
+                    if(!Planificacion::where("postulacion_id",$postulacion->id)->exists()){
                         $permisosFiltrado->add($permissionNames[2]);
                     }
                 }
