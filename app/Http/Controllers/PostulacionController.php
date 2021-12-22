@@ -83,19 +83,13 @@ class PostulacionController extends Controller
     public function verPostulacionesEspecificas(Request $request,$id)
     {
         $convConsultores = ConvConsultor::where('consultor_id',$id)->get();
-        $listaConvocatorias= collect();
         $listaPostulaciones= collect();
-        $listaEmpresas= collect();
-
         foreach ($convConsultores as $asignadas){
             $convocatorias = Convocatoria::where('id',$asignadas->convocatoria_id)->first();
             $postulaciones = Postulacion::where('convocatoria_id',$asignadas->convocatoria_id)->get();
             foreach ($postulaciones as $postulacion){
                 $postus = new Postulaciones();
                 $grupoEmpresa = GrupoEmpresa::where('id',$postulacion->grupoEmpresa_id)->first();
-
-                //$notiConf = NotificacionConf::where('id',$postulacion->grupoEmpresa_id)->first();
-
                 $postus->nombreGrupoEmpresa=$grupoEmpresa->nombre;
                 $postus->idGrupoEmpresa=$grupoEmpresa->id;
                 $postus->idConvocatoria=$convocatorias->id;

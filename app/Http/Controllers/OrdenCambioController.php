@@ -48,11 +48,28 @@ class OrdenCambioController extends Controller
 
     public function store(Request $request)
     {
-
         $grupoEmpresa = GrupoEmpresa::where('nombre',$request->nombre)->first();
         $postu = Postulacion::where('grupoEmpresa_id', $grupoEmpresa->id)->first();
         $ordenCambio = new OrdenCambio();
         $ordenCambio-> postulacion_id = $postu->id;
+        $ordenCambio-> estado = false;
+        $ordenCambio-> codigo = $request->cod_orden_cambio;
+        $ordenCambio-> fechaFirma = $request->fecha_entrega;
+        $ordenCambio-> lugar = $request->lugar_entrega;
+        $ordenCambio-> fechaEmContrato = $request->fecha_emision;
+        $ordenCambio->save();
+        $ordenCambio-> codigo ="OC-{$ordenCambio->id}/2021";
+        $ordenCambio->save();
+        $funcionSave = new FunctionRegisterOrdenCambio();
+        $funcionSave::registrarEvaluaciones($request, $ordenCambio->id);
+        $funcionSave::registrarObservaciones($request, $ordenCambio->id);
+        return $ordenCambio;
+    }
+
+    public function registrarOrdenCalificacion(Request $request,$id)
+    {
+        $ordenCambio = OrdenCambio::where('postulacion_id',$id)->first();
+        $ordenCambio-> postulacion_id = $id;
         $ordenCambio-> estado = false;
         $ordenCambio-> codigo = $request->cod_orden_cambio;
         $ordenCambio-> fechaFirma = $request->fecha_entrega;
@@ -185,10 +202,23 @@ class OrdenCambioController extends Controller
     }
 
     public function doyOrdenCambio($id){
-    $observaciones=collect();
-        $orden = OrdenCambio::where('id',$id)->first();
-        $postulacion = Postulacion::where('id', $orden->postulacion_id)->first();
-        $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
+        if(!OrdenCambio::where('postulacion_id',$id)->exists()){
+            $orden = new OrdenCambio();
+            $orden -> codigo = "OC-1-2021";
+            $orden -> fechaEmContrato = "2021-12-23" ;
+            $orden -> fechaFirma = "2021-12-28" ;
+            $orden -> lugar = "Bloque Informatica UMSS Piso 1";
+            $orden -> estado = false;
+            $orden -> postulacion_id = $id;
+            $orden -> documento = "";
+            $orden->save();
+            $orden -> codigo = "OC-{$orden->id}-2021";
+            $orden->save();
+        }
+        $orden = OrdenCambio::where('postulacion_id',$id)->first();
+        $observaciones=collect();
+        $postulacion = Postulacion::find( $id);
+        $grupoNom = GrupoEmpresa::find($postulacion->grupoEmpresa_id);
         $documentos=Documento::where('postulacion_id', $postulacion->id)->get();
         $campos=CampoEvaluable::all();
         foreach (  $documentos as $documento) {
@@ -203,15 +233,14 @@ class OrdenCambioController extends Controller
             $observaciones->add($doc);
             }
         }
-            $obs= new OrdenCambio();
-            $obs->grupoEmpresa= $grupoNom->nombre;
-            $obs->fechaEm=$orden->fechaEmContrato;
-            //$obs->fechayHoraEntrega=$orden->fechaFirma;
-            $obs->fechayHoraEntrega=$orden->created_at;
-            $obs->lugarEntrega=$orden->lugar;
-            $obs->observaciones=$observaciones;
-            $obs->calificacion= $campos;
-        return ($obs);
+        $ocRespuesta= new OrdenCambio();
+        $ocRespuesta->grupoEmpresa= $grupoNom->nombre;
+        $ocRespuesta->fechaEm=$orden->fechaEmContrato;
+        $ocRespuesta->fechayHoraEntrega=$orden->created_at;
+        $ocRespuesta->lugarEntrega=$orden->lugar;
+        $ocRespuesta->observaciones=$observaciones;
+        $ocRespuesta->calificacion= $campos;
+        return ($ocRespuesta);
     }
 
     /**

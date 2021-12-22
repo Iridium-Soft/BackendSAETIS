@@ -85,6 +85,10 @@ Route::get('/generar/adenda/{id}', [AdendaController::class, 'generarAD']);
 Route::apiResource('postulacion',PostulacionController::class);
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
 
+
+Route::post('ordendecambio/terminar/{id}',[OrdenCambioController::class, 'registrarOrdenCalificacion']);
+Route::post('notificacionconformidad/terminar/{id}',[NotificacionConfController::class, 'registrarNotiCalificacion']);
+
 Route::post('postulacion/notificacionconformidad/',[NotificacionConfController::class, 'registrarNotificacion']);
 Route::get('revision/postulacion/{id}', [OrdenCambioController::class, 'doyDatosRevision']);
 Route::post('revision/observaciones',[ObservacionPropuestaController::class, 'aniadirObs']);

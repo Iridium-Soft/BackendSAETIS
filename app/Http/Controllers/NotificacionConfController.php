@@ -58,10 +58,45 @@ class NotificacionConfController extends Controller
         }
         return $notificacion;
     }
+
+    public function registrarNotiCalificacion(Request $request,$id){
+        $notificacion = NotificacionConf::where('postulacion_id',$id)->first();
+        $notificacion-> postulacion_id = $id;
+        $notificacion-> codigo = "COD";
+        $notificacion-> fechaFirma = $request->fechaFirma;
+        $notificacion-> lugar = $request->lugar;
+        $notificacion-> fechaEmDocumento = $request->fecha_emision;
+        $notificacion->save();
+        $notificacion-> codigo ="NC-{$notificacion->id}/2021";
+        $notificacion->save();
+        $tam =  $request->collect('evaluacion')->count();
+        for($i=0; $i<$tam; $i++){
+            $calificacion = new Calificacion();
+            $calificacion->puntajeObtenido = $request->input("evaluacion.{$i}.puntuacion");
+            $calificacion->campoEvaluable_id = $request->input("evaluacion.{$i}.evaluacion_id");
+            $calificacion->notificacionDeConformidad_id=$notificacion->id;
+            $calificacion->save();
+        }
+        return $notificacion;
+    }
+
     public function doyNoti($id){
-        $notis= NotificacionConf::where('id',$id)->first();
-        $postulacion = Postulacion::where('id', $notis->postulacion_id)->first();
-        $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
+        if(!NotificacionConf::where('postulacion_id',$id)->exists()) {
+            $noti = new NotificacionConf();
+            $noti->codigo = "2021NC-1";
+            $noti->fechaEmDocumento = "2021-10-22";
+            $noti->lugar = "Bloque Informatica UMSS Piso 1";
+            $noti->estado = false;
+            $noti->documento = "";
+            $noti->postulacion_id = $id;
+            $noti->save();
+            $noti -> codigo = "NC-{$noti->id}/2021";
+            $noti->save();
+        }
+
+        $notis= NotificacionConf::where('postulacion_id',$id)->first();
+        $postulacion = Postulacion::find( $id);
+        $grupoNom = GrupoEmpresa::find( $postulacion->grupoEmpresa_id);
         $campos=CampoEvaluable::all();
         $noti=new Notificacion();
         $noti->grupoEmpresa=$grupoNom->nombre;
