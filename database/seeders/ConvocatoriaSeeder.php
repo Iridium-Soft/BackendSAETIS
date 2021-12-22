@@ -45,8 +45,8 @@ class ConvocatoriaSeeder extends Seeder
         $convocatoria -> titulo = "Convocatoria primera" ;
         $convocatoria -> descripcion = "Lorum ipsum dolor Lorum ipsum dolo Lorum ipsum dolo Lorum ipsum dolo";
         $convocatoria -> consultorEnc = "Leticia Blanco";
-        $convocatoria -> fechaLimRec ="2021-12-22";
-        $convocatoria -> fechaIniDur ="2021-12-25";
+        $convocatoria -> fechaLimRec ="2021-12-25";
+        $convocatoria -> fechaIniDur ="2021-12-29";
         $convocatoria -> fechaFinDur = "2022-2-25";
         $convocatoria -> documento = "7XcWvSqdDOAhziMIsd0m.pdf";
         $convocatoria->save();
