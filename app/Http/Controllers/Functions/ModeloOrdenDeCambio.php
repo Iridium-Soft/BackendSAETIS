@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Functions;
 
 use App\Models\Calificacion;
 use App\Models\CampoEvaluable;
+use App\Models\DetalleDoc;
+use App\Models\Documento;
 use App\Models\GrupoEmpresa;
 use App\Models\ObservacionPropuesta;
 use App\Models\OrdenCambio;
 use App\Models\Postulacion;
+use function Ramsey\Uuid\v1;
 
 class ModeloOrdenDeCambio
 {
@@ -62,12 +65,17 @@ Asímismo, recordar que para el día de la firma del contrato se requiere la ent
         $this-> contenidoTotal .= "\\end{tabular}\n
 	\\end{table}\n";
     }
-    function addListaObs($ordenCambio){
-        $ordenCambio_id = $ordenCambio->id;
-        $observacionesOC = ObservacionPropuesta::where('ordenDeCambio_id', $ordenCambio_id)->get();
-        $this-> contenidoTotal .="	\begin{enumerate}\n";
-        foreach ($observacionesOC as $observacion){
-            $this-> contenidoTotal .= "\item {$observacion->nombreDoc}, sección {$observacion->seccionDoc}, {$observacion->descripcion}\n";
+
+    function addListaObs($ordencambio){
+        $this-> contenidoTotal .="	\\begin{enumerate}\n";
+        $documentos = Documento::where('postulacion_id',$ordencambio->postulacion_id)->get();
+        foreach ($documentos as $docus){
+            $observacionesPorDoc = ObservacionPropuesta::where('documento_id',$docus->id)->get();
+
+            foreach ($observacionesPorDoc as $obs){
+                $detalleDoc = DetalleDoc::find($docus->detalleDoc_id);
+                $this-> contenidoTotal .= "\item {$detalleDoc->nombreDoc}, sección {$obs->seccionDoc}, {$obs->descripcion}\n";
+            }
         }
         $this-> contenidoTotal .="	\\end{enumerate}\n";
     }

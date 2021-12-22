@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Functions\ModeloContrato;
 use App\Models\Contrato;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContratoController extends Controller
 {
@@ -33,35 +34,19 @@ class ContratoController extends Controller
         return "data:@file/pdf;base64,{$image}";
     }
 
-    public function doyNoti($id){
-        $notis= NotificacionConf::where('id',$id)->first();
-        $postulacion = Postulacion::where('id', $notis->postulacion_id)->first();
-        $grupoNom = GrupoEmpresa::where('id', $postulacion->grupoEmpresa_id)->first();
-        $campos=CampoEvaluable::all();
-        $noti=new Notificacion();
-        $noti->grupoEmpresa=$grupoNom->nombre;
-        $noti->fechaEm= $notis->fechaEmDocumento;
-        $noti->fechayHoraEntrega=$notis->fechaFirma;
-        $noti->lugarEntrega=$notis->lugar;
-        $noti->calificacion=$campos;
-        $noti=collect($noti);
-        return($noti);
-    }
-
     public function generarCN(Request $request, $id)
     {
         $modelo = new ModeloContrato();
         $modelo ->crearContrato($id);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execCN.bat');
         $contrato = Contrato::find($id);
-        //$path = $this->storeDocument();
-        $path = "";
+        $path = $this->storeDocument();
         $contrato->documento = $path;
         $contrato->save();
         return $contrato;
     }
 
-/*
+
     public function storeDocument(){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -70,11 +55,11 @@ class ContratoController extends Controller
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
-        $contents = Storage::disk('generado')->get('notificacionConformidad.pdf');
+        $contents = Storage::disk('generado')->get('contrato.pdf');
         $imageName = "{$randomString}.pdf";
         Storage::disk('public')->put($imageName, $contents);
         return $imageName;
-    }*/
+    }
 
 
 }

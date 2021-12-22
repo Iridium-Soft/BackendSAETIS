@@ -72,8 +72,8 @@ class OrdenCambioController extends Controller
         $modelo = new ModeloOrdenDeCambio();
         $modelo ->crearOrden($id);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execOC.bat');
-       $ordenCambio = OrdenCambio::find($id);
-       $path = $this->storeDocument();
+        $ordenCambio = OrdenCambio::find($id);
+        $path = $this->storeDocument();
         $ordenCambio->documento = $path;
         $ordenCambio->save();
         return $ordenCambio;

@@ -76,9 +76,11 @@ Route::get('/documento/notificacion/{fileID}', [NotificacionConfController::clas
 Route::put('/notificacion/{id}', [NotificacionConfController::class, 'estadoNotificacion']);
 Route::put('/contrato/{id}', [ContratoController::class, 'estadoContrato']);
 
+
 Route::get('/generar/ordencambio/{id}', [OrdenCambioController::class, 'generarOC']);
 Route::get('/generar/notificacionconformidad/{id}', [NotificacionConfController::class, 'generarNC']);
 Route::get('/generar/contrato/{id}', [ContratoController::class, 'generarCN']);
+Route::get('/generar/adenda/{id}', [AdendaController::class, 'generarAD']);
 
 Route::apiResource('postulacion',PostulacionController::class);
 Route::apiResource('/postulacion/ordencambio/',OrdenCambioController::class);
