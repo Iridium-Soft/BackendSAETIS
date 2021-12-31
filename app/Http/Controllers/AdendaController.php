@@ -59,6 +59,7 @@ class AdendaController extends Controller
     }
     public function estadoAdenda(Request $request,$id)
     {
+
         if (DB::table('adendas')->where('id', $id)->exists()) {
             $respuesta = "Adenda publicada previamente";
             $adenda = DB::table('adendas')->where('id', $id)->first();

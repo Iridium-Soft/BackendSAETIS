@@ -16,22 +16,22 @@ class EstadoSeeder extends Seeder
     {
         $estado = new Estado();
         $estado->nombre = "En espera de documentos";
-        $estado->descripcion = "En espera de documentosdd";
+        $estado->descripcion = "Consultor TIS espera documentos ";
         $estado->save();
 
         $estado1 = new Estado();
         $estado1->nombre = "Postulacion no revisada";
-        $estado1->descripcion = "Postulacion no revisadadd";
+        $estado1->descripcion = "En espera de revision de la postulacion de la GrupoEmpresa";
         $estado1->save();
 
         $estado2 = new Estado();
         $estado2->nombre = "En espera de calificacion de NC";
-        $estado2->descripcion = "En espera de calificacion de NCdd";
+        $estado2->descripcion = "En espera de calificacion de una postulacion sin Observaciones";
         $estado2->save();
 
         $estado3 = new Estado();
         $estado3->nombre = "En espera de publicacion de NC";
-        $estado3->descripcion = "En espera de publicacion de NCdd";
+        $estado3->descripcion = "En espera de publicacion de Notificacion de conformidad generada";
         $estado3->save();
 
         $estado4 = new Estado();

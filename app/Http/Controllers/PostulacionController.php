@@ -97,6 +97,10 @@ class PostulacionController extends Controller
                 $postus->codigoConvocatoria=$convocatorias->codigo;
                 $postus->tituloConvocatoria=$convocatorias->titulo;
                 $postus->fechaRegistro=$postulacion->created_at;
+                $postus -> adenda = "docAD.pdf";
+                $postus -> orden_cambio= "docOC.pdf";
+                $postus -> notificacion_conformidad= "docNC.pdf";
+                $postus -> contrato= "docCN.pdf";
                 if(OrdenCambio::where('postulacion_id',$postulacion->id)->exists()){
                     $ordenCamb = OrdenCambio::where('postulacion_id',$postulacion->id)->first();
                     $postus->idOrdenCambio=$ordenCamb->id;

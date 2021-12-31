@@ -221,11 +221,16 @@ class OrdenCambioController extends Controller
         $grupoNom = GrupoEmpresa::find($postulacion->grupoEmpresa_id);
         $documentos=Documento::where('postulacion_id', $postulacion->id)->get();
         $campos=CampoEvaluable::all();
+        $observacionesTodo = collect();
         foreach (  $documentos as $documento) {
             if(ObservacionPropuesta::where('documento_id', $documento->id)->exists()){
                 $doc=new Documentos();
                 $nombre = DetalleDoc::where('id', $documento->detalleDoc_id)->first();
                 $obs = ObservacionPropuesta::where('documento_id', $documento->id)->get();
+                foreach ($obs as $observacionE){
+                    $observacionE->nombreDoc = $nombre->nombreDoc;
+                    $observacionesTodo->add($observacionE);
+                }
                 $doc->idDocumento=$documento->id;
                 $doc->nombreDocumento=$nombre->nombreDoc;
                 $doc->rutaDocumento=$documento->documento;
@@ -238,7 +243,7 @@ class OrdenCambioController extends Controller
         $ocRespuesta->fechaEm=$orden->fechaEmContrato;
         $ocRespuesta->fechayHoraEntrega=$orden->created_at;
         $ocRespuesta->lugarEntrega=$orden->lugar;
-        $ocRespuesta->observaciones=$observaciones;
+        $ocRespuesta->observaciones=$observacionesTodo;
         $ocRespuesta->calificacion= $campos;
         return ($ocRespuesta);
     }

@@ -122,6 +122,7 @@ class ConvocatoriaController extends Controller
 
     public function show($id)
     {
+        $id=1;
         $convocatorias  = collect();
         $convConsultor = ConvConsultor::where('consultor_id', $id)->get();
         foreach ($convConsultor as $aux ){

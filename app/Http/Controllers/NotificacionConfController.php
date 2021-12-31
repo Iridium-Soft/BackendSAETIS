@@ -101,8 +101,8 @@ class NotificacionConfController extends Controller
         $noti=new Notificacion();
         $noti->grupoEmpresa=$grupoNom->nombre;
         $noti->fechaEm= $notis->fechaEmDocumento;
-        $noti->fechayHoraEntrega=$notis->fechaFirma;
-        $noti->lugarEntrega=$notis->lugar;
+        $noti->fechayHoraEntrega=$notis->created_at;
+        $noti->lugar=$notis->lugar;
         $noti->calificacion=$campos;
         $noti=collect($noti);
         return($noti);
