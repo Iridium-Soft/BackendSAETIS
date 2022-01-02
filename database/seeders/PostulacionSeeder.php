@@ -30,7 +30,7 @@ class PostulacionSeeder extends Seeder
 
         //publicar Contrat
         $postulacion2 = new Postulacion();
-        $postulacion2 -> estado_id = 5;
+        $postulacion2 -> estado_id = 4;
         $postulacion2-> convocatoria_id = 1;
         $postulacion2-> grupoEmpresa_id = 3;
         $postulacion2->save();
@@ -38,7 +38,7 @@ class PostulacionSeeder extends Seeder
         //publicar Adenda
         $postulacion3 = new Postulacion();
         $postulacion3-> grupoEmpresa_id = 4;
-        $postulacion3 -> estado_id = 10;
+        $postulacion3 -> estado_id = 7;
         $postulacion3-> convocatoria_id = 1;
         $postulacion3-> grupoEmpresa_id = 4;
         $postulacion3->save();
