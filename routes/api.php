@@ -4,6 +4,7 @@ use App\Http\Controllers\AdendaController;
 use App\Http\Controllers\Api\ConvocatoriaController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConsultorController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\GrupoEmpresaController;
@@ -33,6 +34,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/consultor/',[ConsultorController::class, 'index']);
 Route::get('/convocatoria/sinpliego/{id}', [ConvocatoriaController::class, 'convocatoriaSinPliego']);
 Route::get('/convocatoria', [ConvocatoriaController::class, 'noPublicas']);
 Route::get('/convocatoria/publica', [ConvocatoriaController::class, 'index']);

@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consultor;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ConsultorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $consultores = Consultor::all();
+        foreach ( $consultores as $consultor){
+            $consultor->nombre= "Default Name";
+            if(User::find($consultor->user_id)){
+                $usuario = User::find($consultor->user_id);
+                $consultor->nombre= $usuario->name;
+            }
+        }
+        return $consultores;
     }
 
     /**
