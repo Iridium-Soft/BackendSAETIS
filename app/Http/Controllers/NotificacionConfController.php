@@ -113,8 +113,9 @@ class NotificacionConfController extends Controller
 
     public function generarNC(Request $request, $id)
     {
+        $noti = NotificacionConf::where('postulacion_id',$id)->first();
         $modelo = new ModeloNotificacionDeConformidad();
-        $modelo ->crearNotificacion($id);
+        $modelo ->crearNotificacion($noti->id);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execNC.bat');
         $notificacion = NotificacionConf::find($id);
         $path = $this->storeDocument();
