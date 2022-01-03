@@ -18,7 +18,7 @@ class CreateNotificacionConfsTable extends Migration
             $table->string('codigo');
             $table->Date('fechaEmDocumento');
             $table->Datetime('fechaFirma')->nullable();
-            $table->string('lugar');
+            $table->text('lugar');
             $table->boolean('estado')->default(false);
             $table->string('documento')->nullable();
             $table->foreignId('postulacion_id')->constrained('postulacions')->onDelete('cascade');

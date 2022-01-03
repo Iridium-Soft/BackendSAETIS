@@ -63,8 +63,8 @@ class NotificacionConfController extends Controller
         $notificacion = NotificacionConf::where('postulacion_id',$id)->first();
         $notificacion-> postulacion_id = $id;
         $notificacion-> codigo = "COD";
-        $notificacion-> fechaFirma = $request->fechaFirma;
-        $notificacion-> lugar = $request->lugar;
+        $notificacion-> fechaFirma = $request->fecha_entrega;
+        $notificacion-> lugar = $request->lugar_entrega;
         $notificacion-> fechaEmDocumento = $request->fecha_emision;
         $notificacion->save();
         $notificacion-> codigo ="NC-{$notificacion->id}/2021";
@@ -77,6 +77,9 @@ class NotificacionConfController extends Controller
             $calificacion->notificacionDeConformidad_id=$notificacion->id;
             $calificacion->save();
         }
+        $postulacion = Postulacion::find($id);
+        $postulacion->estado_id = 4;
+        $postulacion->save();
         return $notificacion;
     }
 
@@ -174,10 +177,13 @@ class NotificacionConfController extends Controller
             $respuesta = "se ha publicado previamente";
             $noti = DB::table('notificacion_confs')->where('id', $id)->first();
             if ($noti->estado==false) {
-                $flight = NotificacionConf::find($id);
-                $flight->estado = true;
-                $flight->save();
+                $notificacion = NotificacionConf::find($id);
+                $notificacion->estado = true;
+                $notificacion->save();
                 $respuesta = "se ha publicado exitosamente";
+                $postulacion = Postulacion::find($notificacion->postulacion_id);
+                $postulacion->estado_id = 5;
+                $postulacion ->save();
             }
         }
         else{

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
+use App\Models\Documento;
 use App\Models\Estado;
 use App\Models\GrupoEmpresa;
 use App\Models\HitoPlanificacion;
 use App\Models\NotificacionConf;
 use App\Models\OrdenCambio;
+use App\Models\Planificacion;
 use App\Models\Postulacion;
 use App\Models\responses\Postulaciones;
 use Illuminate\Http\Request;
@@ -70,14 +72,23 @@ class PostulacionController extends Controller
     public function guardarDocumentos(Request $request , int $id)
     {
         $postulacion = Postulacion::where('grupoEmpresa_id',$id)->first();
-        $postulacion-> parteA = $this->storeDocument($request->parteA);
-        $postulacion-> boletaDeGarantia  = $this->storeDocument($request->boletaDeGarantia);
-        $postulacion-> cartaDePresentacion  = $this->storeDocument($request->cartaDePresentacion);
-        $postulacion-> constitucion  = $this->storeDocument($request->constitucion);
-        $postulacion-> parteB  = $this->storeDocument($request->parteB);
-        $postulacion->save();
-
+        $this->registrarDocumento($postulacion->id,1,$request->parteA);
+        $this->registrarDocumento($postulacion->id,1,$request->boletaDeGarantia);
+        $this->registrarDocumento($postulacion->id,1,$request->cartaDePresentacion);
+        $this->registrarDocumento($postulacion->id,1,$request->constitucion);
+        $this->registrarDocumento($postulacion->id,1,$request->parteB);
+        if(Planificacion::where("postulacion_id",$postulacion->id)->exists()){
+            $postulacion->estado_id =2;
+            $postulacion->save();
+        }
         return \response( $postulacion );
+    }
+    private function registrarDocumento($idPostulacion, $idDoc, $docu){
+        $doc = new Documento();
+        $doc-> documento = $this->storeDocument($docu);
+        $doc-> postulacion_id = $idPostulacion;
+        $doc-> detalleDoc_id = $idDoc;
+        $doc->save();
     }
 
     public function verPostulacionesEspecificas(Request $request,$id)

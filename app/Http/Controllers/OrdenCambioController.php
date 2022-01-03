@@ -193,6 +193,9 @@ class OrdenCambioController extends Controller
                 $flight->estado = true;
                 $flight->save();
                 $respuesta = "se ha publicado exitosamente";
+                $postulacion = Postulacion::find($flight->postulacion_id);
+                $postulacion->estado_id = 8;
+                $postulacion ->save();
             }
         }
         else{

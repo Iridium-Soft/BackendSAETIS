@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\ModeloContrato;
 use App\Models\Contrato;
+use App\Models\Postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,9 @@ class ContratoController extends Controller
                 $contra->estado = true;
                 $contra->save();
                 $respuesta = "Contrato publicado exitosamente";
+                $postulacion = Postulacion::find($contra->postulacion_id);
+                $postulacion->estado_id = 11;
+                $postulacion ->save();
             }
         }
         else{

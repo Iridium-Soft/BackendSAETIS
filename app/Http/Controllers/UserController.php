@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Documento;
 use App\Models\GrupoEmpresa;
 use App\Models\HitoPlanificacion;
 use App\Models\Planificacion;
@@ -33,7 +34,7 @@ class UserController extends Controller
             if(Postulacion::where("grupoEmpresa_id",$grupoEmpresa->id)->exists()){
                 $postulacion = Postulacion::where("grupoEmpresa_id",$grupoEmpresa->id)->first();
                 if($postulacion->estado_id==1){
-                    if(!$postulacion->parteA){
+                    if(!Documento::where("postulacion_id",$postulacion->id)->exists()){
                         $permisosFiltrado->add($permissionNames[0]);
                     }
                     if(!Planificacion::where("postulacion_id",$postulacion->id)->exists()){

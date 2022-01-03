@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Functions\ModeloAdenda;
 use App\Models\Adenda;
+use App\Models\OrdenCambio;
+use App\Models\Postulacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -68,6 +70,10 @@ class AdendaController extends Controller
                 $flight->estado = true;
                 $flight->save();
                 $respuesta = "Adenda publicada exitosamente";
+                $orden = OrdenCambio::find($flight->ordendecambio_id);
+                $postulacion = Postulacion::find($orden->postulacion_id);
+                $postulacion->estado_id = 5;
+                $postulacion ->save();
             }
         }
         else{

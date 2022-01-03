@@ -18,7 +18,7 @@ class PostulacionSeeder extends Seeder
         $postulacion = new Postulacion();
         $postulacion-> convocatoria_id = 1;
         $postulacion-> grupoEmpresa_id = 1;
-        $postulacion-> estado_id = 6;
+        $postulacion-> estado_id = 9;
         $postulacion->save();
 
         //calificar NC

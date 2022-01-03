@@ -15,6 +15,7 @@ use App\Models\responses\RespuestaGenerica;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\Types\Collection;
+use Symfony\Component\Translation\PseudoLocalizationTranslator;
 
 class DocumentoController extends Controller
 {
@@ -117,6 +118,7 @@ class DocumentoController extends Controller
         $respuesta= "";
         $docIdPrueba = $request->input("0.documento_id");
         if(!Documento::where('revisionDoc_id', $docIdPrueba)->exists()){
+            $postulacion = new Postulacion();
             for($i=0;$i<$tam;$i++){
                 $docId = $request->input("{$i}.documento_id");
                 $documentoOriginal = Documento::find($docId);
@@ -128,7 +130,10 @@ class DocumentoController extends Controller
                 $documentoRev->revisionDoc_id=$docId;
                 $documentoRev-> detalleDoc_id = $detalleDoc->id;
                 $documentoRev->save();
+                $postulacion = Postulacion::find($documentoOriginal->postulacion_id);
             }
+            $postulacion->estado_id = 9;
+            $postulacion->save();
             $respuesta = "Documentos corregidos registrados correctamente";
         }else{
             $respuesta = "Documentos corregidos registrados previamente, Espere la respuesta de su consultor TIS.";
