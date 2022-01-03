@@ -138,17 +138,27 @@ class PostulacionController extends Controller
         return $postulacion;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function revisionPostulacion (Request $request,$id){
+        $postulacion = Postulacion::find($id);
+        if($request->orden_cambio==0){
+            $postulacion->estado_id = 3;
+        }else{
+            $postulacion->estado_id = 6;
+        }
+        $postulacion->save();
+        return $postulacion;
     }
 
+    public function revisionOrdenCambio(Request $request,$id){
+        $postulacion = Postulacion::find($id);
+        if($request->contrato==1){
+            $postulacion->estado_id = 5;
+        }else{
+            $postulacion->estado_id = 10;
+        }
+        $postulacion->save();
+        return $postulacion;
+    }
     /**
      * Update the specified resource in storage.
      *
