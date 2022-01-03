@@ -177,7 +177,7 @@ class NotificacionConfController extends Controller
 
         if (DB::table('notificacion_confs')->where('postulacion_id', $id)->exists()) {
             $respuesta = "se ha publicado previamente";
-            $noti = DB::table('notificacion_confs')->where('id', $id)->first();
+            $noti = DB::table('notificacion_confs')->where('postulacion_id', $id)->first();
             if ($noti->estado==false) {
                 $notificacion = NotificacionConf::where('postulacion_id',$id)->first();
                 $notificacion->estado = true;
