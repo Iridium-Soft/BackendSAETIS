@@ -13,14 +13,15 @@ class ContratoController extends Controller
 
     public function estadoContrato(Request $request,$id)
     {
-        if (Contrato::find($id)) {
+
+        if (Contrato::where('postulacion_id',$id)) {
             $respuesta = "Contrato publicado publicado previamente";
-            $contra = Contrato::find($id);
+            $contra = Contrato::where('postulacion_id',$id);
             if ($contra->estado==false) {
                 $contra->estado = true;
                 $contra->save();
                 $respuesta = "Contrato publicado exitosamente";
-                $postulacion = Postulacion::find($contra->postulacion_id);
+                $postulacion = Postulacion::find($id);
                 $postulacion->estado_id = 11;
                 $postulacion ->save();
             }
