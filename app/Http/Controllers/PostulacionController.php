@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adenda;
+use App\Models\Contrato;
 use App\Models\ConvConsultor;
 use App\Models\Convocatoria;
 use App\Models\Documento;
@@ -108,21 +110,28 @@ class PostulacionController extends Controller
                 $postus->codigoConvocatoria=$convocatorias->codigo;
                 $postus->tituloConvocatoria=$convocatorias->titulo;
                 $postus->fechaRegistro=$postulacion->created_at;
-                $postus -> adenda = "docAD.pdf";
-                $postus -> orden_cambio= "docOC.pdf";
-                $postus -> notificacion_conformidad= "docNC.pdf";
-                $postus -> contrato= "docCN.pdf";
+
                 if(OrdenCambio::where('postulacion_id',$postulacion->id)->exists()){
                     $ordenCamb = OrdenCambio::where('postulacion_id',$postulacion->id)->first();
                     $postus->idOrdenCambio=$ordenCamb->id;
+                    $postus->notificacion_conformidad = $ordenCamb->documento;
+                    if(Adenda::where('ordendecambio_id',$ordenCamb->id)->exists()){
+                        $adenda = Adenda::where('ordendecambio_id',$ordenCamb->id)->first();
+                        $postus->adenda = $adenda->documento;
+                    }
                 }else {
                     $postus->idOrdenCambio = 0;
                 }
                 if(NotificacionConf::where('postulacion_id',$postulacion->id)->exists()){
                     $notiConf = NotificacionConf::where('postulacion_id',$postulacion->id)->first();
                     $postus->idNotiConf=$notiConf->id;
+                    $postus->notificacion_conformidad = $notiConf->documento;
                 }else {
                     $postus->idNotiConf = 0;
+                }
+                if(Contrato::where('postulacion_id',$postulacion->id)->exists()){
+                    $contrato = Contrato::where('postulacion_id',$postulacion->id)->first();
+                    $postus->contrato = $contrato->documento;
                 }
                 $postus->estado = $postulacion->estado_id;
                 $estado = Estado::find($postulacion->estado_id);

@@ -117,7 +117,7 @@ class NotificacionConfController extends Controller
         $modelo = new ModeloNotificacionDeConformidad();
         $modelo ->crearNotificacion($noti->id);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execNC.bat');
-        $notificacion = NotificacionConf::find($id);
+        $notificacion = NotificacionConf::find($noti->id);
         $path = $this->storeDocument();
         $notificacion->documento = $path;
         $notificacion->save();
