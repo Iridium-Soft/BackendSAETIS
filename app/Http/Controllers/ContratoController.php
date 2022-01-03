@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Functions\ModeloContrato;
 use App\Models\Contrato;
 use App\Models\Postulacion;
+use Faker\ORM\Spot\ColumnTypeGuesser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,14 +14,14 @@ class ContratoController extends Controller
 
     public function estadoContrato(Request $request,$id)
     {
-
-        if (Contrato::where('postulacion_id',$id)) {
-            $respuesta = "Contrato publicado publicado previamente";
-            $contra = Contrato::where('postulacion_id',$id);
-            if ($contra->estado==false) {
+        $respuesta = "Contrato publicado publicado previamente";
+        $this->crearContrato($id);
+        if (!Contrato::where('postulacion_id',$id)->exists()) {
+            $contra = Contrato::where('postulacion_id',$id)->first();
+            if ($contra->estado) {
                 $contra->estado = true;
                 $contra->save();
-                $respuesta = "Contrato publicado exitosamente";
+                $respuesta = "Contrato publicado ss";
                 $postulacion = Postulacion::find($id);
                 $postulacion->estado_id = 11;
                 $postulacion ->save();
@@ -39,12 +40,22 @@ class ContratoController extends Controller
         return "data:@file/pdf;base64,{$image}";
     }
 
+    private function crearContrato($id_postulacion){
+        $postulacion = Postulacion::find($id_postulacion);
+        $contrato = new Contrato();
+        $contrato->codigo = "a";
+        $contrato->fechaEmDocumento = date("Y-m-d");
+        $contrato->postulacion_id = $id_postulacion;
+        $contrato ->save();
+    }
+
     public function generarCN(Request $request, $id)
     {
+        $contrato = Contrato::where('postulacion_id',$id)->first();
         $modelo = new ModeloContrato();
-        $modelo ->crearContrato($id);
+        $modelo ->crearContrato($contrato->id);
         $salida = shell_exec('C:\xampp\htdocs\BackendSAETIS\Back\BackendSAETIS\public\execCN.bat');
-        $contrato = Contrato::find($id);
+        $contrato = Contrato::find($contrato->id);
         $path = $this->storeDocument();
         $contrato->documento = $path;
         $contrato->save();
