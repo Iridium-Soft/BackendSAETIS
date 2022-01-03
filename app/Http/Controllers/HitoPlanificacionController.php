@@ -75,10 +75,9 @@ class HitoPlanificacionController extends Controller
     }
 
     public function doyHitos(Request $request,$id){
-        $postulacion = Postulacion::where('id', $id)->get()->first();
-        $planificacion= Planificacion::where('id', $postulacion-> id)->get()->first();
+        $postulacion = Postulacion::find($id);
+        $planificacion= Planificacion::where('postulacion_id',$postulacion-> id)->first();
         $hitos= HitoPlanificacion::where('planificacion_id', $planificacion->id)->get();
-
         return($hitos);
     }
 

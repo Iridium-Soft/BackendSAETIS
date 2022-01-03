@@ -73,10 +73,10 @@ class PostulacionController extends Controller
     {
         $postulacion = Postulacion::where('grupoEmpresa_id',$id)->first();
         $this->registrarDocumento($postulacion->id,1,$request->parteA);
-        $this->registrarDocumento($postulacion->id,1,$request->boletaDeGarantia);
-        $this->registrarDocumento($postulacion->id,1,$request->cartaDePresentacion);
-        $this->registrarDocumento($postulacion->id,1,$request->constitucion);
-        $this->registrarDocumento($postulacion->id,1,$request->parteB);
+        $this->registrarDocumento($postulacion->id,2,$request->boletaDeGarantia);
+        $this->registrarDocumento($postulacion->id,3,$request->cartaDePresentacion);
+        $this->registrarDocumento($postulacion->id,4,$request->constitucion);
+        $this->registrarDocumento($postulacion->id,5,$request->parteB);
         if(Planificacion::where("postulacion_id",$postulacion->id)->exists()){
             $postulacion->estado_id =2;
             $postulacion->save();
