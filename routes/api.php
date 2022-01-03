@@ -49,7 +49,8 @@ Route::get('/postulacion/bandejaentrada/{id}', [DocumentoController::class, 'ind
 
 Route::get('/postulacion/hitos/{id}', [HitoPlanificacionController::class, 'doyHitos']);
 Route::get('/postulacion/documentos/{id}', [PostulacionController::class, 'doyDocumentos']);
-
+Route::put('terminarrevision/postulacion/{id}',[PostulacionController::class, 'revisionPostulacion']);
+Route::put('terminarrevision/ordencambio/{id}',[PostulacionController::class, 'revisionOrdenCambio']);
 
 Route::post('/postulacion/{id}',[PostulacionController::class, 'registrarPostulacion']);
 Route::post('/postulacion/documentos/{id}',[PostulacionController::class, 'guardarDocumentos']);
