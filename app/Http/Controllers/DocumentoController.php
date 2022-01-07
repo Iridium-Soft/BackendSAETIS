@@ -27,9 +27,9 @@ class DocumentoController extends Controller
         $dataDocRequeridos = collect();
         $documentosRequeridos=  collect();
 
-        if(OrdenCambio::where('postulacion_id', $postulacion->id)->exists()){
+        if(OrdenCambio::where('postulacion_id', $postulacion->id)->where('estado',true)->exists()){
             $dataOrden = new RespuestaGenerica();
-            $orden = OrdenCambio::where('postulacion_id', $postulacion->id)->first();
+            $orden = OrdenCambio::where('postulacion_id', $postulacion->id)->where('estado',true)->first();
             $dataOrden->idDocumento = $orden->id;
             $dataOrden->nombreDocumento = "Orden de Cambio";
             $dataOrden->codDocumento = $orden->codigo;
@@ -50,8 +50,8 @@ class DocumentoController extends Controller
             }
             //Adenda
             $dataAdenda = new RespuestaGenerica();
-            if(Adenda::where('ordendecambio_id',$orden->id)->exists()){
-                $adenda = Adenda::where('ordendecambio_id',$orden->id)->first();
+            if(Adenda::where('ordendecambio_id',$orden->id)->where('estado',true)->exists()){
+                $adenda = Adenda::where('ordendecambio_id',$orden->id)->where('estado',true)->first();
                 $dataAdenda->idDocumento = $adenda->id;
                 $dataAdenda->nombreDocumento = "Adenda";
                 $dataAdenda->codDocumento = $adenda->codigo;
@@ -63,8 +63,9 @@ class DocumentoController extends Controller
 
         //Notificacion de Conformidad
         $dataNotificacion = new RespuestaGenerica();
-        if(NotificacionConf::where('postulacion_id',$postulacion->id)->exists()){
-            $notificacion = Contrato::where('postulacion_id',$postulacion->id)->first();
+
+        if(NotificacionConf::where('postulacion_id',$postulacion->id)->where('estado',true)->exists()){
+            $notificacion = NotificacionConf::where('postulacion_id',$postulacion->id)->where('estado',true)->first();
             $dataNotificacion->idDocumento = $notificacion->id;
             $dataNotificacion->nombreDocumento = "Notificacion de Conformidad";
             $dataNotificacion->codDocumento = $notificacion->codigo;
@@ -76,8 +77,8 @@ class DocumentoController extends Controller
         //Contrato
 
         $dataContrato = new RespuestaGenerica();
-        if(Contrato::where('postulacion_id',$postulacion->id)->exists()){
-            $contrato = Contrato::where('postulacion_id',$postulacion->id)->first();
+        if(Contrato::where('postulacion_id',$postulacion->id)->where('estado',true)->exists()){
+            $contrato = Contrato::where('postulacion_id',$postulacion->id)->where('estado',true)->first();
             $dataContrato->idDocumento = $contrato->id;
             $dataContrato->nombreDocumento = "Contrato";
             $dataContrato->codDocumento = $contrato->codigo;

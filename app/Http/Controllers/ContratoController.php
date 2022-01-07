@@ -15,13 +15,12 @@ class ContratoController extends Controller
     public function estadoContrato(Request $request,$id)
     {
         $respuesta = "Contrato publicado publicado previamente";
-        $this->crearContrato($id);
-        if (!Contrato::where('postulacion_id',$id)->exists()) {
+        if (Contrato::where('postulacion_id',$id)->exists()) {
             $contra = Contrato::where('postulacion_id',$id)->first();
-            if ($contra->estado) {
+            if ($contra->estado ==false) {
                 $contra->estado = true;
                 $contra->save();
-                $respuesta = "Contrato publicado ss";
+                $respuesta = "Contrato publicado Exitosamente";
                 $postulacion = Postulacion::find($id);
                 $postulacion->estado_id = 11;
                 $postulacion ->save();
@@ -40,16 +39,16 @@ class ContratoController extends Controller
         return "data:@file/pdf;base64,{$image}";
     }
 
-    private function crearContrato($id_postulacion){
+    public function crearContrato($id_postulacion){
         $postulacion = Postulacion::find($id_postulacion);
         $contrato = new Contrato();
-        $contrato->codigo = "a";
+        $contrato->codigo = "CN-2022";
         $contrato->fechaEmDocumento = date("Y-m-d");
         $contrato->postulacion_id = $id_postulacion;
         $contrato ->save();
     }
 
-    public function generarCN(Request $request, $id)
+    public function generarCN( $id)
     {
         $contrato = Contrato::where('postulacion_id',$id)->first();
         $modelo = new ModeloContrato();

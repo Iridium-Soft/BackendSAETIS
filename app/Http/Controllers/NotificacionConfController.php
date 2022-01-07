@@ -80,7 +80,8 @@ class NotificacionConfController extends Controller
         $postulacion = Postulacion::find($id);
         $postulacion->estado_id = 4;
         $postulacion->save();
-        return $notificacion;
+        $documentoCompleto = $this->generarNC($id);
+        return $documentoCompleto;
     }
 
     public function doyNoti($id){
@@ -111,7 +112,7 @@ class NotificacionConfController extends Controller
         return($noti);
     }
 
-    public function generarNC(Request $request, $id)
+    public function generarNC( $id)
     {
         $noti = NotificacionConf::where('postulacion_id',$id)->first();
         $modelo = new ModeloNotificacionDeConformidad();
@@ -182,10 +183,13 @@ class NotificacionConfController extends Controller
                 $notificacion = NotificacionConf::where('postulacion_id',$id)->first();
                 $notificacion->estado = true;
                 $notificacion->save();
-                $respuesta = "se ha publicado exitosamente";
+                $respuesta = "Notificacion de Conformidad publicada exitosamente";
                 $postulacion = Postulacion::find($notificacion->postulacion_id);
                 $postulacion->estado_id = 5;
                 $postulacion ->save();
+                $Contrato = new ContratoController();
+                $Contrato->crearContrato($id);
+                $Contrato->generarCN($id);
             }
         }
         else{

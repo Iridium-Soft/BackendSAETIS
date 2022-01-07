@@ -71,7 +71,7 @@ class OrdenCambioController extends Controller
         $ordenCambio = OrdenCambio::where('postulacion_id',$id)->first();
         $ordenCambio-> postulacion_id = $id;
         $ordenCambio-> estado = false;
-        $ordenCambio-> codigo = $request->cod_orden_cambio;
+        $ordenCambio-> codigo = "oc";
         $ordenCambio-> fechaFirma = $request->fecha_entrega;
         $ordenCambio-> lugar = $request->lugar_entrega;
         $ordenCambio-> fechaEmContrato = $request->fecha_emision;
@@ -81,6 +81,9 @@ class OrdenCambioController extends Controller
         $funcionSave = new FunctionRegisterOrdenCambio();
         $funcionSave::registrarEvaluaciones($request, $ordenCambio->id);
         $funcionSave::registrarObservaciones($request, $ordenCambio->id);
+        $postulacion = Postulacion::find($id);
+        $postulacion->estado_id= 7;
+        $postulacion ->save();
         return $ordenCambio;
     }
 
@@ -143,10 +146,10 @@ class OrdenCambioController extends Controller
         return "data:@file/pdf;base64,{$image}";
     }
     public function doyDatosRevision($id, Request $request){
-            $listaDoc= collect();
-            $grupoEmpresa = GrupoEmpresa::where('id', $id)->get()->first();
-            $postulacion= Postulacion::where('grupoEmpresa_id', $id)->get()->first();
-            $documentos = Documento:: where('postulacion_id', $postulacion->id)->get();
+        $listaDoc= collect();
+        $postulacion= Postulacion::find($id);
+        $grupoEmpresa = GrupoEmpresa::find($postulacion->grupoEmpresa_id);
+        $documentos = Documento:: where('postulacion_id', $postulacion->id)->get();
         foreach ($documentos as $documento){
             $doc= new Documentos();
            $nombres=DetalleDoc::where('id', $documento->detalleDoc_id)->get()->first();
@@ -164,8 +167,8 @@ class OrdenCambioController extends Controller
 
     public function doyDatosRevisionObs($id, Request $request){
         $listaDoc= collect();
-        $grupoEmpresa = GrupoEmpresa::where('id', $id)->get()->first();
-        $postulacion= Postulacion::where('grupoEmpresa_id', $id)->get()->first();
+        $postulacion= Postulacion::find($id);
+        $grupoEmpresa = GrupoEmpresa::find($postulacion->grupoEmpresa_id)->first();
         $documentos = Documento:: where('postulacion_id', $postulacion->id)->get();
         foreach ($documentos as $documento){
             if(Documento::where('id',$documento->revisionDoc_id)->exists()){
@@ -179,21 +182,21 @@ class OrdenCambioController extends Controller
                 $listaDoc->add($doc1);
             }
         }
-        $respuesta1=new Respuesta($grupoEmpresa->nombre,$listaDoc);
+        $respuesta1=new Respuesta("otracosa",$listaDoc);
         $algo=collect($respuesta1);
         return ($algo);
     }
+
     public function estadoOrdenC(Request $request,$id)
     {
-        if (DB::table('orden_cambios')->where('id', $id)->exists()) {
+        if (DB::table('orden_cambios')->where('postulacion_id', $id)->exists()) {
             $respuesta = "se ha publicado previamente";
-            $orden = DB::table('orden_cambios')->where('id', $id)->first();
+            $orden = DB::table('orden_cambios')->where('postulacion_id', $id)->first();
             if ($orden->estado==false) {
-                $flight = OrdenCambio::find($id);
-                $flight->estado = true;
-                $flight->save();
+                $orden->estado = true;
+                $orden->save();
                 $respuesta = "se ha publicado exitosamente";
-                $postulacion = Postulacion::find($flight->postulacion_id);
+                $postulacion = Postulacion::find($id);
                 $postulacion->estado_id = 8;
                 $postulacion ->save();
             }
