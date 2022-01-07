@@ -183,7 +183,7 @@ class OrdenCambioController extends Controller
                 $listaDoc->add($doc1);
             }
         }
-        $respuesta1=new Respuesta("otracosa",$listaDoc);
+        $respuesta1=new Respuesta($grupoEmpresa->nombre,$listaDoc);
         $algo=collect($respuesta1);
         return ($algo);
     }
