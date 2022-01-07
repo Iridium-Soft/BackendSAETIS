@@ -36,9 +36,9 @@ class DocumentoController extends Controller
             $dataOrden->fechaRecepcion=$orden->fechaEmContrato;
             $dataOrden->documento = $orden->documento;
             $documentosRequeridos->add($dataOrden);
-
             $documentosPostulacion = Documento::where('postulacion_id' , $postulacion->id)
                 ->where('id', '<', 6)->get();
+            $respuesta->prueba =$documentosPostulacion;
             foreach($documentosPostulacion as $docu){
                 if( ObservacionPropuesta::where('documento_id',$docu->id)->exists()){
                         if( !$dataDocRequeridos->contains($docu)){

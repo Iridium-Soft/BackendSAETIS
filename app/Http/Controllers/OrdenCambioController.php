@@ -84,10 +84,11 @@ class OrdenCambioController extends Controller
         $postulacion = Postulacion::find($id);
         $postulacion->estado_id= 7;
         $postulacion ->save();
+        $this->generarOC($ordenCambio->id);
         return $ordenCambio;
     }
 
-    public function generarOC(Request $request, $id)
+    public function generarOC( $id)
     {
         $modelo = new ModeloOrdenDeCambio();
         $modelo ->crearOrden($id);
@@ -190,19 +191,22 @@ class OrdenCambioController extends Controller
     public function estadoOrdenC(Request $request,$id)
     {
         if (DB::table('orden_cambios')->where('postulacion_id', $id)->exists()) {
-            $respuesta = "se ha publicado previamente";
-            $orden = DB::table('orden_cambios')->where('postulacion_id', $id)->first();
+            $respuesta = "Orden de Cambio publicada previamente";
+            $orden = OrdenCambio::where('postulacion_id', $id)->first();
             if ($orden->estado==false) {
                 $orden->estado = true;
                 $orden->save();
-                $respuesta = "se ha publicado exitosamente";
+                $respuesta = "Orden de Cambio publicada exitosamente";
                 $postulacion = Postulacion::find($id);
                 $postulacion->estado_id = 8;
                 $postulacion ->save();
+                $Contrato = new ContratoController();
+                $Contrato->crearContrato($id);
+                $Contrato->generarCN($id);
             }
         }
         else{
-            $respuesta="no existe la orden de cambio";
+            $respuesta="No existe la orden de cambio";
         }
         return response()->json(['mensaje' => $respuesta]);
     }

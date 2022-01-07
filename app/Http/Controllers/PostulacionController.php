@@ -114,7 +114,7 @@ class PostulacionController extends Controller
                 if(OrdenCambio::where('postulacion_id',$postulacion->id)->exists()){
                     $ordenCamb = OrdenCambio::where('postulacion_id',$postulacion->id)->first();
                     $postus->idOrdenCambio=$ordenCamb->id;
-                    $postus->notificacion_conformidad = $ordenCamb->documento;
+                    $postus->orden_cambio = $ordenCamb->documento;
                     if(Adenda::where('ordendecambio_id',$ordenCamb->id)->exists()){
                         $adenda = Adenda::where('ordendecambio_id',$ordenCamb->id)->first();
                         $postus->adenda = $adenda->documento;
